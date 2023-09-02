@@ -2,22 +2,42 @@ project:
   type: book
 
 book:
-  title: "QM2_Tutorium"
-  author: "Norah Jones"
-  date: "02/09/2023"
+  title: "QM2-Tutorium WiSe23/24"
+  author: "Raphael Balzer, Emilia Braun"
+  date: "9/2/2023"
+  search:
+    location: sidebar
+    type: textbox
+  sidebar: 
+    logo: QM2-Tutorium_logo.png
+    border: false
+  navbar:
+    left:
+      - text: "statistik1"
+        href: https://statistik1.netlify.app/
+      - text: "start: bayes!"
+        href: https://start-bayes.netlify.app/
+      - text: "QM1-Tutorium"
+        href: https://qm1-tutorium.netlify.app/
+      - text: "QM2-Tutorium"
+        href: https://qm1-tutorium.netlify.app/
   chapters:
     - index.qmd
-    - intro.qmd
-    - summary.qmd
+    - part: "Einführung"
+      chapters: 
+        - intro.qmd
+        - summary.qmd
     - references.qmd
 
 bibliography: references.bib
 
 format:
   html:
-    theme: cosmo
+    theme:
+      light: cosmo
+      dark: vapor
+    df-print: paged
   pdf:
     documentclass: scrreprt
 
 editor: visual
-
