@@ -20,7 +20,7 @@ book:
       - text: "QM1-Tutorium"
         href: https://qm1-tutorium.netlify.app/
       - text: "QM2-Tutorium"
-        href: https://qm1-tutorium.netlify.app/
+        href: https://qm2-tutorium.netlify.app/
   chapters:
     - index.qmd
     - part: "Einführung"
