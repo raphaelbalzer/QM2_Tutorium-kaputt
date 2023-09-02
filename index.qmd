@@ -1,9 +1,11 @@
-# Preface {.unnumbered}
+# Allgemeines {.unnumbered}
 
-This is a Quarto book.
+Herzlich Willkommen zum QM2-Tutorium! In diesem Semester lernt ihr alles rum um's Thema Bayes-Statistik. Wie auch im letzten Tutorium findet ihr hier sämtliche Lehrmaterialien wie Aufgaben samt Lösungen, Fallstudien, wichtige Befehle und nützliche Links.
 
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
+Wir wünschen euch viel Erfolg!
 
-```{r}
-1 + 1
-```
+Liebe Grüße,
+
+Emilia und Raphael
+
+![](https://cdn.mos.cms.futurecdn.net/EMyjYDMxM26dL9PL4fcSBZ-1920-80.jpg.webp)
