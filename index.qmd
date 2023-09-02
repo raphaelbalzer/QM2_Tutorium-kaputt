@@ -1,6 +1,6 @@
 # Allgemeines {.unnumbered}
 
-Herzlich Willkommen zum QM2-Tutorium! In diesem Semester lernt ihr alles rum um's Thema Bayes-Statistik. Wie auch im letzten Tutorium findet ihr hier sämtliche Lehrmaterialien wie Aufgaben samt Lösungen, Fallstudien, wichtige Befehle und nützliche Links.
+Herzlich Willkommen zum QM2-Tutorium! In diesem Semester lernt ihr alles rund um's Thema Bayes-Statistik. Wie auch im letzten Tutorium findet ihr hier sämtliche Lehrmaterialien wie Aufgaben samt Lösungen, Fallstudien, wichtige Befehle und nützliche Links.
 
 Wir wünschen euch viel Erfolg!
 
