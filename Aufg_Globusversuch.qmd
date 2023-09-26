@@ -9,7 +9,7 @@ library(rstanarm)
 
 ## Aufgabe 1
 
-### 1 a)
+### Aufgabe 1 a)
 
 ::: {.panel-tabset}
 
@@ -41,7 +41,7 @@ Der wahrscheinlichste Wasseranteil (laut unserem Modell) ist 0,667. Die Wahrsche
 
 :::
 
-### 1 b)
+### Aufgabe 1 b)
 
 ::: {.panel-tabset}
 
@@ -60,7 +60,7 @@ Die Wahrscheinlichkeit, dass der Wasseranteil auf dem Globus größer ist als 50
 
 :::
 
-### 1 c)
+### Aufgabe 1 c)
 
 ::: {.panel-tabset}
 
@@ -79,7 +79,7 @@ Die Wahrscheinlichkeit, dass der Wasseranteil laut unserem Modell zwischen 50 un
 
 :::
 
-### 1 d)
+### Aufgabe 1 d)
 
 ::: {.panel-tabset}
 
@@ -98,7 +98,7 @@ Grob 64 Prozent der Posteriori-Verteilung liegt unterhalb eines Wasseranteils vo
 
 :::
 
-### 1 e)
+### Aufgabe 1 e)
 
 ::: {.panel-tabset}
 
@@ -127,7 +127,7 @@ d2
 
 :::
 
-### 1 f)
+### Aufgabe 1 f)
 
 ::: {.panel-tabset}
 
@@ -164,7 +164,7 @@ d3%>%
 
 ## Aufgabe 2
 
-### 2 a)
+### Aufgabe 2 a)
 
 ::: {.panel-tabset}
 
@@ -182,7 +182,7 @@ Unser Szenario, also dass wir eines von fünf Malen treffen, hat eine Eintrittsw
 
 :::
 
-### 2 b)
+### Aufgabe 2 b)
 
 ::: {.panel-tabset}
 
@@ -200,7 +200,7 @@ Das Ergebnis sagt uns: Wenn die Trefferwahrscheinlichkeit bei 20 Prozent liegt, 
 
 :::
 
-### 2 c)
+### Aufgabe 2 c)
 
 ::: {.panel-tabset}
 
@@ -225,7 +225,7 @@ Das Modell steht. Wir sehen, dass Beobachtungen mit einer Trefferchance von mehr
 
 :::
 
-### 2 d)
+### Aufgabe 2 d)
 
 ::: {.panel-tabset}
 
@@ -243,7 +243,7 @@ USB%>%
 
 :::
 
-### 2 e)
+### Aufgabe 2 e)
 
 ::: {.panel-tabset}
 
