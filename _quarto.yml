@@ -23,7 +23,7 @@ book:
         href: https://qm2-tutorium.netlify.app/
   chapters:
     - index.qmd
-    - part: "Einführung"
+    - part: "Aufgaben"
       chapters: 
         - Aufg_Verteilungen.qmd
         - Aufg_Globusversuch.qmd

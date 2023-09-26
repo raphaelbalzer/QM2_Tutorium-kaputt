@@ -9,13 +9,15 @@ library(rstanarm)
 
 ## Aufgabe 1
 
+### 1 a)
+
 ::: {.panel-tabset}
 
-### A1 a)
+#### A1 a)
 
 Nutzen Sie die Gittermethode gegliedert in 10 Hypothesen, um herauszufinden, welcher der wahrscheinlichste Wasseranteil des Globus ist, wenn wir bei 20 Durchführungen 14-mal Wasser getroffen haben.
 
-### L1 a)
+#### L1 a)
 
 ```{r paged.print=FALSE}
 set.seed(42)
@@ -37,10 +39,16 @@ d
 
 Der wahrscheinlichste Wasseranteil (laut unserem Modell) ist 0,667. Die Wahrscheinlichkeit beträgt 42,5 %.
 
-### A1 b)
+:::
+
+### 1 b)
+
+::: {.panel-tabset}
+
+#### A1 b)
 Wie groß ist die Wahrscheinlichkeit, dass der Globus über 50 Prozent Wasseranteil hat (laut unserem Modell)?
 
-### L1 b)
+#### L1 b)
 
 ```{r}
 d%>%
@@ -52,12 +60,14 @@ Die Wahrscheinlichkeit, dass der Wasseranteil auf dem Globus größer ist als 50
 
 :::
 
+### 1 c)
+
 ::: {.panel-tabset}
 
-### A1 c)
+#### A1 c)
 Wie groß ist die Wahrscheinlichkeit, einen Wasseranteil zwischen 50 und 70 Prozent zu erhalten?
 
-### L1 c)
+#### L1 c)
 
 ```{r}
 d%>%
@@ -67,10 +77,16 @@ d%>%
 
 Die Wahrscheinlichkeit, dass der Wasseranteil laut unserem Modell zwischen 50 und 70 Prozent liegt, ist ca. 61 Prozent.
 
-### A1 d)
+:::
+
+### 1 d)
+
+::: {.panel-tabset}
+
+#### A1 d)
 Wie groß ist die Wahrscheinlichkeit, dass der Wasseranteil 70 Prozent nicht übersteigt?
 
-### L1 d)
+#### L1 d)
 
 ```{r}
 d%>%
@@ -82,12 +98,14 @@ Grob 64 Prozent der Posteriori-Verteilung liegt unterhalb eines Wasseranteils vo
 
 :::
 
+### 1 e)
+
 ::: {.panel-tabset}
 
-### A1 e)
+#### A1 e)
 Verwenden Sie die Gittermethode für den exakt gleichen Versuch noch einmal, aber verwenden Sie nun zur Errechnung der Posteriori-Wahrscheinlichkeit das Bayestheorem in R.
 
-### L1 e)
+#### L1 e)
 
 ```{r paged.print=FALSE}
 set.seed(42)
@@ -107,10 +125,16 @@ d2 <-
 d2
 ```
 
-### A1 f)
+:::
+
+### 1 f)
+
+::: {.panel-tabset}
+
+#### A1 f)
 Nehmen Sie an, Sie könnten begründen, dass ein Wasseranteil unter 50 % nicht existiert. Formen Sie die Gittermethode so, dass Werte unterhalb von 50 % Wasseranteil iene Posteriori-Wahrscheinlichkeit von 0 bekommen. Tipp: Nutzen Sie die Funktion case_when(), um den Prior zu definieren.
 
-### L1 f)
+#### L1 f)
 
 ```{r}
 set.seed(42)
@@ -140,12 +164,14 @@ d3%>%
 
 ## Aufgabe 2
 
+### 2 a)
+
 ::: {.panel-tabset}
 
-### A2 a)
+#### A2 a)
 Nutzen Sie die Funktion dbinom(), um zu ermitteln, wie groß die Wahrscheinlichkeit ist, das wir nur eines von fünf Malen treffen, obwohl die Trefferwahrscheinlichkeit bei 50 % liegen.
 
-### L2 a)
+#### L2 a)
 
 ```{r}
 dbinom(1, size = 5, #Wie oft erhalten wir einen von fünf Treffern, wenn die Chance zu treffen 50/50 steht?
@@ -154,10 +180,16 @@ dbinom(1, size = 5, #Wie oft erhalten wir einen von fünf Treffern, wenn die Cha
 
 Unser Szenario, also dass wir eines von fünf Malen treffen, hat eine Eintrittswahrscheinlichkeit von ca. 16 Prozent, wenn die Trefferchance tatsächlich 50/50 steht. Aber wenn die Wahrscheinlichkeit so gering ist, dann kann es doch nicht sein, dass uns dieses Szenario trotzdem so regelmäßig passiert?
 
-### A2 b)
+:::
+
+### 2 b)
+
+::: {.panel-tabset}
+
+#### A2 b)
 Berechnen wir ein Mal die Wahrscheinlichkeit eines von fünf Malen zu treffen, wenn die Trefferahrscheinlichkeit bei 20 Prozent läge.
 
-### L2 b)
+#### L2 b)
 
 ```{r}
 dbinom(1, size = 5, #Wie oft erhalten wir einen von fünf Treffern mit einer Trefferwahrscheinlichkeit von 20 % ?
@@ -168,12 +200,14 @@ Das Ergebnis sagt uns: Wenn die Trefferwahrscheinlichkeit bei 20 Prozent liegt, 
 
 :::
 
+### 2 c)
+
 ::: {.panel-tabset}
 
-### A2 c)
+#### A2 c)
 Definieren wir nun ein Modell, dass 100 Variationen der trefferchance (d.h. 100 Paramterwerte) beinhaltet. Außerdem schließen wir von vornherein aus, dass die Trefferchance größer ist als 30 %.
 
-### L2 c)
+#### L2 c)
 
 ```{r}
 set.seed(42)
@@ -189,11 +223,17 @@ USB <-
 
 Das Modell steht. Wir sehen, dass Beobachtungen mit einer Trefferchance von mehr als 30 % in der Post-Spalte eine Wahrscheinlichkeit von Null haben. Außerdem haben Beobachtungen mit einer Trefferchance von ca. 20 die höchste Wahrscheinlichkeit.
 
-### A2 d)
+:::
+
+### 2 d)
+
+::: {.panel-tabset}
+
+#### A2 d)
 Wie groß ist die Wahrscheinlichkeit, dass die echte Trefferchance (laut unserem Modell) zwischen 12,5 % und 27,5 % liegt?
 
 
-### L2 d)
+#### L2 d)
 
 ```{r}
 USB%>%
@@ -203,13 +243,15 @@ USB%>%
 
 :::
 
+### 2 e)
+
 ::: {.panel-tabset}
 
 
-### A2 e) 
+#### A2 e) 
 Welcher ist der wahrscheinlichste Anteil, laut unserem Modell?
 
-### L2 e)
+#### L2 e)
 
 ```{r}
 USB%>%
