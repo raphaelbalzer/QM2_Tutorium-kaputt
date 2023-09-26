@@ -13,12 +13,14 @@ library(rstanarm)
 
 ## Aufgabe 1
 
+### Aufgabe 1 a)
+
 ::: {.panel-tabset}
 
-### Aufgabe 1 a)  
+#### A1 a)  
 Erstellen Sie eine Normalverteilung in R mit einem Mittelwert von 175 und einer Standardabweichung von 10. Nennen Sie diese Verteilung "Größe".
 
-### Lösung
+#### L1 a) 
 
 ``` {r}
 set.seed(42)
@@ -33,12 +35,14 @@ Größe <-
 
 :::
 
+### Aufgabe 1 b)
+
 ::: {.panel-tabset}
 
-### Aufgabe 1 b)  
+#### A1 b)  
 Stellen Sie diese Verteilung graphisch dar.
 
-### Lösung
+#### L1 b)
 
 ``` {r}
 ggplot(Größe, mapping = aes(x = Verteilung))+
@@ -47,12 +51,14 @@ ggplot(Größe, mapping = aes(x = Verteilung))+
 
 :::
 
+### Aufgabe 1 c) 
+
 ::: {.panel-tabset}
 
-### Aufgabe 1 c)  
+#### A1 c)  
 Wie viele Menschen haben eine Körpergröße unter 175? Wie groß ist dieser Anteil in Prozent?
 
-### Lösung
+#### LA1 c)
 
 ``` {r}
 Größe%>%
@@ -62,12 +68,14 @@ Größe%>%
 Es liegen rund 50000 Werte unterhalb von 175. Das heißt, von der Gesamtzahl an Menschen, die in der Verteilung erfasst worden sind, sind 50000 von 100000 kleiner als 175. Das entspricht 50 %.
 :::
 
+### Aufgabe 1 d)
+
 ::: {.panel-tabset}
 
-### Aufgabe 1 d)  
+#### A1 d)  
 Wie groß ist der Anteil an Menschen in der Verteilung, der größer ist als 150 Zentimeter?
 
-### Lösung
+#### L1 d)
 
 ``` {r}
 Größe%>%
@@ -77,12 +85,14 @@ Größe%>%
 In dieser Verteilung sind ungefähr 99500 Personen, also ein Anteil von 99,5% größer als 150.
 :::
 
+### Aufgabe 1 e)
+
 ::: {.panel-tabset}
 
-### Aufgabe 1 e)  
+#### A1 e)  
 Wenn wir aus der Stichprobe irgendeine Person nehmen... Wie groß ist dann die Wahrscheinlichkeit, dass sie zwischen 165 und 185 groß ist?
 
-### Lösung
+#### L1 e)
 
 ``` {r}
 Größe%>%
@@ -93,14 +103,16 @@ Größe%>%
 Die Menge an Menschen mit einer Körpergröße zwischen 165 und 185, liegt bei rund 68000. Das heißt, aus den 100000 erwischen wir mit einer Wahrscheinlichkeit von 68 % einen Menschen, der innerhalb der ersten Standardabweichung (175 +- 10) liegt.
 :::
 
+### Aufgabe 1 f)
+
 ::: {.panel-tabset}
 
-### Aufgabe 1 f)  
+#### A1 f)  
 Wie groß ist die Wahrscheinlichkeit eine Person zu erwischen, die mit ihrer Größe mindestens zwei Standardabweichungen über dem Durchschnitt liegt?
 
 Eine Person die mindestens zwei Standardabweichungen über dem Durchschnitt liegt... Wir haben einen Durchschnitt von 175 und eine Standardabweichung von 10. Das heißt, wir brauchen jemanden, der mindestens 195 groß ist (Größe >= 175 + 10 + 10).
 
-### Lösung
+#### L1 f)
 
 ``` {r}
 Größe%>%
@@ -110,16 +122,18 @@ Größe%>%
 Ein Anteil von fast 0 Prozent ist größer als 195.
 :::
 
+### Aufgabe 1 g)
+
 ::: {.panel-tabset}
 
-### Aufgabe 1 g)  
+#### A1 g)  
 In welchem Intervall liegen grob 95% aller Werte? 
 
 Für normalverteilte Populationen gilt:
 Innerhalb der ersten Standardabweichung, also in unserem Fall 175 +- 10, liegen rund 68 % aller Werte. Innerhalb der zweiten Standardabweichung grob 95 % aller Werte. Innerhalb der dritten liegen 99.7 % aller Werte.
 Für uns bedeutet das, dass der Wertebereich zwischen 155 und 195 95 % aller Werte enthält.
 
-### Lösung
+#### L1 g)
 
 ``` {r}
 Größe%>%
@@ -129,12 +143,14 @@ Größe%>%
 Wir sehen, dass tatsächlich ungefähr 95.000 Werte im vermuteten Intervall liegen. Ein Beleg dafür, dass es sich um ein 95-Prozent-Intervall handeln muss.
 :::
 
+### Aufgabe 1 h)
+
 ::: {.panel-tabset}
 
-### Aufgabe 1 h)  
+#### A1 h)  
 Überlegen Sie sich drei Beispiele für Variablen, die man in einer Normalverteilung darstellen kann und simulieren Sie sie in R.
 
-### Lösung
+#### L1 h)
 
 Körpergewicht in Kg: 
 
@@ -176,12 +192,14 @@ ggplot(Zeit, mapping = aes(x = Verteilung))+
 
 ## Aufgabe 2
 
+### Aufgabe 2 a)
+
 ::: {.panel-tabset}
 
-### Aufgabe 2 a)  
+#### A2 a)  
 Erstellen Sie eine Tabelle, in der eine Spalte anhand von 10000 Fällen zeigt, wie lange ein deutsches Auto im Durchschnitt fahrtauglich ist. Nehmen wir dafür an, dass die mittlere Dauer dafür 12 Jahre ist, aber diese Zahl eine Streuung von 2,5 Jahren hat.
 
-### Lösung
+#### L2 a)
 
 ``` {r}
 set.seed(42)
@@ -195,12 +213,14 @@ PKW_Dauer <-
 
 :::
 
+### Aufgabe 2 b)
+
 ::: {.panel-tabset}
 
-### Aufgabe 2 b)  
+#### A2 b)  
 Wie groß ist die Wahrscheinlichkeit, dass ein deutsches Auto eine unterdurchschnittliche Haltbarkeit aufweist?
 
-### Lösung
+#### L2 b)
 
 ``` {r}
 PKW_Dauer%>%
@@ -210,12 +230,14 @@ PKW_Dauer%>%
 
 :::
 
+### Aufgabe 2 c)
+
 ::: {.panel-tabset}
 
-### Aufgabe 2 c)  
+#### A2 c)  
 Wie groß ist die Wahrscheinlicheit, dass ein deutsches Auto zwischen 20 und 21 Jahre lang fahrtauglich ist?
 
-### Lösung
+#### L2 c)
 
 ``` {r}
 PKW_Dauer%>%
@@ -225,9 +247,11 @@ PKW_Dauer%>%
 
 :::
 
+### Aufgabe 2 d)
+
 ::: {.panel-tabset}
 
-### Aufgabe 2 d)  
+#### A2 d)  
 Welches Betriebsjahr erreichen 84 % der Autos nicht mehr?
 
 Diese Frage möchte wissen, unterhalb von welchem Wert 84 % aller anderen Werte liegen. Eine Möglichkeit wäre, die Tabelle zu öffnen und aufsteigend zu ordnen. Dann schauen wir, welcher Wert bei der Beobachtung 8400 angegeben ist (8400 von 10000 = 84 %). Da wir aufsteigend geordnet haben, müssen 84 % der Werte kleiner sein, als der, der bei 8400 angegeben ist.
@@ -239,7 +263,7 @@ ODER wir nutzen die Quantilfunktion:
 Die Quantilfunktion macht in einfache Worten gefasst folgendes:
 Sie nimmt einen Anteil einer Verteilung (z.B. 84 %) und schneidet die Verteilung genau an diesem Punkt ab. D.h. sie zeigt den Wert, der größer ist als 84 aller anderen Werte, aber kleiner ist als die übrigen 16 %. Somit bildet man das ein 84-Prozent-Quantil.
 
-### Lösung
+#### L2 d)
 
 ``` {r}
 PKW_Dauer%>%
@@ -248,12 +272,14 @@ PKW_Dauer%>%
 
 :::
 
+### Aufgabe 2 e)
+
 ::: {.panel-tabset}
 
-### Aufgabe 2 e)  
+#### A2 e)  
 Welche Haltbarkeit wird mit einer Wahrscheinlichkeit von 95 % nicht überschritten?
 
-### Lösung
+#### L2 e)
 
 ``` {r}
 PKW_Dauer%>%
@@ -262,12 +288,14 @@ PKW_Dauer%>%
 
 :::
 
+### Aufgabe 2 f)
+
 ::: {.panel-tabset}
 
-### Aufgabe 2 f)  
+#### A2 f)  
 In welchem Intervall liegen 90 % aller Werte?
 
-### Lösung
+#### L2 f)
 
 ```{r paged.print=FALSE}
 PKW_Dauer%>%
