@@ -255,6 +255,7 @@ Es gibt verschiedene Fakten, die wir aus der Kontingenztabelle relativ einfach a
 #### A12 a)
 Wie groß ist die Wahrscheinlichkeit, dass eine Person gelernt hat?\
 Wie groß ist die Wahrscheinlichkeit, dass eine Person nicht bestanden hat?
+
 #### L12 a)
 $$W(\neg B) = \frac{30}{78} = 0.38$$
 $$W(A) = \frac{42}{78} = 0.54$$
@@ -266,6 +267,7 @@ $$W(A) = \frac{42}{78} = 0.54$$
 #### A12 b)
 Wie wahrscheinlich ist es, dass eine Person bestanden hat, obwohl sie nicht gelernt hat?\
 Wie wahrscheinlich ist es, dass eine Person gelernt hat, gegeben, dass sie bestanden hat?
+
 #### L12 b)
 $$W(B|\neg A) = \frac{12}{36} = 0.33$$
 $$W(B|A) = \frac{36}{48} = 0.75$$
@@ -276,7 +278,9 @@ $$W(B|A) = \frac{36}{48} = 0.75$$
 #### A12 c)
 Wie wahrscheinlich ist es, dass eine Person bestanden und gelernt hat?\
 Wie wahrscheinlich ist es, dass eine Person nicht gelernt und nicht bestanden hat?
-$$W(B\cap A) = \frac{36}{78} = 0.46)$$
+
+#### L12 c)
+$$W(B\cap A) = \frac{36}{78} = 0.46$$
 $$W(\neg A\cap\neg B) = \frac{24}{78} = 0.31$$
 :::
 ---------------------------------------------------------------------------------------------------------------------------------------------
