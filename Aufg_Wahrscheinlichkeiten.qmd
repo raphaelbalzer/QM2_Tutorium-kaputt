@@ -1,0 +1,291 @@
+# Wahrscheinlichkeiten (Kap. 2 -- 4 in Bourier (2018))
+
+## Aufgabe 1
+
+::: panel-tabset
+### A1
+
+Geben Sie den Ereignisraum für das Werfen eines Würfels an!
+
+### L1
+
+$$\Omega = \{ 1,\ 2,\ 3,\ 4,\ 5,\ 6\}$$
+
+Ereignisraum: Die Menge aller Ereignisse, d.h. aller Teilmengen einer endlichen oder abzählbar unendlichen Ergebnismenge.
+:::
+
+## Aufgabe 2
+
+::: panel-tabset
+### A2
+
+Geben Sie für das Werfen eines Würfels folgendes Ereignis A an: „Nur ungerade Zahlen".
+
+### L2
+
+$$A_{nur\ ungerade\ Zahlen} = \{ 1,\ 3,\ 5\}$$
+:::
+
+## Aufgabe 3
+
+::: panel-tabset
+### A3
+
+Bestimmen Sie durch Verwendung der klassischen Wahrscheinlichkeitsermittlung, wie groß die Wahrscheinlichkeit dafür ist, dass Ereignis „Nur ungerade Zahlen" eintritt! Welche Voraussetzungen müssen gegeben sein, damit die klassische Wahrscheinlichkeitsermittlung verwendet werden kann?
+
+### L3
+
+Die klassische Wahrscheinlichkeitsermittlung zählt, wie viele Elementarereignisse dafür sorgen, dass das Ereignis „Nur ungerade Zahlen" eintritt. Diese Anzahl wird dann geteilt, durch die Menge aller möglichen Elementarereignisse, sprich alle, die im Ereignisraum Ω vorzufinden sind. $W(Nur\ ungerade\ Zahlen ) = \ \frac{Anzahl\ der\ Elementarereignisse,\ \ bei\ denen\ \ A\ ein tritt}{Anzahl\ aller\ Elementarereignisse\ in\ \Omega} = \frac{3}{6} = 0,5$
+:::
+
+## Aufgabe 4
+
+::: panel-tabset
+### A4
+
+**Gegeben sind ein Ereignis A und ein Ereignis B:**
+
+Ereignis A: {1, 2, 3}\
+Ereignis B: {5, 6}
+
+Geben Sie die Wahrscheinlichkeit dafür, dass beim Wurf eines Würfels Ereignis A ODER Ereignis B eintritt!\
+→ gesucht: $W(A \cup B)$
+
+### L4
+
+Ein Weg, um die Wahrscheinlichkeit zu ermitteln:\
+$$W(A \cup B) = W(A) + W(B) = \frac{3}{6} + \frac{2}{6} = \frac{5}{6} = 0,833$$
+:::
+
+## Aufgabe 5
+
+::: panel-tabset
+### A5
+
+Anschließend an die vorherige Aufgabe:\
+Ermitteln Sie die Wahrscheinlichkeit dafür, dass Ereignis A oder Ereignis B eintritt, durch Nutzung des Komplementärereignisses.
+
+### L5
+
+Das Komplementärereignis zu A = {1,2,3} und B = {5, 6} ist $P(\overline{A} \cup \overline{B})$= {4}. Die klassische Wahrscheinlichkeitsermittlung sagt uns, dass die Wahrscheinlichkeit eine vier zu Würfeln $\frac{1}{6}$ ist. Wir können die Wahrscheinlichkeit für das Komplementärereignis von 1 abziehen, um so zu ermitteln, wie es um $W(A \cup B)$ steht. $$W(A \cup B) = 1 - W(\overline{A} \cup \overline{B}) = 1 - \frac{1}{6} = \frac{5}{6} = 0,833$$
+:::
+
+## Aufgabe 6
+
+::: panel-tabset
+### A6
+
+**Gegeben sind ein Ereignis A und Ereignis B.**
+
+A = {1, 2, 3}
+
+B = {2, 3, 4}
+
+Geben Sie die Wahrscheinlichkeit dafür, dass beim Wurf eines Würfels Ereignis A und Ereignis B eintreten!
+
+### L6
+
+Um zu ermitteln, wie groß die Wahrscheinlichkeit ist, dass beim Wurf eines Würfels Ereignis A und Ereignis B gleichzeitig eintreten, müssen wir ermitteln, welche Elementarereignisse beide Ereignisse bedingen. Das heißt:\
+A = {1, 2, 3}\
+B = {2, 3, 4}\
+Wenn wir eine 2 ODER eine 3 werfen, treten beide Ereignisse gleichzeitig ein. Bei einer 1 oder einer 4 jeweils nur eines, einer 5 oder 6 hingegen keines. Wir müssen also lediglich die Wahrscheinlichkeit dafür errechnen, dass ein Elementarereignis der Schnittmenge eintritt.\
+$$W(A \cap B) = \frac{1}{6} + \frac{1}{6} = \frac{2}{6} = 0,33$$
+:::
+
+## Aufgabe 7
+
+::: panel-tabset
+### A7
+
+**Gegeben sind ein Ereignis A, ein Ereignis B und Ereignis C.**
+
+A = {1, 2, 3}
+
+B = {2, 3, 4}
+
+C = {5}
+
+Wie groß ist die Wahrscheinlichkeit dafür, dass beim Wurf eines Würfels A, B und C eintreten?
+
+### L7
+
+Auch hier gilt es an erster Stelle zu ermitteln, welche Schnittmenge es zwischen den Ereignissen A, B und C gibt. In diesem Beispiel fällt auf, dass Ereignis C keine gleichen Elementarereignisse mit A und B hat. Ist es möglich, dass A, B und C gleichzeitig eintreten? Nein, denn kein Elementarereignis, das Ereignis C bedingt, bedingt auch eines der anderen Ereignisse (bzw. genauso wenig umgekehrt). Das heißt, in diesem Fall können wir sagen:\
+$$A \cap B \cap C = \left\{ \ \right\} = \varnothing$$
+:::
+
+## Aufgabe 8
+
+**Gegeben ist folgende Vierfeldertafel:**
+
+|                |  S  | $\overline{S}$ | $\sum$ |
+|----------------|-----|----------------|--------|
+|       M        | 60  | 20             | 80     |
+| $\overline{M}$ | 5   | 15             | 20     |
+| $\sum$         | 65  | 35             | 100    |
+
+Ereignis M betrifft alle Studis, die die Matheklausur bestanden haben.\
+Ereignis $\neg$M sind diejenigen, die die Matheklausur nicht bestanden haben.
+
+Ereignis S betrifft alle Studis, die die Statistikklausur bestanden haben.\
+Ereignis $\neg$S sind diejenigen, die die Statistikklausur nicht bestanden haben.
+
+In einer Vorlesung mit allen 100 Klausurteilnehmern rufen wir willkürlich jemanden auf.
+
+### Aufgabe 8 a)
+
+::: panel-tabset
+#### A8 a)
+
+Wie groß ist die Wahrscheinlichkeit, einen Studierenden aufzurufen, der die Matheklausur bestanden hat?
+
+#### L8 a)
+
+Es haben 80 Studis die Matheklausur bestanden. Das heißt bei allen 100 Studis, haben wir eine 80-prozentige Wahrscheinlichkeit, jemanden zu erwischen, der in Mathe durchgekommen ist.\
+Rechnerisch:\
+$$W(M) = \frac{Anzahl\ an\ Studis,\ für\ die\ M\ gilt}{Gesamtzahl\ der\ Studis} = \frac{80}{100} = 0,8$$ Hierbei handelt es sich um eine sogenannte **Randwahrscheinlichkeit**.
+:::
+
+### Aufgabe 8 b)
+
+::: panel-tabset
+
+#### A8 b)
+
+Wie groß ist die Wahrscheinlichkeit jemanden aufzurufen, der/die Statistik, aber nicht Mathe bestanden hat?
+
+#### L8 b)
+
+Insgesamt gibt es fünf Studierende, für die Ereignis S und gleichzeitig Ereignis $\neg$M gilt. Was wir suchen, ist die Wahrscheinlichkeit dafür, von allen 100 Studis einen zu erwischen, der zu diesen fünf gehört.\
+$$W(S\cap \neg M) = \frac{5}{100} = 0,05$$
+Diese Wahrscheinlichkeit nennt sich **gemeinsame Wahrscheinlichkeit.**
+:::
+
+## Aufgabe 9
+::: panel-tabset
+
+### A9
+Wie groß ist die Wahrscheinlichkeit einen Studi aufzurufen, der Statistik bestanden hat, gegeben, dass er Mathe bestanden hat?\
+Gesucht ist die Wahrscheinlichkeit: $W(S|M)$.\
+
+Hierbei handelt es sich um eine **bedingte Wahrscheinlichkeit.**\
+Verständnishilfe zu solchen Fragestellungen:\
+Wenn es heißt „gegeben, dass XXX" ist damit gemeint, dass für die Zielmenge bereits ein anderes Ereignis gilt. So zum Beispiel:\
+Frage: Wie groß ist die Wahrscheinlichkeit einen Studi aufzurufen, der Statistik bestanden hat, gegeben, dass er Mathe bestanden hat?\
+→ Welcher Anteil von denen, die Mathe bestanden haben, hat Statistik bestanden?\
+
+ODER\
+                                                                                                                                        
+→ Wie wahrscheinlich ist es, dass jemand Statistik bestanden hat, wenn er zu denen gehört, die Mathe bestanden haben?\
+Allgemeines Muster: $W(A|B)$\
+→ Wie wahrscheinlich ist es, dass für jemanden A gilt, wenn er zur Gruppe B gehört?\
+
+### L9
+Die bedingte Wahrscheinlichkeit wird so errechnet:\
+$$W\left(S\middle|M\right) = \frac{Studis,\ die\ Statistik\ und\ Mathe\ bestanden\ haben}{Von\ all\ denen,\ die\ Mathe\ bestanden\ haben} = \frac{W(S\cap M)}{W(M)} = \frac{60}{80} = 0,75$$
+:::
+
+## Aufgabe 10
+
+:::panel-tabset
+
+### A10
+
+Wie groß ist die Wahrscheinlichkeit eine Person aufzurufen, die Mathe bestanden hat, gegeben, dass sie Statistik nicht bestanden hat?
+
+### L10
+
+Anteil derer die Mathe bestanden haben, von allen, die Statistik nicht bestanden haben
+$$W\left( M \middle| \neg S \right) = \frac{20}{35} = 0,57$$
+:::
+
+## Aufgabe 11
+
+::: panel-tabset
+
+### A11
+
+**Für die Beziehung von Ereignis A zu B gilt folgendes:\**
+
+$$W\left( A \middle| B \right) = W(A|\neg B)$$
+Was können wir auf Grundlage dieser Aussage über die Beziehung zwischen A und B schließen?
+
+### L11
+Die Aussage der Gleichung lautet übersetzt:\
+Es ist genauso wahrscheinlich das A eintritt, wenn B eingetreten ist, wie das A eintritt, wenn B nicht eingetreten ist. Einfach gesprochen ist es für das Eintreten von A „egal" ob B eintritt oder nicht, weil es an der Eintrittswahrscheinlichkeit von A nichts ändert. Nun können wir daraus schließen, dass A und B unabhängig sein müssen. Praktisches Beispiel:\
+Wir haben eine Stichprobe an Patienten, die entweder Blutgruppe A oder B haben. Es gilt:\
+$$W(leichter\ Krankheitsverlauf|Blutgruppe\ A) = W(leichter\ Krankheitsverlauf|Blutgruppe\ B)$$
+Heißt: Die Wahrscheinlichkeit einen leichten Krankheitsverlauf zu haben, wenn man zur Blutgruppe A gehört, ist genauso hoch, wie die Wahrscheinlichkeit einen leichten Krankheitsverlauf zu haben, wenn man zu Blutgruppe B gehört. Das heißt, es ist egal, ob ein Patient Blutgruppe A oder B hat, die Wahrscheinlichkeit, einen leichten Krankheitsverlauf zu haben, bleibt die gleiche und wird somit nicht von der Blutgruppe bestimmt.
+:::
+
+## Aufgabe 12
+
+**Extraaufgaben für bedingte Wahrscheinlichkeit**
+
++:---------------------------+-------------------+--------------------------+:-------------+
+| **Ereignis**               | **Bestanden (B)** | **nicht bestanden (¬B)** | **Summe**    |
++----------------------------+-------------------+--------------------------+--------------+
+| **hat gelernt (A)**        | 36                | 6                        | 42           |
++----------------------------+-------------------+--------------------------+--------------+
+| **hat nicht gelernt (¬A)** | 12                | 24                       | 36           |
++----------------------------+-------------------+--------------------------+--------------+
+| **Summe**                  | 48                | 30                       | 78           |
++----------------------------+-------------------+--------------------------+--------------+
+
+> **Wir haben vier mögliche Ereignisse:**\
+> Ereignis A: Eine Person hat gelernt.\
+> Ereignis ¬A: Eine Person hat nicht gelernt.\
+> Ereignis B: Eine Person hat bestanden\
+> Ereignis ¬B: Eine Person hat nicht bestanden\
+
+Es gibt verschiedene Fakten, die wir aus der Kontingenztabelle relativ einfach ablesen können:\
+
+-   78 Personen haben an der Klausur teilgenommen
+
+-   42 Personen haben für die Klausur gelernt
+
+-   36 Personen haben nicht für die Klausur gelernt
+
+-   48 Personen haben die Klausur bestanden
+
+-   30 Personen haben die Klausur nicht bestanden
+
+### Aufgabe 12 a)
+
+:::panel-tabset
+#### A12 a)
+Wie groß ist die Wahrscheinlichkeit, dass eine Person gelernt hat?\
+Wie groß ist die Wahrscheinlichkeit, dass eine Person nicht bestanden hat?
+#### L12 a)
+$$W(\neg B) = \frac{30}{78} = 0.38$$
+$$W(A) = \frac{42}{78} = 0.54$$
+:::
+
+### Aufgabe 12 b)
+
+::: panel-tabset
+#### A12 b)
+Wie wahrscheinlich ist es, dass eine Person bestanden hat, obwohl sie nicht gelernt hat?\
+Wie wahrscheinlich ist es, dass eine Person gelernt hat, gegeben, dass sie bestanden hat?
+#### L12 b)
+$$W(B|\neg A) = \frac{12}{36} = 0.33$$
+$$W(B|A) = \frac{36}{48} = 0.75$$
+:::
+
+### Aufgabe 12 c)
+::: panel-tabset
+#### A12 c)
+Wie wahrscheinlich ist es, dass eine Person bestanden und gelernt hat?\
+Wie wahrscheinlich ist es, dass eine Person nicht gelernt und nicht bestanden hat?
+$$W(B\cap A) = \frac{36}{78} = 0.46)$$
+$$W(\neg A\cap\neg B) = \frac{24}{78} = 0.31$$
+:::
+---------------------------------------------------------------------------------------------------------------------------------------------
+> **Randwahrscheinlichkeit:** Anteil an Personen, auf die ein Ereignis (z.B. A, hat gelernt) zutrifft, von der Gesamtheit aller Personen
+
+> **Bedingte Wahrscheinlichkeit:** Anteil an Personen, auf die ein Ereignis zutrifft (z.B. A, hat gelernt), von denjenigen auf die ein anderes Ereignis (z.B. B, hat bestanden) bereits zutrifft
+>
+-   Wie viele von denen, die bestanden haben (Ereignis B), haben auch gelernt (A)?
+>
+-   Wie viele haben gelernt (A), von denen die bestanden haben (B)?\
+
+> **Gemeinsame Wahrscheinlichkeit:** Anteil an Personen, auf die zwei Ereignisse zutreffen (z.B. A und B, hat gelernt und bestanden) von der Gesamtheit aller Personen
