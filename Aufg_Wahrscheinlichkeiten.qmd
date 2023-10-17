@@ -1,4 +1,5 @@
-# Wahrscheinlichkeiten (Kap. 2 -- 4 in Bourier (2018))
+# Wahrscheinlichkeiten
+Kap. 2 -- 4 in Bourier (2018)
 
 ## Aufgabe 1
 

@@ -24,7 +24,8 @@ book:
   chapters:
     - index.qmd
     - part: "Aufgaben"
-      chapters: 
+      chapters:
+        - Aufg_Wahrscheinlichkeiten.qmd
         - Aufg_Verteilungen.qmd
         - Aufg_Globusversuch.qmd
     - references.qmd
