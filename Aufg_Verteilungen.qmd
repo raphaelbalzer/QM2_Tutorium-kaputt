@@ -18,7 +18,7 @@ library(rstanarm)
 ::: panel-tabset
 #### A1 a)
 
-Erstellen Sie eine Normalverteilung in R mit einem Mittelwert von 175 und einer Standardabweichung von 10. Nennen Sie diese Verteilung "Größe".
+Erstellen Sie eine Normalverteilung in R mit einem Mittelwert von 175 und einer Standardabweichung von 10. Nennen Sie diese Verteilung "Größe". Simulieren Sie hunderttausend Fälle.
 
 #### L1 a)
 
@@ -28,7 +28,7 @@ set.seed(42)
 Größe <-
   tibble(# erstelle eine Tabelle
     Verteilung = rnorm( #erstelle mit rnorm eine Normalverteilung in R
-      1e5, #insgesamt soll diese Verteilung Hundertausend Werte haben 
+      1e5, #insgesamt soll diese Verteilung Hunderttausend Werte haben 
                      mean = 175, #Mittelwert dieser Menge sind 175 Zentimeter
                      sd = 10)) #die Werte streuen mit einer Standardabweichung von 10 Zentimetern
 ```
