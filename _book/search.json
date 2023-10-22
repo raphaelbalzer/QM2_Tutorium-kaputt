@@ -124,5 +124,61 @@
     "title": "3  Globusversuch",
     "section": "3.2 Aufgabe 2",
     "text": "3.2 Aufgabe 2\n\n3.2.1 Aufgabe 2 a)\n\nA2 a)L2 a)\n\n\nNutzen Sie die Funktion dbinom(), um zu ermitteln, wie groß die Wahrscheinlichkeit ist, das wir nur eines von fünf Malen treffen, obwohl die Trefferwahrscheinlichkeit bei 50 % liegen.\n\n\n\ndbinom(1, size = 5, #Wie oft erhalten wir einen von fünf Treffern, wenn die Chance zu treffen 50/50 steht?\n       prob = .5)\n\n[1] 0.15625\n\n\nUnser Szenario, also dass wir eines von fünf Malen treffen, hat eine Eintrittswahrscheinlichkeit von ca. 16 Prozent, wenn die Trefferchance tatsächlich 50/50 steht. Aber wenn die Wahrscheinlichkeit so gering ist, dann kann es doch nicht sein, dass uns dieses Szenario trotzdem so regelmäßig passiert?\n\n\n\n\n\n3.2.2 Aufgabe 2 b)\n\nA2 b)L2 b)\n\n\nBerechnen wir ein Mal die Wahrscheinlichkeit eines von fünf Malen zu treffen, wenn die Trefferahrscheinlichkeit bei 20 Prozent läge.\n\n\n\ndbinom(1, size = 5, #Wie oft erhalten wir einen von fünf Treffern mit einer Trefferwahrscheinlichkeit von 20 % ?\n       prob = .2) # Trefferwahrscheinlichkeit liegt bei 20 %\n\n[1] 0.4096\n\n\nDas Ergebnis sagt uns: Wenn die Trefferwahrscheinlichkeit bei 20 Prozent liegt, dann sollten wir in ca. 41 Prozent der Fälle eines von fünf Mal treffen. Scheint uns das nicht etwas plausibler? Naja, zumindest ist es wahrscheinlicher, als wenn wir eine Trefferchance von 50/50 annehmen.\n\n\n\n\n\n3.2.3 Aufgabe 2 c)\n\nA2 c)L2 c)\n\n\nDefinieren wir nun ein Modell, dass 100 Variationen der trefferchance (d.h. 100 Paramterwerte) beinhaltet. Außerdem schließen wir von vornherein aus, dass die Trefferchance größer ist als 30 %.\n\n\n\nset.seed(42)\n\nUSB &lt;-\n  tibble(c_Treffer = seq(0, 1, length.out = 100),\n         Priori = case_when(c_Treffer &gt; 0.3 ~ 0,\n                            c_Treffer &lt;= 0.3 ~ 1))%&gt;%\n  mutate(Likelihood = dbinom(1, size = 5, prob = c_Treffer),\n         unst_Post = Priori * Likelihood,\n         Post = unst_Post / sum(unst_Post))\n\nDas Modell steht. Wir sehen, dass Beobachtungen mit einer Trefferchance von mehr als 30 % in der Post-Spalte eine Wahrscheinlichkeit von Null haben. Außerdem haben Beobachtungen mit einer Trefferchance von ca. 20 die höchste Wahrscheinlichkeit.\n\n\n\n\n\n3.2.4 Aufgabe 2 d)\n\nA2 d)L2 d)\n\n\nWie groß ist die Wahrscheinlichkeit, dass die echte Trefferchance (laut unserem Modell) zwischen 12,5 % und 27,5 % liegt?\n\n\n\nUSB%&gt;%\n  filter(c_Treffer &gt; 0.125 & c_Treffer &lt; 0.275)%&gt;%\n  summarise(sum(Post))\n\n\n\n  \n\n\n\n\n\n\n\n\n3.2.5 Aufgabe 2 e)\n\nA2 e)L2 e)\n\n\nWelcher ist der wahrscheinlichste Anteil, laut unserem Modell?\n\n\n\nUSB%&gt;%\n  arrange(-Post)\n\n\n\n  \n\n\n\nNach unserem Modell ist die wahrscheinlichste Trefferchance ca. 20 Prozent. Allerdings hat diese für sich genommen nur eine Wahrscheinlichkeit von 4 %. Wir wissen allerdings auch aus Aufgabe 4, dass sich ca. 62 % der Wahrscheinlichkeitsmasse in dem Intervall zwischen 12,5 % Trefferchance und 27,5 Prozent Trefferchance befinden.\nWir können also nach unserem Modell schließen, dass die echte Trefferchance vermutlich sehr nahe bei der20 % liegt, allerdins mit einer Wahrscheinlichkeit von 62 Prozent, irgendwo in dem Intervall zwischen 12,5 % und 27,5 %."
+  },
+  {
+    "objectID": "Aufg_Postverteilung.html#aufgabe-1",
+    "href": "Aufg_Postverteilung.html#aufgabe-1",
+    "title": "4  Postverteilung",
+    "section": "4.1 Aufgabe 1",
+    "text": "4.1 Aufgabe 1\n\nA1L1\n\n\nZiehen Sie eine Stichprobe mit einer Größe von 10.000 Fällen. Grundlage ist der Globusversuch mit 14 von 20 Wassertreffern. Nehmen Sie an, dass Sie für 10 Hypothesen apriori indifferent sind.\n\n\n\nsample1 &lt;-\n  tibble(gitter = seq(0, 1, length.out = 10), #Gitter erstellen\n         prior = 1)%&gt;%\n  mutate(likelihood = dbinom(14, size = 20, prob = gitter),\n         unst_post = prior * likelihood,\n         post = unst_post / sum(unst_post))%&gt;%\n  slice_sample(n = 1e4, #Stichprobe ziehen\n               weight_by = post,\n               replace = TRUE)"
+  },
+  {
+    "objectID": "Aufg_Postverteilung.html#aufgabe-2",
+    "href": "Aufg_Postverteilung.html#aufgabe-2",
+    "title": "4  Postverteilung",
+    "section": "4.2 Aufgabe 2",
+    "text": "4.2 Aufgabe 2\n\nA2L2\n\n\nWie groß ist die Wahrscheinlichkeit, dass der Wasseranteil größer als 50 Prozent ist?\n\n\n\nsample1%&gt;%\n  count(gitter &gt; .5)%&gt;%\n  mutate(Anteil = n/10000)\n\n\n\n  \n\n\n\nDie Wahrscheilichkeit, dass der Wasseranteil größer als 50 Prozent ist, liegt bei ~ 96 Prozent."
+  },
+  {
+    "objectID": "Aufg_Postverteilung.html#aufgabe-3",
+    "href": "Aufg_Postverteilung.html#aufgabe-3",
+    "title": "4  Postverteilung",
+    "section": "4.3 Aufgabe 3",
+    "text": "4.3 Aufgabe 3\n\nA3L3\n\n\nWie groß ist die Wahrscheinlichkeit, dass der Wasseranteil zwischen 65 und 75 Prozent liegt?\n\n\n\nsample1%&gt;%\n  filter(gitter &gt; .65)%&gt;%\n  filter(gitter &lt; .75)%&gt;%\n  count()%&gt;%\n  summarise(`Anteil in Prozent` = n / 10000 * 100)\n\n\n\n  \n\n\n\nDie Wahrscheinlichkeit, dass der Wasseranteil zwischen 65 und 75 Prozent ist, liegt bei ~ 42 Prozent."
+  },
+  {
+    "objectID": "Aufg_Postverteilung.html#aufgabe-4",
+    "href": "Aufg_Postverteilung.html#aufgabe-4",
+    "title": "4  Postverteilung",
+    "section": "4.4 Aufgabe 4",
+    "text": "4.4 Aufgabe 4\n\nA4L4\n\n\nWelcher ist der mittlere Wasseranteil und wie groß ist die Standardabweichung der Verteilung?\n\n\n\nsample1%&gt;%\n  summarise(`Mittlerer Wasseranteil` = mean(gitter),\n            `Standardabweichung der möglichen Wasseranteile` = sd(gitter))"
+  },
+  {
+    "objectID": "Aufg_Postverteilung.html#aufgabe-5",
+    "href": "Aufg_Postverteilung.html#aufgabe-5",
+    "title": "4  Postverteilung",
+    "section": "4.5 Aufgabe 5",
+    "text": "4.5 Aufgabe 5\n\nA5L5\n\n\nWelcher Wasseranteil wird mit einer Wahrscheinlichkeit von 70 Prozent nicht überschritten?\n\n\n\nsample1%&gt;%\n  summarise(quant70 = quantile(gitter, prob = .7))\n\n\n\n  \n\n\n\nMit einer Wahrscheinlichkeit von 70 Prozent wird ein Wasseranteil von 77 Prozent nicht überschritten."
+  },
+  {
+    "objectID": "Aufg_Postverteilung.html#aufgabe-6",
+    "href": "Aufg_Postverteilung.html#aufgabe-6",
+    "title": "4  Postverteilung",
+    "section": "4.6 Aufgabe 6",
+    "text": "4.6 Aufgabe 6\n\nA6L6\n\n\nBeantworten Sie Aufgabe 5 ein weiteres Mal, ohne dabei die Funktion quantile() zu verwenden.\n\n\n\nsample1%&gt;%\n  arrange(gitter)%&gt;%\n  slice_head(n = 7000)%&gt;%\n  arrange(-gitter)\n\n\n\n  \n\n\n\nWir sehen, der größte Wert der Spalte gitter, nachdem wir 7000 Werte abgeschnitten haben, ist 0.78. Das heißt ein Wasseranteil von 0.7 muss größer sein als 70 % Prozent der insgesamt 10.000 Werte."
+  },
+  {
+    "objectID": "Aufg_Postverteilung.html#aufgabe-7",
+    "href": "Aufg_Postverteilung.html#aufgabe-7",
+    "title": "4  Postverteilung",
+    "section": "4.7 Aufgabe 7",
+    "text": "4.7 Aufgabe 7\n\nA7L7\n\n\nBilden Sie ein symmetrisches Perzentilinterval, das zeigt, zwischen welchen beiden Parameterwerten sich 90 Prozent der Verteilung befinden.\n\n\n\nsample1%&gt;%\n  select(gitter)%&gt;%\n  eti(ci = .9)\n\n\n\n  \n\n\n\n90 % aller Zeilen haben einen Wasseranteil von 56 bis 78 Prozent."
+  },
+  {
+    "objectID": "Aufg_Postverteilung.html#aufgabe-8",
+    "href": "Aufg_Postverteilung.html#aufgabe-8",
+    "title": "4  Postverteilung",
+    "section": "4.8 Aufgabe 8",
+    "text": "4.8 Aufgabe 8\n\nA8L8\n\n\nGeben Sie die Breite des Intervalls mit der höchsten Wahrscheinlichkeitsdichte, das 95 % aller Werte beinhaltet, an.\n\n\n\nsample1%&gt;%\n  select(gitter)%&gt;%\n  hdi()\n\nWarning: Identical densities found along different segments of the distribution,\n  choosing rightmost.\n\n\n\n\n  \n\n\n\n\n0.56 - 0.89\n\n[1] -0.33\n\n\nDie Breite des HDI ist 33.\nHier noch eine andere Variante, die das Ergebnis direkt ausspuckt:\n\nsample1%&gt;%\n  select(gitter)%&gt;%\n  hdi() %&gt;% \n  mutate(width = CI_low - CI_high) %&gt;%\n  select(width)\n\nWarning: Identical densities found along different segments of the distribution,\n  choosing rightmost."
   }
 ]
