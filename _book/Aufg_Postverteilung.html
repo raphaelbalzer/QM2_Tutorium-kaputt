@@ -314,16 +314,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Die Wahrscheilichkeit, dass der Wasseranteil größer als 50 Prozent ist, liegt bei ~ 97 Prozent. Kürzer wäre folgender Code:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sample1 <span class="sc">%&gt;%</span> </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">mean</span>(gitter <span class="sc">&gt;</span> .<span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Anteil =</span> <span class="fu">mean</span>(gitter <span class="sc">&gt;</span> .<span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["mean(gitter > 0.5)"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.9678"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["Anteil"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.9678"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
+<p>Die Funktion <code>mean</code> prüft, wie viele Fälle der Bedinung entsprechen und teilt die Anzahl dieser Fälle durch die Gesamtanzahl aller Fälle. Der Befehl <code>summarise</code> ist notwendig, um diese Information aus dem sample zu extrahieren. Den Namen der Outputspalte “Anteil” kann man auch weglassen.</p>
 </div>
 </div>
 </div>
@@ -365,7 +366,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Das “&amp;”-Zeichen ist eine Und-Verknüpfung. R errechnet also die Wahrscheinlichkeit für <span class="math inline">\(P(&gt;0,65\cap&lt;0,75)\)</span> Die Funktion <code>mean</code> prüft, wie viele Fälle der Bedinung entsprechen und teilt die Anzahl dieser Fälle durch die Gesamtanzahl aller Fälle. Der Befehl <code>summarise</code> ist notwendig, um diese Information aus dem sample zu extrahieren. Den Namen der Outputspalte “Anteil” kann man auch weglassen.</p>
+<p>Das “&amp;”-Zeichen ist eine Und-Verknüpfung. R errechnet also die Wahrscheinlichkeit für <span class="math inline">\(P(&gt;0,65\cap&lt;0,75)\)</span>.</p>
 </div>
 </div>
 </div>

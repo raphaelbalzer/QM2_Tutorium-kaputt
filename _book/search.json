@@ -137,14 +137,14 @@
     "href": "Aufg_Postverteilung.html#aufgabe-2",
     "title": "4  Postverteilung",
     "section": "4.2 Aufgabe 2",
-    "text": "4.2 Aufgabe 2\n\nA2L2\n\n\nWie groß ist die Wahrscheinlichkeit, dass der Wasseranteil größer als 50 Prozent ist?\n\n\n\nsample1%&gt;%\n  count(gitter &gt; .5)%&gt;%\n  mutate(Anteil = n/10000)\n\n\n\n  \n\n\n\nDie Wahrscheilichkeit, dass der Wasseranteil größer als 50 Prozent ist, liegt bei ~ 97 Prozent. Kürzer wäre folgender Code:\n\nsample1 %&gt;% \n  summarise(mean(gitter &gt; .5))"
+    "text": "4.2 Aufgabe 2\n\nA2L2\n\n\nWie groß ist die Wahrscheinlichkeit, dass der Wasseranteil größer als 50 Prozent ist?\n\n\n\nsample1%&gt;%\n  count(gitter &gt; .5)%&gt;%\n  mutate(Anteil = n/10000)\n\n\n\n  \n\n\n\nDie Wahrscheilichkeit, dass der Wasseranteil größer als 50 Prozent ist, liegt bei ~ 97 Prozent. Kürzer wäre folgender Code:\n\nsample1 %&gt;% \n  summarise(Anteil = mean(gitter &gt; .5))\n\n\n\n  \n\n\n\nDie Funktion mean prüft, wie viele Fälle der Bedinung entsprechen und teilt die Anzahl dieser Fälle durch die Gesamtanzahl aller Fälle. Der Befehl summarise ist notwendig, um diese Information aus dem sample zu extrahieren. Den Namen der Outputspalte “Anteil” kann man auch weglassen."
   },
   {
     "objectID": "Aufg_Postverteilung.html#aufgabe-3",
     "href": "Aufg_Postverteilung.html#aufgabe-3",
     "title": "4  Postverteilung",
     "section": "4.3 Aufgabe 3",
-    "text": "4.3 Aufgabe 3\n\nA3L3\n\n\nWie groß ist die Wahrscheinlichkeit, dass der Wasseranteil zwischen 65 und 75 Prozent liegt?\n\n\n\nsample1%&gt;%\n  filter(gitter &gt; .65)%&gt;%\n  filter(gitter &lt; .75)%&gt;%\n  count()%&gt;%\n  summarise(`Anteil in Prozent` = n / 10000 * 100)\n\n\n\n  \n\n\n\nDie Wahrscheinlichkeit, dass der Wasseranteil zwischen 65 und 75 Prozent ist, liegt bei ~ 43 Prozent. Eleganter:\n\nsample1 %&gt;% \n  summarise(Anteil = mean(gitter &gt; .65 & gitter &lt; .75))\n\n\n\n  \n\n\n\nDas “&”-Zeichen ist eine Und-Verknüpfung. R errechnet also die Wahrscheinlichkeit für \\(P(&gt;0,65\\cap&lt;0,75)\\) Die Funktion mean prüft, wie viele Fälle der Bedinung entsprechen und teilt die Anzahl dieser Fälle durch die Gesamtanzahl aller Fälle. Der Befehl summarise ist notwendig, um diese Information aus dem sample zu extrahieren. Den Namen der Outputspalte “Anteil” kann man auch weglassen."
+    "text": "4.3 Aufgabe 3\n\nA3L3\n\n\nWie groß ist die Wahrscheinlichkeit, dass der Wasseranteil zwischen 65 und 75 Prozent liegt?\n\n\n\nsample1%&gt;%\n  filter(gitter &gt; .65)%&gt;%\n  filter(gitter &lt; .75)%&gt;%\n  count()%&gt;%\n  summarise(`Anteil in Prozent` = n / 10000 * 100)\n\n\n\n  \n\n\n\nDie Wahrscheinlichkeit, dass der Wasseranteil zwischen 65 und 75 Prozent ist, liegt bei ~ 43 Prozent. Eleganter:\n\nsample1 %&gt;% \n  summarise(Anteil = mean(gitter &gt; .65 & gitter &lt; .75))\n\n\n\n  \n\n\n\nDas “&”-Zeichen ist eine Und-Verknüpfung. R errechnet also die Wahrscheinlichkeit für \\(P(&gt;0,65\\cap&lt;0,75)\\)."
   },
   {
     "objectID": "Aufg_Postverteilung.html#aufgabe-4",

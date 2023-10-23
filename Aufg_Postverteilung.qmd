@@ -53,8 +53,9 @@ Die Wahrscheilichkeit, dass der Wasseranteil größer als 50 Prozent ist, liegt 
 
 ```{r}
 sample1 %>% 
-  summarise(mean(gitter > .5))
+  summarise(Anteil = mean(gitter > .5))
 ```
+Die Funktion `mean` prüft, wie viele Fälle der Bedinung entsprechen und teilt die Anzahl dieser Fälle durch die Gesamtanzahl aller Fälle. Der Befehl `summarise` ist notwendig, um diese Information aus dem sample zu extrahieren. Den Namen der Outputspalte "Anteil" kann man auch weglassen.
 :::
 
 ## Aufgabe 3
@@ -80,7 +81,7 @@ Die Wahrscheinlichkeit, dass der Wasseranteil zwischen 65 und 75 Prozent ist, li
 sample1 %>% 
   summarise(Anteil = mean(gitter > .65 & gitter < .75))
 ```
-Das "&"-Zeichen ist eine Und-Verknüpfung. R errechnet also die Wahrscheinlichkeit für $P(>0,65\cap<0,75)$ Die Funktion `mean` prüft, wie viele Fälle der Bedinung entsprechen und teilt die Anzahl dieser Fälle durch die Gesamtanzahl aller Fälle. Der Befehl `summarise` ist notwendig, um diese Information aus dem sample zu extrahieren. Den Namen der Outputspalte "Anteil" kann man auch weglassen.
+Das "&"-Zeichen ist eine Und-Verknüpfung. R errechnet also die Wahrscheinlichkeit für $P(>0,65\cap<0,75)$.
 :::
 
 ## Aufgabe 4
