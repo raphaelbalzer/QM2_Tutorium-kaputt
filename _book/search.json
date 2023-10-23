@@ -130,21 +130,21 @@
     "href": "Aufg_Postverteilung.html#aufgabe-1",
     "title": "4  Postverteilung",
     "section": "4.1 Aufgabe 1",
-    "text": "4.1 Aufgabe 1\n\nA1L1\n\n\nZiehen Sie eine Stichprobe mit einer Größe von 10.000 Fällen. Grundlage ist der Globusversuch mit 14 von 20 Wassertreffern. Nehmen Sie an, dass Sie für 10 Hypothesen apriori indifferent sind.\n\n\n\nsample1 &lt;-\n  tibble(gitter = seq(0, 1, length.out = 10), #Gitter erstellen\n         prior = 1)%&gt;%\n  mutate(likelihood = dbinom(14, size = 20, prob = gitter),\n         unst_post = prior * likelihood,\n         post = unst_post / sum(unst_post))%&gt;%\n  slice_sample(n = 1e4, #Stichprobe ziehen\n               weight_by = post,\n               replace = TRUE)"
+    "text": "4.1 Aufgabe 1\n\nA1L1\n\n\nZiehen Sie eine Stichprobe mit einer Größe von 10.000 Fällen. Grundlage ist der Globusversuch mit 14 von 20 Wassertreffern. Nehmen Sie an, dass Sie für 10 Hypothesen apriori indifferent sind.\n\n\n\nset.seed(42)\n\nsample1 &lt;-\n  tibble(gitter = seq(0, 1, length.out = 10), #Gitter erstellen\n         prior = 1)%&gt;%\n  mutate(likelihood = dbinom(14, size = 20, prob = gitter),\n         unst_post = prior * likelihood,\n         post = unst_post / sum(unst_post))%&gt;%\n  slice_sample(n = 1e4, #Stichprobe ziehen\n               weight_by = post,\n               replace = TRUE)"
   },
   {
     "objectID": "Aufg_Postverteilung.html#aufgabe-2",
     "href": "Aufg_Postverteilung.html#aufgabe-2",
     "title": "4  Postverteilung",
     "section": "4.2 Aufgabe 2",
-    "text": "4.2 Aufgabe 2\n\nA2L2\n\n\nWie groß ist die Wahrscheinlichkeit, dass der Wasseranteil größer als 50 Prozent ist?\n\n\n\nsample1%&gt;%\n  count(gitter &gt; .5)%&gt;%\n  mutate(Anteil = n/10000)\n\n\n\n  \n\n\n\nDie Wahrscheilichkeit, dass der Wasseranteil größer als 50 Prozent ist, liegt bei ~ 96 Prozent."
+    "text": "4.2 Aufgabe 2\n\nA2L2\n\n\nWie groß ist die Wahrscheinlichkeit, dass der Wasseranteil größer als 50 Prozent ist?\n\n\n\nsample1%&gt;%\n  count(gitter &gt; .5)%&gt;%\n  mutate(Anteil = n/10000)\n\n\n\n  \n\n\n\nDie Wahrscheilichkeit, dass der Wasseranteil größer als 50 Prozent ist, liegt bei ~ 97 Prozent. Kürzer wäre folgender Code:\n\nsample1 %&gt;% \n  summarise(mean(gitter &gt; .5))"
   },
   {
     "objectID": "Aufg_Postverteilung.html#aufgabe-3",
     "href": "Aufg_Postverteilung.html#aufgabe-3",
     "title": "4  Postverteilung",
     "section": "4.3 Aufgabe 3",
-    "text": "4.3 Aufgabe 3\n\nA3L3\n\n\nWie groß ist die Wahrscheinlichkeit, dass der Wasseranteil zwischen 65 und 75 Prozent liegt?\n\n\n\nsample1%&gt;%\n  filter(gitter &gt; .65)%&gt;%\n  filter(gitter &lt; .75)%&gt;%\n  count()%&gt;%\n  summarise(`Anteil in Prozent` = n / 10000 * 100)\n\n\n\n  \n\n\n\nDie Wahrscheinlichkeit, dass der Wasseranteil zwischen 65 und 75 Prozent ist, liegt bei ~ 42 Prozent."
+    "text": "4.3 Aufgabe 3\n\nA3L3\n\n\nWie groß ist die Wahrscheinlichkeit, dass der Wasseranteil zwischen 65 und 75 Prozent liegt?\n\n\n\nsample1%&gt;%\n  filter(gitter &gt; .65)%&gt;%\n  filter(gitter &lt; .75)%&gt;%\n  count()%&gt;%\n  summarise(`Anteil in Prozent` = n / 10000 * 100)\n\n\n\n  \n\n\n\nDie Wahrscheinlichkeit, dass der Wasseranteil zwischen 65 und 75 Prozent ist, liegt bei ~ 43 Prozent. Eleganter:\n\nsample1 %&gt;% \n  summarise(Anteil = mean(gitter &gt; .65 & gitter &lt; .75))\n\n\n\n  \n\n\n\nDas “&”-Zeichen ist eine Und-Verknüpfung. R errechnet also die Wahrscheinlichkeit für \\(P(&gt;0,65\\cap&lt;0,75)\\) Die Funktion mean prüft, wie viele Fälle der Bedinung entsprechen und teilt die Anzahl dieser Fälle durch die Gesamtanzahl aller Fälle. Der Befehl summarise ist notwendig, um diese Information aus dem sample zu extrahieren. Den Namen der Outputspalte “Anteil” kann man auch weglassen."
   },
   {
     "objectID": "Aufg_Postverteilung.html#aufgabe-4",
@@ -158,14 +158,14 @@
     "href": "Aufg_Postverteilung.html#aufgabe-5",
     "title": "4  Postverteilung",
     "section": "4.5 Aufgabe 5",
-    "text": "4.5 Aufgabe 5\n\nA5L5\n\n\nWelcher Wasseranteil wird mit einer Wahrscheinlichkeit von 70 Prozent nicht überschritten?\n\n\n\nsample1%&gt;%\n  summarise(quant70 = quantile(gitter, prob = .7))\n\n\n\n  \n\n\n\nMit einer Wahrscheinlichkeit von 70 Prozent wird ein Wasseranteil von 77 Prozent nicht überschritten."
+    "text": "4.5 Aufgabe 5\n\nA5L5\n\n\nWelcher Wasseranteil wird mit einer Wahrscheinlichkeit von 70 Prozent nicht überschritten?\n\n\n\nsample1%&gt;%\n  summarise(quant70 = quantile(gitter, prob = .7))\n\n\n\n  \n\n\n\nMit einer Wahrscheinlichkeit von 70 Prozent wird ein Wasseranteil von 78 Prozent nicht überschritten."
   },
   {
     "objectID": "Aufg_Postverteilung.html#aufgabe-6",
     "href": "Aufg_Postverteilung.html#aufgabe-6",
     "title": "4  Postverteilung",
     "section": "4.6 Aufgabe 6",
-    "text": "4.6 Aufgabe 6\n\nA6L6\n\n\nBeantworten Sie Aufgabe 5 ein weiteres Mal, ohne dabei die Funktion quantile() zu verwenden.\n\n\n\nsample1%&gt;%\n  arrange(gitter)%&gt;%\n  slice_head(n = 7000)%&gt;%\n  arrange(-gitter)\n\n\n\n  \n\n\n\nWir sehen, der größte Wert der Spalte gitter, nachdem wir 7000 Werte abgeschnitten haben, ist 0.78. Das heißt ein Wasseranteil von 0.7 muss größer sein als 70 % Prozent der insgesamt 10.000 Werte."
+    "text": "4.6 Aufgabe 6\n\nA6L6\n\n\nBeantworten Sie Aufgabe 5 ein weiteres Mal, ohne dabei die Funktion quantile() zu verwenden.\n\n\n\nsample1%&gt;%\n  arrange(gitter)%&gt;%\n  slice_head(n = 7000)%&gt;%\n  arrange(-gitter)\n\n\n\n  \n\n\n\nWir sehen, der größte Wert der Spalte gitter, nachdem wir 7000 Werte abgeschnitten haben, ist 0.78. Das heißt ein Wasseranteil von 0.78 muss größer sein, als 70 % Prozent der insgesamt 10.000 Werte."
   },
   {
     "objectID": "Aufg_Postverteilung.html#aufgabe-7",

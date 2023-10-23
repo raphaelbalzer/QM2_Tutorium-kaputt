@@ -1,4 +1,4 @@
-# Postverteilung 
+# Postverteilung
 
 *Übungsaufgaben zum Ziehen und Verwenden von Stichproben*
 
@@ -8,26 +8,6 @@
 library(tidyverse)
 library(rstanarm)
 library(easystats)
-```
-
-Als Grundlage für die folgenden Aufgaben dient der Globusversuch aus Kapitel 6. Gegeben sei folgende Postverteilung:
-
-```{r}
-d <-
-  tibble(gitter = seq(0, 1, by = .1),
-         prior = 1)%>%
-  mutate(likelihood = dbinom(14, 20, prob = gitter),
-         unst_post = prior * likelihood,
-         post = unst_post / sum(unst_post))
-```
-
-```{r}
-Stichprobe <-
-  d%>%
-  slice_sample(n = 1e4,
-               weight_by = post,
-               replace = TRUE)
-Stichprobe
 ```
 
 ## Aufgabe 1
@@ -40,6 +20,8 @@ Ziehen Sie eine Stichprobe mit einer Größe von 10.000 Fällen. Grundlage ist d
 ### L1
 
 ```{r}
+set.seed(42)
+
 sample1 <-
   tibble(gitter = seq(0, 1, length.out = 10), #Gitter erstellen
          prior = 1)%>%
@@ -67,7 +49,12 @@ sample1%>%
   mutate(Anteil = n/10000)
 ```
 
-Die Wahrscheilichkeit, dass der Wasseranteil größer als 50 Prozent ist, liegt bei \~ 96 Prozent.
+Die Wahrscheilichkeit, dass der Wasseranteil größer als 50 Prozent ist, liegt bei \~ 97 Prozent. Kürzer wäre folgender Code:
+
+```{r}
+sample1 %>% 
+  summarise(mean(gitter > .5))
+```
 :::
 
 ## Aufgabe 3
@@ -87,7 +74,13 @@ sample1%>%
   summarise(`Anteil in Prozent` = n / 10000 * 100)
 ```
 
-Die Wahrscheinlichkeit, dass der Wasseranteil zwischen 65 und 75 Prozent ist, liegt bei \~ 42 Prozent.
+Die Wahrscheinlichkeit, dass der Wasseranteil zwischen 65 und 75 Prozent ist, liegt bei \~ 43 Prozent. Eleganter:
+
+```{r}
+sample1 %>% 
+  summarise(Anteil = mean(gitter > .65 & gitter < .75))
+```
+Das "&"-Zeichen ist eine Und-Verknüpfung. R errechnet also die Wahrscheinlichkeit für $P(>0,65\cap<0,75)$ Die Funktion `mean` prüft, wie viele Fälle der Bedinung entsprechen und teilt die Anzahl dieser Fälle durch die Gesamtanzahl aller Fälle. Der Befehl `summarise` ist notwendig, um diese Information aus dem sample zu extrahieren. Den Namen der Outputspalte "Anteil" kann man auch weglassen.
 :::
 
 ## Aufgabe 4
@@ -120,18 +113,18 @@ sample1%>%
   summarise(quant70 = quantile(gitter, prob = .7))
 ```
 
-Mit einer Wahrscheinlichkeit von 70 Prozent wird ein Wasseranteil von 77 Prozent nicht überschritten.
+Mit einer Wahrscheinlichkeit von 70 Prozent wird ein Wasseranteil von 78 Prozent nicht überschritten.
 :::
 
 ## Aufgabe 6
 
 ::: panel-tabset
-
 ### A6
 
 Beantworten Sie Aufgabe 5 ein weiteres Mal, ohne dabei die Funktion `quantile()` zu verwenden.
 
 ### L6
+
 ```{r}
 sample1%>%
   arrange(gitter)%>%
@@ -139,17 +132,18 @@ sample1%>%
   arrange(-gitter)
 ```
 
-Wir sehen, der größte Wert der Spalte gitter, nachdem wir 7000 Werte abgeschnitten haben, ist 0.78. Das heißt ein Wasseranteil von 0.7 muss größer sein als 70 % Prozent der insgesamt 10.000 Werte.
+Wir sehen, der größte Wert der Spalte gitter, nachdem wir 7000 Werte abgeschnitten haben, ist 0.78. Das heißt ein Wasseranteil von 0.78 muss größer sein, als 70 % Prozent der insgesamt 10.000 Werte.
 :::
 
 ## Aufgabe 7
 
 ::: panel-tabset
-
 ### A7
+
 Bilden Sie ein symmetrisches Perzentilinterval, das zeigt, zwischen welchen beiden Parameterwerten sich 90 Prozent der Verteilung befinden.
 
 ### L7
+
 ```{r}
 sample1%>%
   select(gitter)%>%
@@ -162,20 +156,23 @@ sample1%>%
 ## Aufgabe 8
 
 ::: panel-tabset
-
 ### A8
+
 Geben Sie die Breite des Intervalls mit der höchsten Wahrscheinlichkeitsdichte, das 95 % aller Werte beinhaltet, an.
 
 ### L8
+
 ```{r}
 sample1%>%
   select(gitter)%>%
   hdi()
 ```
+
 ```{r}
 0.56 - 0.89
 ```
-Die Breite des HDI ist 33. \
+
+Die Breite des HDI ist 33.\
 Hier noch eine andere Variante, die das Ergebnis direkt ausspuckt:
 
 ```{r}
