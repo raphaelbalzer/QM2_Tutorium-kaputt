@@ -27,6 +27,7 @@ book:
       chapters:
         - Aufg_Wahrscheinlichkeiten.qmd
         - Aufg_Verteilungen.qmd
+        - Aufg_Globusversuch.qmd
         - Aufg_Postverteilung.qmd
     - references.qmd
 

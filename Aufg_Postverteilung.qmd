@@ -23,7 +23,7 @@ Ziehen Sie eine Stichprobe mit einer Größe von 10.000 Fällen. Grundlage ist d
 set.seed(42)
 
 sample1 <-
-  tibble(gitter = seq(0, 1, length.out = 10), #Gitter erstellen
+  tibble(gitter = seq(0, 1, by = 0.1), #Gitter erstellen
          prior = 1)%>%
   mutate(likelihood = dbinom(14, size = 20, prob = gitter),
          unst_post = prior * likelihood,
@@ -49,7 +49,7 @@ sample1%>%
   mutate(Anteil = n/10000)
 ```
 
-Die Wahrscheilichkeit, dass der Wasseranteil größer als 50 Prozent ist, liegt bei \~ 97 Prozent. Kürzer wäre folgender Code:
+Die Wahrscheilichkeit, dass der Wasseranteil größer als 50 Prozent ist, liegt bei \~ 90 Prozent. Kürzer wäre folgender Code:
 
 ```{r}
 sample1 %>% 
@@ -75,7 +75,7 @@ sample1%>%
   summarise(`Anteil in Prozent` = n / 10000 * 100)
 ```
 
-Die Wahrscheinlichkeit, dass der Wasseranteil zwischen 65 und 75 Prozent ist, liegt bei \~ 43 Prozent. Eleganter:
+Die Wahrscheinlichkeit, dass der Wasseranteil zwischen 65 und 75 Prozent ist, liegt bei \~ 40 Prozent. Eleganter:
 
 ```{r}
 sample1 %>% 
@@ -114,7 +114,7 @@ sample1%>%
   summarise(quant70 = quantile(gitter, prob = .7))
 ```
 
-Mit einer Wahrscheinlichkeit von 70 Prozent wird ein Wasseranteil von 78 Prozent nicht überschritten.
+Mit einer Wahrscheinlichkeit von 70 Prozent wird ein Wasseranteil von 70 Prozent nicht überschritten.
 :::
 
 ## Aufgabe 6
@@ -133,7 +133,7 @@ sample1%>%
   arrange(-gitter)
 ```
 
-Wir sehen, der größte Wert der Spalte gitter, nachdem wir 7000 Werte abgeschnitten haben, ist 0.78. Das heißt ein Wasseranteil von 0.78 muss größer sein, als 70 % Prozent der insgesamt 10.000 Werte.
+Wir sehen, der größte Wert der Spalte gitter, nachdem wir 7000 Werte abgeschnitten haben, ist 0.7. Das heißt ein Wasseranteil von 0.7 muss größer sein, als 70 % Prozent der insgesamt 10.000 Werte.
 :::
 
 ## Aufgabe 7
@@ -141,17 +141,17 @@ Wir sehen, der größte Wert der Spalte gitter, nachdem wir 7000 Werte abgeschni
 ::: panel-tabset
 ### A7
 
-Bilden Sie ein symmetrisches Perzentilinterval, das zeigt, zwischen welchen beiden Parameterwerten sich 90 Prozent der Verteilung befinden.
+Bilden Sie ein symmetrisches Perzentilinterval, das zeigt, zwischen welchen beiden Parameterwerten sich 80 Prozent der Verteilung befinden.
 
 ### L7
 
 ```{r}
 sample1%>%
   select(gitter)%>%
-  eti(ci = .9)
+  eti(ci = .8)
 ```
 
-90 % aller Zeilen haben einen Wasseranteil von 56 bis 78 Prozent.
+80 % aller Zeilen haben einen Wasseranteil von 60 bis 80 Prozent.
 :::
 
 ## Aufgabe 8
@@ -170,10 +170,10 @@ sample1%>%
 ```
 
 ```{r}
-0.56 - 0.89
+0.50 - 0.80
 ```
 
-Die Breite des HDI ist 33.\
+Die Breite des HDI ist 0.3.\
 Hier noch eine andere Variante, die das Ergebnis direkt ausspuckt:
 
 ```{r}
