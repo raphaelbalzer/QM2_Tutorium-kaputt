@@ -280,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Nutzen Sie die Gittermethode gegliedert in 10 Hypothesen, um herauszufinden, welcher der wahrscheinlichste Wasseranteil des Globus ist, wenn wir bei 20 Durchführungen 14-mal Wasser getroffen haben.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div class="cell" data-paged.print="false">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
@@ -296,20 +296,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      <span class="co"># berechne stand. Posteriori-Werte (summiert zu 1):</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">Post =</span> unstd_Post <span class="sc">/</span> <span class="fu">sum</span>(unstd_Post))  </span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 5
-   p_Gitter Priori Likelihood unstd_Post          Post
-      &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;
- 1    0          1   0          0        0            
- 2    0.111      1   8.36e-10   8.36e-10 0.00000000195
- 3    0.222      1   6.15e- 6   6.15e- 6 0.0000143    
- 4    0.333      1   7.11e- 4   7.11e- 4 0.00166      
- 5    0.444      1   1.34e- 2   1.34e- 2 0.0312       
- 6    0.556      1   7.97e- 2   7.97e- 2 0.186        
- 7    0.667      1   1.82e- 1   1.82e- 1 0.425        
- 8    0.778      1   1.38e- 1   1.38e- 1 0.323        
- 9    0.889      1   1.40e- 2   1.40e- 2 0.0327       
-10    1          1   0          0        0            </code></pre>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["p_Gitter"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Priori"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Likelihood"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["unstd_Post"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Post"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.0000000","2":"1","3":"0.000000e+00","4":"0.000000e+00","5":"0.000000e+00"},{"1":"0.1111111","2":"1","3":"8.357445e-10","4":"8.357445e-10","5":"1.951185e-09"},{"1":"0.2222222","2":"1","3":"6.145281e-06","4":"6.145281e-06","5":"1.434718e-05"},{"1":"0.3333333","2":"1","3":"7.114406e-04","4":"7.114406e-04","5":"1.660977e-03"},{"1":"0.4444444","2":"1","3":"1.337191e-02","4":"1.337191e-02","5":"3.121896e-02"},{"1":"0.5555556","2":"1","3":"7.970280e-02","4":"7.970280e-02","5":"1.860795e-01"},{"1":"0.6666667","2":"1","3":"1.821288e-01","4":"1.821288e-01","5":"4.252101e-01"},{"1":"0.7777778","2":"1","3":"1.383841e-01","4":"1.383841e-01","5":"3.230807e-01"},{"1":"0.8888889","2":"1","3":"1.402147e-02","4":"1.402147e-02","5":"3.273545e-02"},{"1":"1.0000000","2":"1","3":"0.000000e+00","4":"0.000000e+00","5":"0.000000e+00"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 <p>Der wahrscheinlichste Wasseranteil (laut unserem Modell) ist 0,667. Die Wahrscheinlichkeit beträgt 42,5 %.</p>
@@ -327,9 +320,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_Gitter <span class="sc">&gt;</span> <span class="fl">0.5</span>)<span class="sc">%&gt;%</span> <span class="co">#zeige nur noch die Wasseranteile über 50 Prozent</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(Post)) <span class="co">#die Funktion sum() summiert alle Werte einer Spalte; in diesem Fall ist diese Spalte Post</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_Gitter <span class="sc">&gt;</span> <span class="fl">0.5</span>)<span class="sc">%&gt;%</span> <span class="co">#zeige nur noch die Wasseranteile über 50 Prozent</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(Post)) <span class="co">#die Funktion sum() summiert alle Werte einer Spalte; in diesem Fall ist diese Spalte Post</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
@@ -339,7 +332,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Die Wahrscheinlichkeit, dass der Wasseranteil auf dem Globus größer ist als 50 Prozent, liegt laut unserem Modell bei 96 %.</p>
+<p>Die Wahrscheinlichkeit, dass der Wasseranteil auf dem Globus größer ist als 50 Prozent, liegt laut unserem Modell bei 97 %.</p>
 </div>
 </div>
 </div>
@@ -354,9 +347,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_Gitter <span class="sc">&gt;</span> .<span class="dv">5</span> <span class="sc">&amp;</span> p_Gitter <span class="sc">&lt;</span> .<span class="dv">7</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(Post))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_Gitter <span class="sc">&gt;</span> .<span class="dv">5</span> <span class="sc">&amp;</span> p_Gitter <span class="sc">&lt;</span> .<span class="dv">7</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(Post))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
@@ -381,9 +374,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_Gitter <span class="sc">&lt;=</span> .<span class="dv">7</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(Post))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_Gitter <span class="sc">&lt;=</span> .<span class="dv">7</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(Post))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
@@ -407,36 +400,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Verwenden Sie die Gittermethode für den exakt gleichen Versuch noch einmal, aber verwenden Sie nun zur Errechnung der Posteriori-Wahrscheinlichkeit das Bayestheorem in R.</p>
 </div>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
-<div class="cell" data-paged.print="false">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># definiere das Gitter: </span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_Gitter =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">10</span>),</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># bestimme den Priori-Wert:       </span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Priori  =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span>  </span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>      <span class="co"># berechne Likelihood für jeden Gitterwert:</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">Likelihood =</span> <span class="fu">dbinom</span>(<span class="dv">14</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> p_Gitter),</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>      <span class="co"># berechne stand. Posteriori-Werte über das Bayestheorem:</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">Posteriori =</span> Likelihood <span class="sc">*</span> Priori <span class="sc">/</span> <span class="fu">mean</span>(Likelihood)) <span class="co">#Likelihood * Priori bildet den Teil über dem Bruchstrich ab</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                                                           <span class="co">#die Evidenz errechnet sich als Mittelwert aller Likelihoods</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 4
-   p_Gitter Priori Likelihood   Posteriori
-      &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt;
- 1    0          1   0        0           
- 2    0.111      1   8.36e-10 0.0000000195
- 3    0.222      1   6.15e- 6 0.000143    
- 4    0.333      1   7.11e- 4 0.0166      
- 5    0.444      1   1.34e- 2 0.312       
- 6    0.556      1   7.97e- 2 1.86        
- 7    0.667      1   1.82e- 1 4.25        
- 8    0.778      1   1.38e- 1 3.23        
- 9    0.889      1   1.40e- 2 0.327       
-10    1          1   0        0           </code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># definiere das Gitter: </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_Gitter =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">10</span>),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># bestimme den Priori-Wert:       </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Priori  =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      <span class="co"># berechne Likelihood für jeden Gitterwert:</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">Likelihood =</span> <span class="fu">dbinom</span>(<span class="dv">14</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> p_Gitter),</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      <span class="co"># berechne stand. Posteriori-Werte über das Bayestheorem:</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">Posteriori =</span> Likelihood <span class="sc">*</span> Priori <span class="sc">/</span> <span class="fu">mean</span>(Likelihood)) <span class="co">#Likelihood * Priori bildet den Teil über dem Bruchstrich ab</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                                                           <span class="co">#die Evidenz errechnet sich als Mittelwert aller Likelihoods</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["p_Gitter"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Priori"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Likelihood"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Posteriori"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.0000000","2":"1","3":"0.000000e+00","4":"0.000000e+00"},{"1":"0.1111111","2":"1","3":"8.357445e-10","4":"1.951185e-08"},{"1":"0.2222222","2":"1","3":"6.145281e-06","4":"1.434718e-04"},{"1":"0.3333333","2":"1","3":"7.114406e-04","4":"1.660977e-02"},{"1":"0.4444444","2":"1","3":"1.337191e-02","4":"3.121896e-01"},{"1":"0.5555556","2":"1","3":"7.970280e-02","4":"1.860795e+00"},{"1":"0.6666667","2":"1","3":"1.821288e-01","4":"4.252101e+00"},{"1":"0.7777778","2":"1","3":"1.383841e-01","4":"3.230807e+00"},{"1":"0.8888889","2":"1","3":"1.402147e-02","4":"3.273545e-01"},{"1":"1.0000000","2":"1","3":"0.000000e+00","4":"0.000000e+00"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 </div>
@@ -453,21 +439,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># definiere das Gitter: </span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_Gitter =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">10</span>),</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># bestimme den Priori-Wert:       </span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Priori  =</span> <span class="fu">case_when</span>(p_Gitter <span class="sc">&lt;</span> <span class="fl">0.5</span> <span class="sc">~</span> <span class="dv">0</span>, <span class="co">#alle p_Gitter-Werte unter 0.5 werden mit 0 verrechnet</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                        p_Gitter <span class="sc">&gt;=</span> <span class="fl">0.5</span> <span class="sc">~</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span>  <span class="co">#alle p_Gitter-Werte über oder gleich 0.5 sind gleichwahrscheinlich und werden mit 1 verrechnet</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>      <span class="co"># berechne Likelihood für jeden Gitterwert:</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">Likelihood =</span> <span class="fu">dbinom</span>(<span class="dv">14</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> p_Gitter),</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>      <span class="co"># berechne stand. Posteriori-Werte über das Bayestheorem:</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">Posteriori =</span> Likelihood <span class="sc">*</span> Priori <span class="sc">/</span> <span class="fu">mean</span>(Likelihood)<span class="sc">*</span><span class="fl">0.1</span>)</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>d3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># definiere das Gitter: </span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_Gitter =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">10</span>),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># bestimme den Priori-Wert:       </span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Priori  =</span> <span class="fu">case_when</span>(p_Gitter <span class="sc">&lt;</span> <span class="fl">0.5</span> <span class="sc">~</span> <span class="dv">0</span>, <span class="co">#alle p_Gitter-Werte unter 0.5 werden mit 0 verrechnet</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                        p_Gitter <span class="sc">&gt;=</span> <span class="fl">0.5</span> <span class="sc">~</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span>  <span class="co">#alle p_Gitter-Werte über oder gleich 0.5 sind gleichwahrscheinlich und werden mit 1 verrechnet</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>      <span class="co"># berechne Likelihood für jeden Gitterwert:</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">Likelihood =</span> <span class="fu">dbinom</span>(<span class="dv">14</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> p_Gitter),</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>      <span class="co"># berechne stand. Posteriori-Werte über das Bayestheorem:</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">Posteriori =</span> Likelihood <span class="sc">*</span> Priori <span class="sc">/</span> <span class="fu">mean</span>(Likelihood)<span class="sc">*</span><span class="fl">0.1</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>d3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
@@ -478,9 +464,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>d3<span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_Gitter <span class="sc">&gt;</span><span class="fl">0.5</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(Posteriori))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>d3<span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_Gitter <span class="sc">&gt;</span><span class="fl">0.5</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(Posteriori))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
@@ -507,8 +493,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="co">#Wie oft erhalten wir einen von fünf Treffern, wenn die Chance zu treffen 50/50 steht?</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">prob =</span> .<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="co">#Wie oft erhalten wir einen von fünf Treffern, wenn die Chance zu treffen 50/50 steht?</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">prob =</span> .<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.15625</code></pre>
 </div>
@@ -528,8 +514,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="co">#Wie oft erhalten wir einen von fünf Treffern mit einer Trefferwahrscheinlichkeit von 20 % ?</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">prob =</span> .<span class="dv">2</span>) <span class="co"># Trefferwahrscheinlichkeit liegt bei 20 %</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="co">#Wie oft erhalten wir einen von fünf Treffern mit einer Trefferwahrscheinlichkeit von 20 % ?</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">prob =</span> .<span class="dv">2</span>) <span class="co"># Trefferwahrscheinlichkeit liegt bei 20 %</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4096</code></pre>
 </div>
@@ -549,15 +535,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>USB <span class="ot">&lt;-</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">c_Treffer =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">100</span>),</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">Priori =</span> <span class="fu">case_when</span>(c_Treffer <span class="sc">&gt;</span> <span class="fl">0.3</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>                            c_Treffer <span class="sc">&lt;=</span> <span class="fl">0.3</span> <span class="sc">~</span> <span class="dv">1</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Likelihood =</span> <span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> c_Treffer),</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">unst_Post =</span> Priori <span class="sc">*</span> Likelihood,</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">Post =</span> unst_Post <span class="sc">/</span> <span class="fu">sum</span>(unst_Post))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>USB <span class="ot">&lt;-</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">c_Treffer =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">100</span>),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">Priori =</span> <span class="fu">case_when</span>(c_Treffer <span class="sc">&gt;</span> <span class="fl">0.3</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                            c_Treffer <span class="sc">&lt;=</span> <span class="fl">0.3</span> <span class="sc">~</span> <span class="dv">1</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Likelihood =</span> <span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> c_Treffer),</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">unst_Post =</span> Priori <span class="sc">*</span> Likelihood,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">Post =</span> unst_Post <span class="sc">/</span> <span class="fu">sum</span>(unst_Post))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Das Modell steht. Wir sehen, dass Beobachtungen mit einer Trefferchance von mehr als 30 % in der Post-Spalte eine Wahrscheinlichkeit von Null haben. Außerdem haben Beobachtungen mit einer Trefferchance von ca. 20 die höchste Wahrscheinlichkeit.</p>
 </div>
@@ -574,9 +560,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>USB<span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(c_Treffer <span class="sc">&gt;</span> <span class="fl">0.125</span> <span class="sc">&amp;</span> c_Treffer <span class="sc">&lt;</span> <span class="fl">0.275</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(Post))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>USB<span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(c_Treffer <span class="sc">&gt;</span> <span class="fl">0.125</span> <span class="sc">&amp;</span> c_Treffer <span class="sc">&lt;</span> <span class="fl">0.275</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(Post))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
@@ -600,8 +586,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>USB<span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>Post)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>USB<span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>Post)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
