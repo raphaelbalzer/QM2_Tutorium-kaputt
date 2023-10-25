@@ -119,8 +119,13 @@ d3 <-
     mutate(
       # berechne Likelihood für jeden Gitterwert:
       Likelihood = dbinom(14, size = 20, prob = p_Gitter),
-      # berechne stand. Posteriori-Werte über das Bayestheorem:
-      Posteriori = Likelihood * Priori / mean(Likelihood))
+     # berechen unstand. Posteriori-Werte:
+      unstd_Post = Likelihood * Priori,
+      # berechne stand. Posteriori-Werte (summiert zu 1):
+      Post = unstd_Post / sum(unstd_Post)) %>%
+    mutate(
+      # Runde die Posteriori-Werte auf 2 Dezimalstellen (oder eine andere gewünschte Anzahl):
+      Post = round(Post, digits = 2))
 d3
 ```
 :::
