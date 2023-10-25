@@ -1,4 +1,5 @@
 # Wahrscheinlichkeiten
+
 Kap. 2 -- 4 in Bourier (2018)
 
 ## Aufgabe 1
@@ -118,9 +119,9 @@ $$A \cap B \cap C = \left\{ \ \right\} = \varnothing$$
 
 **Gegeben ist folgende Vierfeldertafel:**
 
-|                |  S  | $\overline{S}$ | $\sum$ |
+|                | S   | $\overline{S}$ | $\sum$ |
 |----------------|-----|----------------|--------|
-|       M        | 60  | 20             | 80     |
+| M              | 60  | 20             | 80     |
 | $\overline{M}$ | 5   | 15             | 20     |
 | $\sum$         | 65  | 35             | 100    |
 
@@ -149,7 +150,6 @@ $$W(M) = \frac{Anzahl\ an\ Studis,\ für\ die\ M\ gilt}{Gesamtzahl\ der\ Studis}
 ### Aufgabe 8 b)
 
 ::: panel-tabset
-
 #### A8 b)
 
 Wie groß ist die Wahrscheinlichkeit jemanden aufzurufen, der/die Statistik, aber nicht Mathe bestanden hat?
@@ -157,14 +157,14 @@ Wie groß ist die Wahrscheinlichkeit jemanden aufzurufen, der/die Statistik, abe
 #### L8 b)
 
 Insgesamt gibt es fünf Studierende, für die Ereignis S und gleichzeitig Ereignis $\neg$M gilt. Was wir suchen, ist die Wahrscheinlichkeit dafür, von allen 100 Studis einen zu erwischen, der zu diesen fünf gehört.\
-$$W(S\cap \neg M) = \frac{5}{100} = 0,05$$
-Diese Wahrscheinlichkeit nennt sich **gemeinsame Wahrscheinlichkeit.**
+$$W(S\cap \neg M) = \frac{5}{100} = 0,05$$ Diese Wahrscheinlichkeit nennt sich **gemeinsame Wahrscheinlichkeit.**
 :::
 
 ## Aufgabe 9
-::: panel-tabset
 
+::: panel-tabset
 ### A9
+
 Wie groß ist die Wahrscheinlichkeit einen Studi aufzurufen, der Statistik bestanden hat, gegeben, dass er Mathe bestanden hat?\
 Gesucht ist die Wahrscheinlichkeit: $W(S|M)$.\
 
@@ -175,62 +175,56 @@ Frage: Wie groß ist die Wahrscheinlichkeit einen Studi aufzurufen, der Statisti
 → Welcher Anteil von denen, die Mathe bestanden haben, hat Statistik bestanden?\
 
 ODER\
-                                                                                                                                        
+
 → Wie wahrscheinlich ist es, dass jemand Statistik bestanden hat, wenn er zu denen gehört, die Mathe bestanden haben?\
 Allgemeines Muster: $W(A|B)$\
 → Wie wahrscheinlich ist es, dass für jemanden A gilt, wenn er zur Gruppe B gehört?\
 
 ### L9
+
 Die bedingte Wahrscheinlichkeit wird so errechnet:\
 $$W\left(S\middle|M\right) = \frac{Studis,\ die\ Statistik\ und\ Mathe\ bestanden\ haben}{Von\ all\ denen,\ die\ Mathe\ bestanden\ haben} = \frac{W(S\cap M)}{W(M)} = \frac{60}{80} = 0,75$$
 :::
 
 ## Aufgabe 10
 
-:::panel-tabset
-
+::: panel-tabset
 ### A10
 
 Wie groß ist die Wahrscheinlichkeit eine Person aufzurufen, die Mathe bestanden hat, gegeben, dass sie Statistik nicht bestanden hat?
 
 ### L10
 
-Anteil derer die Mathe bestanden haben, von allen, die Statistik nicht bestanden haben
-$$W\left( M \middle| \neg S \right) = \frac{20}{35} = 0,57$$
+Anteil derer die Mathe bestanden haben, von allen, die Statistik nicht bestanden haben $$W\left( M \middle| \neg S \right) = \frac{20}{35} = 0,57$$
 :::
 
 ## Aufgabe 11
 
 ::: panel-tabset
-
 ### A11
 
-**Für die Beziehung von Ereignis A zu B gilt folgendes:\**
+\*\*Für die Beziehung von Ereignis A zu B gilt folgendes:\*\*
 
-$$W\left( A \middle| B \right) = W(A|\neg B)$$
-Was können wir auf Grundlage dieser Aussage über die Beziehung zwischen A und B schließen?
+$$W\left( A \middle| B \right) = W(A|\neg B)$$ Was können wir auf Grundlage dieser Aussage über die Beziehung zwischen A und B schließen?
 
 ### L11
+
 Die Aussage der Gleichung lautet übersetzt:\
 Es ist genauso wahrscheinlich das A eintritt, wenn B eingetreten ist, wie das A eintritt, wenn B nicht eingetreten ist. Einfach gesprochen ist es für das Eintreten von A „egal" ob B eintritt oder nicht, weil es an der Eintrittswahrscheinlichkeit von A nichts ändert. Nun können wir daraus schließen, dass A und B unabhängig sein müssen. Praktisches Beispiel:\
 Wir haben eine Stichprobe an Patienten, die entweder Blutgruppe A oder B haben. Es gilt:\
-$$W(leichter\ Krankheitsverlauf|Blutgruppe\ A) = W(leichter\ Krankheitsverlauf|Blutgruppe\ B)$$
-Heißt: Die Wahrscheinlichkeit einen leichten Krankheitsverlauf zu haben, wenn man zur Blutgruppe A gehört, ist genauso hoch, wie die Wahrscheinlichkeit einen leichten Krankheitsverlauf zu haben, wenn man zu Blutgruppe B gehört. Das heißt, es ist egal, ob ein Patient Blutgruppe A oder B hat, die Wahrscheinlichkeit, einen leichten Krankheitsverlauf zu haben, bleibt die gleiche und wird somit nicht von der Blutgruppe bestimmt.
+$$W(leichter\ Krankheitsverlauf|Blutgruppe\ A) = W(leichter\ Krankheitsverlauf|Blutgruppe\ B)$$ Heißt: Die Wahrscheinlichkeit einen leichten Krankheitsverlauf zu haben, wenn man zur Blutgruppe A gehört, ist genauso hoch, wie die Wahrscheinlichkeit einen leichten Krankheitsverlauf zu haben, wenn man zu Blutgruppe B gehört. Das heißt, es ist egal, ob ein Patient Blutgruppe A oder B hat, die Wahrscheinlichkeit, einen leichten Krankheitsverlauf zu haben, bleibt die gleiche und wird somit nicht von der Blutgruppe bestimmt.
 :::
 
 ## Aufgabe 12
 
 **Extraaufgaben für bedingte Wahrscheinlichkeit**
 
-+:---------------------------+-------------------+--------------------------+:-------------+
-| **Ereignis**               | **Bestanden (B)** | **nicht bestanden (¬B)** | **Summe**    |
-+----------------------------+-------------------+--------------------------+--------------+
-| **hat gelernt (A)**        | 36                | 6                        | 42           |
-+----------------------------+-------------------+--------------------------+--------------+
-| **hat nicht gelernt (¬A)** | 12                | 24                       | 36           |
-+----------------------------+-------------------+--------------------------+--------------+
-| **Summe**                  | 48                | 30                       | 78           |
-+----------------------------+-------------------+--------------------------+--------------+
+|                            |                   |                          |           |
+|:--------------------|----------------|--------------------|:---------------|
+| **Ereignis**               | **Bestanden (B)** | **nicht bestanden (¬B)** | **Summe** |
+| **hat gelernt (A)**        | 36                | 6                        | 42        |
+| **hat nicht gelernt (¬A)** | 12                | 24                       | 36        |
+| **Summe**                  | 48                | 30                       | 78        |
 
 > **Wir haben vier mögliche Ereignisse:**\
 > Ereignis A: Eine Person hat gelernt.\
@@ -252,45 +246,51 @@ Es gibt verschiedene Fakten, die wir aus der Kontingenztabelle relativ einfach a
 
 ### Aufgabe 12 a)
 
-:::panel-tabset
+::: panel-tabset
 #### A12 a)
+
 Wie groß ist die Wahrscheinlichkeit, dass eine Person gelernt hat?\
 Wie groß ist die Wahrscheinlichkeit, dass eine Person nicht bestanden hat?
 
 #### L12 a)
-$$W(\neg B) = \frac{30}{78} = 0.38$$
-$$W(A) = \frac{42}{78} = 0.54$$
+
+$$W(\neg B) = \frac{30}{78} = 0.38$$ $$W(A) = \frac{42}{78} = 0.54$$
 :::
 
 ### Aufgabe 12 b)
 
 ::: panel-tabset
 #### A12 b)
+
 Wie wahrscheinlich ist es, dass eine Person bestanden hat, obwohl sie nicht gelernt hat?\
 Wie wahrscheinlich ist es, dass eine Person gelernt hat, gegeben, dass sie bestanden hat?
 
 #### L12 b)
-$$W(B|\neg A) = \frac{12}{36} = 0.33$$
-$$W(B|A) = \frac{36}{48} = 0.75$$
+
+$$W(B|\neg A) = \frac{12}{36} = 0.33$$ $$W(B|A) = \frac{36}{48} = 0.75$$
 :::
 
 ### Aufgabe 12 c)
+
 ::: panel-tabset
 #### A12 c)
+
 Wie wahrscheinlich ist es, dass eine Person bestanden und gelernt hat?\
 Wie wahrscheinlich ist es, dass eine Person nicht gelernt und nicht bestanden hat?
 
 #### L12 c)
-$$W(B\cap A) = \frac{36}{78} = 0.46$$
-$$W(\neg A\cap\neg B) = \frac{24}{78} = 0.31$$
+
+$$W(B\cap A) = \frac{36}{78} = 0.46$$ $$W(\neg A\cap\neg B) = \frac{24}{78} = 0.31$$
 :::
----------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
 > **Randwahrscheinlichkeit:** Anteil an Personen, auf die ein Ereignis (z.B. A, hat gelernt) zutrifft, von der Gesamtheit aller Personen
 
 > **Bedingte Wahrscheinlichkeit:** Anteil an Personen, auf die ein Ereignis zutrifft (z.B. A, hat gelernt), von denjenigen auf die ein anderes Ereignis (z.B. B, hat bestanden) bereits zutrifft
 >
--   Wie viele von denen, die bestanden haben (Ereignis B), haben auch gelernt (A)?
+> -   Wie viele von denen, die bestanden haben (Ereignis B), haben auch gelernt (A)?
 >
--   Wie viele haben gelernt (A), von denen die bestanden haben (B)?\
+> -   Wie viele haben gelernt (A), von denen die bestanden haben (B)?\
 
 > **Gemeinsame Wahrscheinlichkeit:** Anteil an Personen, auf die zwei Ereignisse zutreffen (z.B. A und B, hat gelernt und bestanden) von der Gesamtheit aller Personen
