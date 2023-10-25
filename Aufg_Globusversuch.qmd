@@ -120,12 +120,15 @@ d3 <-
       # berechne Likelihood für jeden Gitterwert:
       Likelihood = dbinom(14, size = 20, prob = p_Gitter),
       # berechne stand. Posteriori-Werte über das Bayestheorem:
-      Posteriori = Likelihood * Priori / mean(Likelihood)*0.1)
+      Posteriori = Likelihood * Priori / mean(Likelihood))
 d3
 ```
 :::
 
 ## Aufgabe 2
+
+Stellen Sie sich folgendes Szenario vor:\
+Sie wollen einen USB-Stick an Ihren Computer anschließen und erwischen die falsche Seite. Kein Problem, denken Sie, dann wird es wohl die andere sein. Also drehen Sie den Stick um und probieren es mit der anderen Seite. Aber schon wieder passt es nicht! Da kann doch irgendwas nicht stimmen.
 
 ### Aufgabe 2 a)
 
@@ -214,7 +217,7 @@ USB%>%
   arrange(-Post)
 ```
 
-Nach unserem Modell ist die wahrscheinlichste Trefferchance ca. 20 Prozent. Allerdings hat diese für sich genommen nur eine Wahrscheinlichkeit von 4 %. Wir wissen allerdings auch aus Aufgabe 4, dass sich ca. 60 % der Wahrscheinlichkeitsmasse in dem Intervall zwischen 12,5 % Trefferchance und 27,5 Prozent Trefferchance befinden.
+Nach unserem Modell ist die wahrscheinlichste Trefferchance ca. 20 Prozent. Allerdings hat diese für sich genommen nur eine Wahrscheinlichkeit von 4 %. Wir wissen allerdings auch aus Aufgabe 2d, dass sich ca. 60 % der Wahrscheinlichkeitsmasse in dem Intervall zwischen 12,5 % Trefferchance und 27,5 Prozent Trefferchance befinden.
 
 Wir können also nach unserem Modell schließen, dass die echte Trefferchance vermutlich sehr nahe bei 20 % liegt, allerdings mit einer Wahrscheinlichkeit von 60 Prozent, irgendwo in dem Intervall zwischen 12,5 % und 27,5 %.
 :::
