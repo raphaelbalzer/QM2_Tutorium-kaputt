@@ -253,8 +253,13 @@ Wie groß ist die Wahrscheinlichkeit, dass eine Person gelernt hat?\
 Wie groß ist die Wahrscheinlichkeit, dass eine Person nicht bestanden hat?
 
 #### L12 a)
+<<<<<<< HEAD
 
 $$W(\neg B) = \frac{30}{78} = 0.38$$ $$W(A) = \frac{42}{78} = 0.54$$
+=======
+$$W(A) = \frac{42}{78} = 0.54$$
+$$W(\neg B) = \frac{30}{78} = 0.38$$
+>>>>>>> 650dd5a1c9f19e1fc88a915821433ecfd2a97c67
 :::
 
 ### Aufgabe 12 b)

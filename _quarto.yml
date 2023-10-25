@@ -28,6 +28,7 @@ book:
         - Aufg_Wahrscheinlichkeiten.qmd
         - Aufg_Verteilungen.qmd
         - Aufg_Globusversuch.qmd
+        - Aufg_Postverteilung.qmd
     - references.qmd
 
 bibliography: references.bib
@@ -35,7 +36,7 @@ bibliography: references.bib
 format:
   html:
     theme:
-      light: cosmo
+      light: minty
       dark: vapor
     df-print: paged
   pdf:

@@ -205,6 +205,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Globusversuch</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Aufg_Postverteilung.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Postverteilung</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -279,7 +285,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">A1 a)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">L1 a)</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Erstellen Sie eine Normalverteilung in R mit einem Mittelwert von 175 und einer Standardabweichung von 10. Nennen Sie diese Verteilung “Größe”.</p>
+<p>Erstellen Sie eine Normalverteilung in R mit einem Mittelwert von 175 und einer Standardabweichung von 10. Nennen Sie diese Verteilung “Größe”. Simulieren Sie hunderttausend Fälle.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell">
@@ -288,7 +294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Größe <span class="ot">&lt;-</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="co"># erstelle eine Tabelle</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Verteilung =</span> <span class="fu">rnorm</span>( <span class="co">#erstelle mit rnorm eine Normalverteilung in R</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="fl">1e5</span>, <span class="co">#insgesamt soll diese Verteilung Hundertausend Werte haben </span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="fl">1e5</span>, <span class="co">#insgesamt soll diese Verteilung Hunderttausend Werte haben </span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">mean =</span> <span class="dv">175</span>, <span class="co">#Mittelwert dieser Menge sind 175 Zentimeter</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sd =</span> <span class="dv">10</span>)) <span class="co">#die Werte streuen mit einer Standardabweichung von 10 Zentimetern</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -405,9 +411,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="tab-content">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <p>Wie groß ist die Wahrscheinlichkeit eine Person zu erwischen, die mit ihrer Größe mindestens zwei Standardabweichungen über dem Durchschnitt liegt?</p>
-<p>Eine Person die mindestens zwei Standardabweichungen über dem Durchschnitt liegt… Wir haben einen Durchschnitt von 175 und eine Standardabweichung von 10. Das heißt, wir brauchen jemanden, der mindestens 195 groß ist (Größe &gt;= 175 + 10 + 10).</p>
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<p>Eine Person die mindestens zwei Standardabweichungen über dem Durchschnitt liegt… Wir haben einen Durchschnitt von 175 und eine Standardabweichung von 10. Das heißt, wir brauchen jemanden, der mindestens 195 groß ist (Größe &gt;= 175 + 10 + 10).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Größe<span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Verteilung <span class="sc">&gt;=</span> <span class="dv">195</span>)<span class="sc">%&gt;%</span></span>
@@ -433,9 +439,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="tab-content">
 <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
 <p>In welchem Intervall liegen grob 95% aller Werte?</p>
-<p>Für normalverteilte Populationen gilt: Innerhalb der ersten Standardabweichung, also in unserem Fall 175 +- 10, liegen rund 68 % aller Werte. Innerhalb der zweiten Standardabweichung grob 95 % aller Werte. Innerhalb der dritten liegen 99.7 % aller Werte. Für uns bedeutet das, dass der Wertebereich zwischen 155 und 195 95 % aller Werte enthält.</p>
 </div>
 <div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<p>Für normalverteilte Populationen gilt: Innerhalb der ersten Standardabweichung, also in unserem Fall 175 +- 10, liegen rund 68 % aller Werte. Innerhalb der zweiten Standardabweichung grob 95 % aller Werte. Innerhalb der dritten liegen 99.7 % aller Werte. Für uns bedeutet das, dass der Wertebereich zwischen 155 und 195 95 % aller Werte enthält.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Größe<span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Verteilung <span class="sc">&gt;=</span> <span class="dv">155</span> <span class="sc">&amp;</span> Verteilung <span class="sc">&lt;=</span> <span class="dv">195</span>)<span class="sc">%&gt;%</span></span>
@@ -590,12 +596,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="tab-content">
 <div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
 <p>Welches Betriebsjahr erreichen 84 % der Autos nicht mehr?</p>
+</div>
+<div id="tabset-12-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-2-tab">
 <p>Diese Frage möchte wissen, unterhalb von welchem Wert 84 % aller anderen Werte liegen. Eine Möglichkeit wäre, die Tabelle zu öffnen und aufsteigend zu ordnen. Dann schauen wir, welcher Wert bei der Beobachtung 8400 angegeben ist (8400 von 10000 = 84 %). Da wir aufsteigend geordnet haben, müssen 84 % der Werte kleiner sein, als der, der bei 8400 angegeben ist.</p>
 <p>Laut der Tabelle ist dieser Wert rund 14,5. Das heißt 84 % der deutschen Wägen gehen innerhalb der ersten vierzehneinhalb Jahre kaputt.</p>
 <p>ODER wir nutzen die Quantilfunktion:</p>
 <p>Die Quantilfunktion macht in einfache Worten gefasst folgendes: Sie nimmt einen Anteil einer Verteilung (z.B. 84 %) und schneidet die Verteilung genau an diesem Punkt ab. D.h. sie zeigt den Wert, der größer ist als 84 aller anderen Werte, aber kleiner ist als die übrigen 16 %. Somit bildet man das ein 84-Prozent-Quantil.</p>
-</div>
-<div id="tabset-12-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-2-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>PKW_Dauer<span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">quan84 =</span> <span class="fu">quantile</span>(Dauer, <span class="at">prob =</span> .<span class="dv">84</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

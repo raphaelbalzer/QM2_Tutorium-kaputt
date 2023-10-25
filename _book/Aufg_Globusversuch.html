@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
+<link href="./Aufg_Postverteilung.html" rel="next">
 <link href="./Aufg_Verteilungen.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -205,6 +205,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Globusversuch</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Aufg_Postverteilung.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Postverteilung</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -230,7 +236,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#aufgabe-1-c" id="toc-aufgabe-1-c" class="nav-link" data-scroll-target="#aufgabe-1-c"><span class="header-section-number">3.1.3</span> Aufgabe 1 c)</a></li>
   <li><a href="#aufgabe-1-d" id="toc-aufgabe-1-d" class="nav-link" data-scroll-target="#aufgabe-1-d"><span class="header-section-number">3.1.4</span> Aufgabe 1 d)</a></li>
   <li><a href="#aufgabe-1-e" id="toc-aufgabe-1-e" class="nav-link" data-scroll-target="#aufgabe-1-e"><span class="header-section-number">3.1.5</span> Aufgabe 1 e)</a></li>
-  <li><a href="#aufgabe-1-f" id="toc-aufgabe-1-f" class="nav-link" data-scroll-target="#aufgabe-1-f"><span class="header-section-number">3.1.6</span> Aufgabe 1 f)</a></li>
   </ul></li>
   <li><a href="#aufgabe-2" id="toc-aufgabe-2" class="nav-link" data-scroll-target="#aufgabe-2"><span class="header-section-number">3.2</span> Aufgabe 2</a>
   <ul class="collapse">
@@ -274,12 +279,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Nutzen Sie die Gittermethode gegliedert in 10 Hypothesen, um herauszufinden, welcher der wahrscheinlichste Wasseranteil des Globus ist, wenn wir bei 20 Durchführungen 14-mal Wasser getroffen haben.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div class="cell" data-paged.print="false">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># definiere das Gitter: </span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_Gitter =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">10</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_Gitter =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>),</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># bestimme den Priori-Wert:       </span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Priori  =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span>  </span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
@@ -288,25 +293,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>      <span class="co"># berechen unstand. Posteriori-Werte:</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">unstd_Post =</span> Likelihood <span class="sc">*</span> Priori,</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      <span class="co"># berechne stand. Posteriori-Werte (summiert zu 1):</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">Post =</span> unstd_Post <span class="sc">/</span> <span class="fu">sum</span>(unstd_Post))  </span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 5
-   p_Gitter Priori Likelihood unstd_Post          Post
-      &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;
- 1    0          1   0          0        0            
- 2    0.111      1   8.36e-10   8.36e-10 0.00000000195
- 3    0.222      1   6.15e- 6   6.15e- 6 0.0000143    
- 4    0.333      1   7.11e- 4   7.11e- 4 0.00166      
- 5    0.444      1   1.34e- 2   1.34e- 2 0.0312       
- 6    0.556      1   7.97e- 2   7.97e- 2 0.186        
- 7    0.667      1   1.82e- 1   1.82e- 1 0.425        
- 8    0.778      1   1.38e- 1   1.38e- 1 0.323        
- 9    0.889      1   1.40e- 2   1.40e- 2 0.0327       
-10    1          1   0          0        0            </code></pre>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">Post =</span> unstd_Post <span class="sc">/</span> <span class="fu">sum</span>(unstd_Post)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Runde die Posteriori-Werte auf 2 Dezimalstellen (oder eine andere gewünschte Anzahl):</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">Post =</span> <span class="fu">round</span>(Post, <span class="at">digits =</span> <span class="dv">2</span>))  </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>d <span class="sc">%&gt;%</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>Post)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["p_Gitter"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Priori"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Likelihood"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["unstd_Post"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Post"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.7","2":"1","3":"1.916390e-01","4":"1.916390e-01","5":"0.40"},{"1":"0.6","2":"1","3":"1.244117e-01","4":"1.244117e-01","5":"0.26"},{"1":"0.8","2":"1","3":"1.090997e-01","4":"1.090997e-01","5":"0.23"},{"1":"0.5","2":"1","3":"3.696442e-02","4":"3.696442e-02","5":"0.08"},{"1":"0.9","2":"1","3":"8.867045e-03","4":"8.867045e-03","5":"0.02"},{"1":"0.4","2":"1","3":"4.854351e-03","4":"4.854351e-03","5":"0.01"},{"1":"0.0","2":"1","3":"0.000000e+00","4":"0.000000e+00","5":"0.00"},{"1":"0.1","2":"1","3":"2.059865e-10","4":"2.059865e-10","5":"0.00"},{"1":"0.2","2":"1","3":"1.664729e-06","4":"1.664729e-06","5":"0.00"},{"1":"0.3","2":"1","3":"2.181070e-04","4":"2.181070e-04","5":"0.00"},{"1":"1.0","2":"1","3":"0.000000e+00","4":"0.000000e+00","5":"0.00"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
 </div>
-<p>Der wahrscheinlichste Wasseranteil (laut unserem Modell) ist 0,667. Die Wahrscheinlichkeit beträgt 42,5 %.</p>
+</div>
+<p>Der wahrscheinlichste Wasseranteil (laut unserem Modell) ist 0,7. Die Wahrscheinlichkeit beträgt 40 %.</p>
 </div>
 </div>
 </div>
@@ -321,19 +323,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_Gitter <span class="sc">&gt;</span> <span class="fl">0.5</span>)<span class="sc">%&gt;%</span> <span class="co">#zeige nur noch die Wasseranteile über 50 Prozent</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(Post)) <span class="co">#die Funktion sum() summiert alle Werte einer Spalte; in diesem Fall ist diese Spalte Post</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_Gitter <span class="sc">&gt;</span> <span class="fl">0.5</span>)<span class="sc">%&gt;%</span> <span class="co">#zeige nur noch die Wasseranteile über 50 Prozent</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(Post)) <span class="co">#die Funktion sum() summiert alle Werte einer Spalte; in diesem Fall ist diese Spalte Post</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["sum(Post)"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.9671057"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["sum(Post)"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.91"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
-<p>Die Wahrscheinlichkeit, dass der Wasseranteil auf dem Globus größer ist als 50 Prozent, liegt laut unserem Modell bei 96 %.</p>
+<p>Die Wahrscheinlichkeit, dass der Wasseranteil auf dem Globus größer ist als 50 Prozent, liegt laut unserem Modell bei 91 %.</p>
 </div>
 </div>
 </div>
@@ -348,19 +350,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_Gitter <span class="sc">&gt;</span> .<span class="dv">5</span> <span class="sc">&amp;</span> p_Gitter <span class="sc">&lt;</span> .<span class="dv">7</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(Post))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_Gitter <span class="sc">&gt;</span> .<span class="dv">5</span> <span class="sc">&amp;</span> p_Gitter <span class="sc">&lt;</span> .<span class="dv">7</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(Post))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["sum(Post)"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.6112896"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["sum(Post)"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.26"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
-<p>Die Wahrscheinlichkeit, dass der Wasseranteil laut unserem Modell zwischen 50 und 70 Prozent liegt, ist ca. 61 Prozent.</p>
+<p>Die Wahrscheinlichkeit, dass der Wasseranteil laut unserem Modell zwischen 50 und 70 Prozent liegt, ist ca. 26 Prozent.</p>
 </div>
 </div>
 </div>
@@ -375,19 +377,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_Gitter <span class="sc">&lt;=</span> .<span class="dv">7</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(Post))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_Gitter <span class="sc">&lt;=</span> .<span class="dv">7</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(Post))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["sum(Post)"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.6441838"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["sum(Post)"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.35"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
-<p>Grob 64 Prozent der Posteriori-Verteilung liegt unterhalb eines Wasseranteils von 70 Prozent. Das heißt, ein Wasseranteil von 70 Prozent wird mit 64-prozentiger Wahrscheinlichkeit nicht überschritten.</p>
+<p>Grob 35 Prozent der Posteriori-Verteilung liegt unterhalb eines Wasseranteils von 70 Prozent. Das heißt, ein Wasseranteil von 70 Prozent wird mit 35-prozentiger Wahrscheinlichkeit nicht überschritten.</p>
 </div>
 </div>
 </div>
@@ -398,88 +400,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">A1 e)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">L1 e)</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
-<p>Verwenden Sie die Gittermethode für den exakt gleichen Versuch noch einmal, aber verwenden Sie nun zur Errechnung der Posteriori-Wahrscheinlichkeit das Bayestheorem in R.</p>
+<p>Nehmen Sie an, Sie könnten begründen, dass ein Wasseranteil unter 50 % nicht existiert. Formen Sie die Gittermethode so, dass Werte unterhalb von 50 % Wasseranteil eine Posteriori-Wahrscheinlichkeit von 0 bekommen. Tipp: Nutzen Sie die Funktion <code>case_when()</code>, um den Prior zu definieren.</p>
 </div>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
-<div class="cell" data-paged.print="false">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># definiere das Gitter: </span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_Gitter =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">10</span>),</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># bestimme den Priori-Wert:       </span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Priori  =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span>  </span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>      <span class="co"># berechne Likelihood für jeden Gitterwert:</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">Likelihood =</span> <span class="fu">dbinom</span>(<span class="dv">14</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> p_Gitter),</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>      <span class="co"># berechne stand. Posteriori-Werte über das Bayestheorem:</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">Posteriori =</span> Likelihood <span class="sc">*</span> Priori <span class="sc">/</span> <span class="fu">mean</span>(Likelihood)) <span class="co">#Likelihood * Priori bildet den Teil über dem Bruchstrich ab</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                                                           <span class="co">#die Evidenz errechnet sich als Mittelwert aller Likelihoods</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 4
-   p_Gitter Priori Likelihood   Posteriori
-      &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt;
- 1    0          1   0        0           
- 2    0.111      1   8.36e-10 0.0000000195
- 3    0.222      1   6.15e- 6 0.000143    
- 4    0.333      1   7.11e- 4 0.0166      
- 5    0.444      1   1.34e- 2 0.312       
- 6    0.556      1   7.97e- 2 1.86        
- 7    0.667      1   1.82e- 1 4.25        
- 8    0.778      1   1.38e- 1 3.23        
- 9    0.889      1   1.40e- 2 0.327       
-10    1          1   0        0           </code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="aufgabe-1-f" class="level3" data-number="3.1.6">
-<h3 data-number="3.1.6" class="anchored" data-anchor-id="aufgabe-1-f"><span class="header-section-number">3.1.6</span> Aufgabe 1 f)</h3>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">A1 f)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">L1 f)</a></li></ul>
-<div class="tab-content">
-<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
-<p>Nehmen Sie an, Sie könnten begründen, dass ein Wasseranteil unter 50 % nicht existiert. Formen Sie die Gittermethode so, dass Werte unterhalb von 50 % Wasseranteil iene Posteriori-Wahrscheinlichkeit von 0 bekommen. Tipp: Nutzen Sie die Funktion case_when(), um den Prior zu definieren.</p>
-</div>
-<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># definiere das Gitter: </span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_Gitter =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">10</span>),</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># bestimme den Priori-Wert:       </span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Priori  =</span> <span class="fu">case_when</span>(p_Gitter <span class="sc">&lt;</span> <span class="fl">0.5</span> <span class="sc">~</span> <span class="dv">0</span>, <span class="co">#alle p_Gitter-Werte unter 0.5 werden mit 0 verrechnet</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                        p_Gitter <span class="sc">&gt;=</span> <span class="fl">0.5</span> <span class="sc">~</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span>  <span class="co">#alle p_Gitter-Werte über oder gleich 0.5 sind gleichwahrscheinlich und werden mit 1 verrechnet</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>      <span class="co"># berechne Likelihood für jeden Gitterwert:</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">Likelihood =</span> <span class="fu">dbinom</span>(<span class="dv">14</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> p_Gitter),</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>      <span class="co"># berechne stand. Posteriori-Werte über das Bayestheorem:</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">Posteriori =</span> Likelihood <span class="sc">*</span> Priori <span class="sc">/</span> <span class="fu">mean</span>(Likelihood)<span class="sc">*</span><span class="fl">0.1</span>)</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>d3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># definiere das Gitter: </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_Gitter =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># bestimme den Priori-Wert:       </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Priori  =</span> <span class="fu">case_when</span>(p_Gitter <span class="sc">&lt;</span> <span class="fl">0.5</span> <span class="sc">~</span> <span class="dv">0</span>, <span class="co">#alle p_Gitter-Werte unter 0.5 werden mit 0 verrechnet</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                        p_Gitter <span class="sc">&gt;=</span> <span class="fl">0.5</span> <span class="sc">~</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span>  <span class="co">#alle p_Gitter-Werte über oder gleich 0.5 sind gleichwahrscheinlich und werden mit 1 verrechnet</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>      <span class="co"># berechne Likelihood für jeden Gitterwert:</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">Likelihood =</span> <span class="fu">dbinom</span>(<span class="dv">14</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> p_Gitter),</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>      <span class="co"># berechne stand. Posteriori-Werte über das Bayestheorem:</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">Posteriori =</span> Likelihood <span class="sc">*</span> Priori <span class="sc">/</span> <span class="fu">mean</span>(Likelihood)<span class="sc">*</span><span class="fl">0.1</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>d3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["p_Gitter"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Priori"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Likelihood"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Posteriori"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.0000000","2":"0","3":"0.000000e+00","4":"0.00000000"},{"1":"0.1111111","2":"0","3":"8.357445e-10","4":"0.00000000"},{"1":"0.2222222","2":"0","3":"6.145281e-06","4":"0.00000000"},{"1":"0.3333333","2":"0","3":"7.114406e-04","4":"0.00000000"},{"1":"0.4444444","2":"0","3":"1.337191e-02","4":"0.00000000"},{"1":"0.5555556","2":"1","3":"7.970280e-02","4":"0.18607949"},{"1":"0.6666667","2":"1","3":"1.821288e-01","4":"0.42521006"},{"1":"0.7777778","2":"1","3":"1.383841e-01","4":"0.32308071"},{"1":"0.8888889","2":"1","3":"1.402147e-02","4":"0.03273545"},{"1":"1.0000000","2":"1","3":"0.000000e+00","4":"0.00000000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>d3<span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_Gitter <span class="sc">&gt;</span><span class="fl">0.5</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(Posteriori))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-
-<div data-pagedtable="false">
-  <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["sum(Posteriori)"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.9671057"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["p_Gitter"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Priori"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Likelihood"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Posteriori"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.0","2":"0","3":"0.000000e+00","4":"0.00000000"},{"1":"0.1","2":"0","3":"2.059865e-10","4":"0.00000000"},{"1":"0.2","2":"0","3":"1.664729e-06","4":"0.00000000"},{"1":"0.3","2":"0","3":"2.181070e-04","4":"0.00000000"},{"1":"0.4","2":"0","3":"4.854351e-03","4":"0.00000000"},{"1":"0.5","2":"1","3":"3.696442e-02","4":"0.08541193"},{"1":"0.6","2":"1","3":"1.244117e-01","4":"0.28747223"},{"1":"0.7","2":"1","3":"1.916390e-01","4":"0.44281113"},{"1":"0.8","2":"1","3":"1.090997e-01","4":"0.25209152"},{"1":"0.9","2":"1","3":"8.867045e-03","4":"0.02048866"},{"1":"1.0","2":"1","3":"0.000000e+00","4":"0.00000000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -494,15 +438,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="aufgabe-2-a" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="aufgabe-2-a"><span class="header-section-number">3.2.1</span> Aufgabe 2 a)</h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">A2 a)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">L2 a)</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">A2 a)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">L2 a)</a></li></ul>
 <div class="tab-content">
-<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
-<p>Nutzen Sie die Funktion dbinom(), um zu ermitteln, wie groß die Wahrscheinlichkeit ist, das wir nur eines von fünf Malen treffen, obwohl die Trefferwahrscheinlichkeit bei 50 % liegen.</p>
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+<p>Nutzen Sie die Funktion <code>dbinom()</code>, um zu ermitteln, wie groß die Wahrscheinlichkeit ist, dass wir nur eines von fünf Malen treffen, obwohl die Trefferwahrscheinlichkeit bei 50 % liegen.</p>
 </div>
-<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="co">#Wie oft erhalten wir einen von fünf Treffern, wenn die Chance zu treffen 50/50 steht?</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">prob =</span> .<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> .<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.15625</code></pre>
 </div>
@@ -515,15 +458,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="aufgabe-2-b" class="level3" data-number="3.2.2">
 <h3 data-number="3.2.2" class="anchored" data-anchor-id="aufgabe-2-b"><span class="header-section-number">3.2.2</span> Aufgabe 2 b)</h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">A2 b)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">L2 b)</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">A2 b)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">L2 b)</a></li></ul>
 <div class="tab-content">
-<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
 <p>Berechnen wir ein Mal die Wahrscheinlichkeit eines von fünf Malen zu treffen, wenn die Trefferahrscheinlichkeit bei 20 Prozent läge.</p>
 </div>
-<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
+<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="co">#Wie oft erhalten wir einen von fünf Treffern mit einer Trefferwahrscheinlichkeit von 20 % ?</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">prob =</span> .<span class="dv">2</span>) <span class="co"># Trefferwahrscheinlichkeit liegt bei 20 %</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="dv">5</span>, .<span class="dv">2</span>) <span class="co"># Trefferwahrscheinlichkeit liegt bei 20 %</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4096</code></pre>
 </div>
@@ -536,24 +478,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="aufgabe-2-c" class="level3" data-number="3.2.3">
 <h3 data-number="3.2.3" class="anchored" data-anchor-id="aufgabe-2-c"><span class="header-section-number">3.2.3</span> Aufgabe 2 c)</h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">A2 c)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">L2 c)</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">A2 c)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">L2 c)</a></li></ul>
 <div class="tab-content">
-<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
-<p>Definieren wir nun ein Modell, dass 100 Variationen der trefferchance (d.h. 100 Paramterwerte) beinhaltet. Außerdem schließen wir von vornherein aus, dass die Trefferchance größer ist als 30 %.</p>
+<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+<p>Definieren wir nun ein Modell, dass 100 Variationen der Trefferchance (d.h. 100 Paramterwerte/Hypothesen) beinhaltet. Außerdem schließen wir von vornherein aus, dass die Trefferchance größer ist als 30 %.</p>
 </div>
-<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
+<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>USB <span class="ot">&lt;-</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">c_Treffer =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">100</span>),</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">Priori =</span> <span class="fu">case_when</span>(c_Treffer <span class="sc">&gt;</span> <span class="fl">0.3</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>                            c_Treffer <span class="sc">&lt;=</span> <span class="fl">0.3</span> <span class="sc">~</span> <span class="dv">1</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Likelihood =</span> <span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> c_Treffer),</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">unst_Post =</span> Priori <span class="sc">*</span> Likelihood,</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">Post =</span> unst_Post <span class="sc">/</span> <span class="fu">sum</span>(unst_Post))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>USB <span class="ot">&lt;-</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">c_Treffer =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.01</span>),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">Priori =</span> <span class="fu">case_when</span>(c_Treffer <span class="sc">&gt;</span> <span class="fl">0.3</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                            c_Treffer <span class="sc">&lt;=</span> <span class="fl">0.3</span> <span class="sc">~</span> <span class="dv">1</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Likelihood =</span> <span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> c_Treffer),</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">unst_Post =</span> Priori <span class="sc">*</span> Likelihood,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">Post =</span> unst_Post <span class="sc">/</span> <span class="fu">sum</span>(unst_Post))</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>USB</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["c_Treffer"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Priori"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Likelihood"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["unst_Post"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Post"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.00","2":"1","3":"0.0000000000","4":"0.00000000","5":"0.000000000"},{"1":"0.01","2":"1","3":"0.0480298005","4":"0.04802980","5":"0.004881601"},{"1":"0.02","2":"1","3":"0.0922368160","4":"0.09223682","5":"0.009374666"},{"1":"0.03","2":"1","3":"0.1327939215","4":"0.13279392","5":"0.013496766"},{"1":"0.04","2":"1","3":"0.1698693120","4":"0.16986931","5":"0.017264994"},{"1":"0.05","2":"1","3":"0.2036265625","4":"0.20362656","5":"0.020695978"},{"1":"0.06","2":"1","3":"0.2342246880","4":"0.23422469","5":"0.023805877"},{"1":"0.07","2":"1","3":"0.2618182035","4":"0.26181820","5":"0.026610397"},{"1":"0.08","2":"1","3":"0.2865571840","4":"0.28655718","5":"0.029124791"},{"1":"0.09","2":"1","3":"0.3085873245","4":"0.30858732","5":"0.031363867"},{"1":"0.10","2":"1","3":"0.3280500000","4":"0.32805000","5":"0.033341993"},{"1":"0.11","2":"1","3":"0.3450823255","4":"0.34508233","5":"0.035073106"},{"1":"0.12","2":"1","3":"0.3598172160","4":"0.35981722","5":"0.036570715"},{"1":"0.13","2":"1","3":"0.3723834465","4":"0.37238345","5":"0.037847908"},{"1":"0.14","2":"1","3":"0.3829057120","4":"0.38290571","5":"0.038917359"},{"1":"0.15","2":"1","3":"0.3915046875","4":"0.39150469","5":"0.039791332"},{"1":"0.16","2":"1","3":"0.3982970880","4":"0.39829709","5":"0.040481691"},{"1":"0.17","2":"1","3":"0.4033957285","4":"0.40339573","5":"0.040999901"},{"1":"0.18","2":"1","3":"0.4069095840","4":"0.40690958","5":"0.041357039"},{"1":"0.19","2":"1","3":"0.4089438495","4":"0.40894385","5":"0.041563795"},{"1":"0.20","2":"1","3":"0.4096000000","4":"0.40960000","5":"0.041630484"},{"1":"0.21","2":"1","3":"0.4089758505","4":"0.40897585","5":"0.041567048"},{"1":"0.22","2":"1","3":"0.4071656160","4":"0.40716562","5":"0.041383061"},{"1":"0.23","2":"1","3":"0.4042599715","4":"0.40425997","5":"0.041087740"},{"1":"0.24","2":"1","3":"0.4003461120","4":"0.40034611","5":"0.040689948"},{"1":"0.25","2":"1","3":"0.3955078125","4":"0.39550781","5":"0.040198198"},{"1":"0.26","2":"1","3":"0.3898254880","4":"0.38982549","5":"0.039620664"},{"1":"0.27","2":"1","3":"0.3833762535","4":"0.38337625","5":"0.038965183"},{"1":"0.28","2":"1","3":"0.3762339840","4":"0.37623398","5":"0.038239265"},{"1":"0.29","2":"1","3":"0.3684693745","4":"0.36846937","5":"0.037450094"},{"1":"0.30","2":"1","3":"0.3601500000","4":"0.36015000","5":"0.036604538"},{"1":"0.31","2":"0","3":"0.3513403755","4":"0.00000000","5":"0.000000000"},{"1":"0.32","2":"0","3":"0.3421020160","4":"0.00000000","5":"0.000000000"},{"1":"0.33","2":"0","3":"0.3324934965","4":"0.00000000","5":"0.000000000"},{"1":"0.34","2":"0","3":"0.3225705120","4":"0.00000000","5":"0.000000000"},{"1":"0.35","2":"0","3":"0.3123859375","4":"0.00000000","5":"0.000000000"},{"1":"0.36","2":"0","3":"0.3019898880","4":"0.00000000","5":"0.000000000"},{"1":"0.37","2":"0","3":"0.2914297785","4":"0.00000000","5":"0.000000000"},{"1":"0.38","2":"0","3":"0.2807503840","4":"0.00000000","5":"0.000000000"},{"1":"0.39","2":"0","3":"0.2699938995","4":"0.00000000","5":"0.000000000"},{"1":"0.40","2":"0","3":"0.2592000000","4":"0.00000000","5":"0.000000000"},{"1":"0.41","2":"0","3":"0.2484059005","4":"0.00000000","5":"0.000000000"},{"1":"0.42","2":"0","3":"0.2376464160","4":"0.00000000","5":"0.000000000"},{"1":"0.43","2":"0","3":"0.2269540215","4":"0.00000000","5":"0.000000000"},{"1":"0.44","2":"0","3":"0.2163589120","4":"0.00000000","5":"0.000000000"},{"1":"0.45","2":"0","3":"0.2058890625","4":"0.00000000","5":"0.000000000"},{"1":"0.46","2":"0","3":"0.1955702880","4":"0.00000000","5":"0.000000000"},{"1":"0.47","2":"0","3":"0.1854263035","4":"0.00000000","5":"0.000000000"},{"1":"0.48","2":"0","3":"0.1754787840","4":"0.00000000","5":"0.000000000"},{"1":"0.49","2":"0","3":"0.1657474245","4":"0.00000000","5":"0.000000000"},{"1":"0.50","2":"0","3":"0.1562500000","4":"0.00000000","5":"0.000000000"},{"1":"0.51","2":"0","3":"0.1470024255","4":"0.00000000","5":"0.000000000"},{"1":"0.52","2":"0","3":"0.1380188160","4":"0.00000000","5":"0.000000000"},{"1":"0.53","2":"0","3":"0.1293115465","4":"0.00000000","5":"0.000000000"},{"1":"0.54","2":"0","3":"0.1208913120","4":"0.00000000","5":"0.000000000"},{"1":"0.55","2":"0","3":"0.1127671875","4":"0.00000000","5":"0.000000000"},{"1":"0.56","2":"0","3":"0.1049466880","4":"0.00000000","5":"0.000000000"},{"1":"0.57","2":"0","3":"0.0974358285","4":"0.00000000","5":"0.000000000"},{"1":"0.58","2":"0","3":"0.0902391840","4":"0.00000000","5":"0.000000000"},{"1":"0.59","2":"0","3":"0.0833599495","4":"0.00000000","5":"0.000000000"},{"1":"0.60","2":"0","3":"0.0768000000","4":"0.00000000","5":"0.000000000"},{"1":"0.61","2":"0","3":"0.0705599505","4":"0.00000000","5":"0.000000000"},{"1":"0.62","2":"0","3":"0.0646392160","4":"0.00000000","5":"0.000000000"},{"1":"0.63","2":"0","3":"0.0590360715","4":"0.00000000","5":"0.000000000"},{"1":"0.64","2":"0","3":"0.0537477120","4":"0.00000000","5":"0.000000000"},{"1":"0.65","2":"0","3":"0.0487703125","4":"0.00000000","5":"0.000000000"},{"1":"0.66","2":"0","3":"0.0440990880","4":"0.00000000","5":"0.000000000"},{"1":"0.67","2":"0","3":"0.0397283535","4":"0.00000000","5":"0.000000000"},{"1":"0.68","2":"0","3":"0.0356515840","4":"0.00000000","5":"0.000000000"},{"1":"0.69","2":"0","3":"0.0318614745","4":"0.00000000","5":"0.000000000"},{"1":"0.70","2":"0","3":"0.0283500000","4":"0.00000000","5":"0.000000000"},{"1":"0.71","2":"0","3":"0.0251084755","4":"0.00000000","5":"0.000000000"},{"1":"0.72","2":"0","3":"0.0221276160","4":"0.00000000","5":"0.000000000"},{"1":"0.73","2":"0","3":"0.0193975965","4":"0.00000000","5":"0.000000000"},{"1":"0.74","2":"0","3":"0.0169081120","4":"0.00000000","5":"0.000000000"},{"1":"0.75","2":"0","3":"0.0146484375","4":"0.00000000","5":"0.000000000"},{"1":"0.76","2":"0","3":"0.0126074880","4":"0.00000000","5":"0.000000000"},{"1":"0.77","2":"0","3":"0.0107738785","4":"0.00000000","5":"0.000000000"},{"1":"0.78","2":"0","3":"0.0091359840","4":"0.00000000","5":"0.000000000"},{"1":"0.79","2":"0","3":"0.0076819995","4":"0.00000000","5":"0.000000000"},{"1":"0.80","2":"0","3":"0.0064000000","4":"0.00000000","5":"0.000000000"},{"1":"0.81","2":"0","3":"0.0052780005","4":"0.00000000","5":"0.000000000"},{"1":"0.82","2":"0","3":"0.0043040160","4":"0.00000000","5":"0.000000000"},{"1":"0.83","2":"0","3":"0.0034661215","4":"0.00000000","5":"0.000000000"},{"1":"0.84","2":"0","3":"0.0027525120","4":"0.00000000","5":"0.000000000"},{"1":"0.85","2":"0","3":"0.0021515625","4":"0.00000000","5":"0.000000000"},{"1":"0.86","2":"0","3":"0.0016518880","4":"0.00000000","5":"0.000000000"},{"1":"0.87","2":"0","3":"0.0012424035","4":"0.00000000","5":"0.000000000"},{"1":"0.88","2":"0","3":"0.0009123840","4":"0.00000000","5":"0.000000000"},{"1":"0.89","2":"0","3":"0.0006515245","4":"0.00000000","5":"0.000000000"},{"1":"0.90","2":"0","3":"0.0004500000","4":"0.00000000","5":"0.000000000"},{"1":"0.91","2":"0","3":"0.0002985255","4":"0.00000000","5":"0.000000000"},{"1":"0.92","2":"0","3":"0.0001884160","4":"0.00000000","5":"0.000000000"},{"1":"0.93","2":"0","3":"0.0001116465","4":"0.00000000","5":"0.000000000"},{"1":"0.94","2":"0","3":"0.0000609120","4":"0.00000000","5":"0.000000000"},{"1":"0.95","2":"0","3":"0.0000296875","4":"0.00000000","5":"0.000000000"},{"1":"0.96","2":"0","3":"0.0000122880","4":"0.00000000","5":"0.000000000"},{"1":"0.97","2":"0","3":"0.0000039285","4":"0.00000000","5":"0.000000000"},{"1":"0.98","2":"0","3":"0.0000007840","4":"0.00000000","5":"0.000000000"},{"1":"0.99","2":"0","3":"0.0000000495","4":"0.00000000","5":"0.000000000"},{"1":"1.00","2":"0","3":"0.0000000000","4":"0.00000000","5":"0.000000000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
-<p>Das Modell steht. Wir sehen, dass Beobachtungen mit einer Trefferchance von mehr als 30 % in der Post-Spalte eine Wahrscheinlichkeit von Null haben. Außerdem haben Beobachtungen mit einer Trefferchance von ca. 20 die höchste Wahrscheinlichkeit.</p>
+</div>
+</div>
+<p>Das Modell steht. Wir sehen, dass Beobachtungen mit einer Trefferchance von mehr als 30 % in der Post-Spalte eine Wahrscheinlichkeit von Null haben.</p>
 </div>
 </div>
 </div>
@@ -561,21 +512,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="aufgabe-2-d" class="level3" data-number="3.2.4">
 <h3 data-number="3.2.4" class="anchored" data-anchor-id="aufgabe-2-d"><span class="header-section-number">3.2.4</span> Aufgabe 2 d)</h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">A2 d)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">L2 d)</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">A2 d)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">L2 d)</a></li></ul>
 <div class="tab-content">
-<div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
+<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
 <p>Wie groß ist die Wahrscheinlichkeit, dass die echte Trefferchance (laut unserem Modell) zwischen 12,5 % und 27,5 % liegt?</p>
 </div>
-<div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
+<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>USB<span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(c_Treffer <span class="sc">&gt;</span> <span class="fl">0.125</span> <span class="sc">&amp;</span> c_Treffer <span class="sc">&lt;</span> <span class="fl">0.275</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(Post))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>USB<span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(c_Treffer <span class="sc">&gt;</span> <span class="fl">0.125</span> <span class="sc">&amp;</span> c_Treffer <span class="sc">&lt;</span> <span class="fl">0.275</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(Post))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["sum(Post)"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.6281782"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["sum(Post)"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.6061014"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -587,26 +538,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="aufgabe-2-e" class="level3" data-number="3.2.5">
 <h3 data-number="3.2.5" class="anchored" data-anchor-id="aufgabe-2-e"><span class="header-section-number">3.2.5</span> Aufgabe 2 e)</h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">A2 e)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">L2 e)</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">A2 e)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">L2 e)</a></li></ul>
 <div class="tab-content">
-<div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
+<div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
 <p>Welcher ist der wahrscheinlichste Anteil, laut unserem Modell?</p>
 </div>
-<div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
+<div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>USB<span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>Post)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>USB<span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>Post)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["c_Treffer"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Priori"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Likelihood"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["unst_Post"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Post"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.20202020","2":"1","3":"4.095740e-01","4":"0.40957401","5":"0.043153672"},{"1":"0.19191919","2":"1","3":"4.091736e-01","4":"0.40917358","5":"0.043111481"},{"1":"0.21212121","2":"1","3":"4.086879e-01","4":"0.40868786","5":"0.043060305"},{"1":"0.18181818","2":"1","3":"4.073865e-01","4":"0.40738648","5":"0.042923188"},{"1":"0.22222222","2":"1","3":"4.066115e-01","4":"0.40661146","5":"0.042841530"},{"1":"0.17171717","2":"1","3":"4.041089e-01","4":"0.40410885","5":"0.042577850"},{"1":"0.23232323","2":"1","3":"4.034375e-01","4":"0.40343747","5":"0.042507112"},{"1":"0.24242424","2":"1","3":"3.992550e-01","4":"0.39925497","5":"0.042066433"},{"1":"0.16161616","2":"1","3":"3.992330e-01","4":"0.39923296","5":"0.042064114"},{"1":"0.25252525","2":"1","3":"3.941494e-01","4":"0.39414944","5":"0.041528504"},{"1":"0.15151515","2":"1","3":"3.926471e-01","4":"0.39264714","5":"0.041370217"},{"1":"0.26262626","2":"1","3":"3.882029e-01","4":"0.38820294","5":"0.040901966"},{"1":"0.14141414","2":"1","3":"3.842357e-01","4":"0.38423575","5":"0.040483974"},{"1":"0.27272727","2":"1","3":"3.814941e-01","4":"0.38149406","5":"0.040195103"},{"1":"0.28282828","2":"1","3":"3.740981e-01","4":"0.37409806","5":"0.039415843"},{"1":"0.13131313","2":"1","3":"3.738791e-01","4":"0.37387910","5":"0.039392773"},{"1":"0.29292929","2":"1","3":"3.660869e-01","4":"0.36608690","5":"0.038571769"},{"1":"0.12121212","2":"1","3":"3.614534e-01","4":"0.36145338","5":"0.038083570"},{"1":"0.11111111","2":"1","3":"3.468306e-01","4":"0.34683060","5":"0.036542880"},{"1":"0.10101010","2":"1","3":"3.298785e-01","4":"0.32987854","5":"0.034756771"},{"1":"0.09090909","2":"1","3":"3.104607e-01","4":"0.31046066","5":"0.032710858"},{"1":"0.08080808","2":"1","3":"2.884361e-01","4":"0.28843608","5":"0.030390297"},{"1":"0.07070707","2":"1","3":"2.636595e-01","4":"0.26365947","5":"0.027779776"},{"1":"0.06060606","2":"1","3":"2.359810e-01","4":"0.23598102","5":"0.024863510"},{"1":"0.05050505","2":"1","3":"2.052464e-01","4":"0.20524635","5":"0.021625234"},{"1":"0.04040404","2":"1","3":"1.712965e-01","4":"0.17129648","5":"0.018048196"},{"1":"0.03030303","2":"1","3":"1.339677e-01","4":"0.13396774","5":"0.014115153"},{"1":"0.02020202","2":"1","3":"9.309170e-02","4":"0.09309170","5":"0.009808358"},{"1":"0.01010101","2":"1","3":"4.849515e-02","4":"0.04849515","5":"0.005109562"},{"1":"0.00000000","2":"1","3":"0.000000e+00","4":"0.00000000","5":"0.000000000"},{"1":"0.30303030","2":"0","3":"3.575293e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.31313131","2":"0","3":"3.484908e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.32323232","2":"0","3":"3.390340e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.33333333","2":"0","3":"3.292181e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.34343434","2":"0","3":"3.190997e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.35353535","2":"0","3":"3.087322e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.36363636","2":"0","3":"2.981664e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.37373737","2":"0","3":"2.874501e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.38383838","2":"0","3":"2.766285e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.39393939","2":"0","3":"2.657441e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.40404040","2":"0","3":"2.548368e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.41414141","2":"0","3":"2.439438e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.42424242","2":"0","3":"2.331003e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.43434343","2":"0","3":"2.223385e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.44444444","2":"0","3":"2.116886e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.45454545","2":"0","3":"2.011785e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.46464646","2":"0","3":"1.908338e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.47474747","2":"0","3":"1.806780e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.48484848","2":"0","3":"1.707324e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.49494949","2":"0","3":"1.610164e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.50505051","2":"0","3":"1.515474e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.51515152","2":"0","3":"1.423407e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.52525253","2":"0","3":"1.334101e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.53535354","2":"0","3":"1.247674e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.54545455","2":"0","3":"1.164227e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.55555556","2":"0","3":"1.083846e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.56565657","2":"0","3":"1.006598e-01","4":"0.00000000","5":"0.000000000"},{"1":"0.57575758","2":"0","3":"9.325369e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.58585859","2":"0","3":"8.617027e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.59595960","2":"0","3":"7.941198e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.60606061","2":"0","3":"7.297997e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.61616162","2":"0","3":"6.687415e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.62626263","2":"0","3":"6.109316e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.63636364","2":"0","3":"5.563455e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.64646465","2":"0","3":"5.049474e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.65656566","2":"0","3":"4.566916e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.66666667","2":"0","3":"4.115226e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.67676768","2":"0","3":"3.693761e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.68686869","2":"0","3":"3.301792e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.69696970","2":"0","3":"2.938517e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.70707071","2":"0","3":"2.603059e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.71717172","2":"0","3":"2.294481e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.72727273","2":"0","3":"2.011785e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.73737374","2":"0","3":"1.753922e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.74747475","2":"0","3":"1.519798e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.75757576","2":"0","3":"1.308279e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.76767677","2":"0","3":"1.118199e-02","4":"0.00000000","5":"0.000000000"},{"1":"0.77777778","2":"0","3":"9.483649e-03","4":"0.00000000","5":"0.000000000"},{"1":"0.78787879","2":"0","3":"7.975645e-03","4":"0.00000000","5":"0.000000000"},{"1":"0.79797980","2":"0","3":"6.645706e-03","4":"0.00000000","5":"0.000000000"},{"1":"0.80808081","2":"0","3":"5.481487e-03","4":"0.00000000","5":"0.000000000"},{"1":"0.81818182","2":"0","3":"4.470634e-03","4":"0.00000000","5":"0.000000000"},{"1":"0.82828283","2":"0","3":"3.600838e-03","4":"0.00000000","5":"0.000000000"},{"1":"0.83838384","2":"0","3":"2.859908e-03","4":"0.00000000","5":"0.000000000"},{"1":"0.84848485","2":"0","3":"2.235828e-03","4":"0.00000000","5":"0.000000000"},{"1":"0.85858586","2":"0","3":"1.716821e-03","4":"0.00000000","5":"0.000000000"},{"1":"0.86868687","2":"0","3":"1.291415e-03","4":"0.00000000","5":"0.000000000"},{"1":"0.87878788","2":"0","3":"9.485020e-04","4":"0.00000000","5":"0.000000000"},{"1":"0.88888889","2":"0","3":"6.774035e-04","4":"0.00000000","5":"0.000000000"},{"1":"0.89898990","2":"0","3":"4.679334e-04","4":"0.00000000","5":"0.000000000"},{"1":"0.90909091","2":"0","3":"3.104607e-04","4":"0.00000000","5":"0.000000000"},{"1":"0.91919192","2":"0","3":"1.959726e-04","4":"0.00000000","5":"0.000000000"},{"1":"0.92929293","2":"0","3":"1.161379e-04","4":"0.00000000","5":"0.000000000"},{"1":"0.93939394","2":"0","3":"6.336975e-05","4":"0.00000000","5":"0.000000000"},{"1":"0.94949495","2":"0","3":"3.088886e-05","4":"0.00000000","5":"0.000000000"},{"1":"0.95959596","2":"0","3":"1.278667e-05","4":"0.00000000","5":"0.000000000"},{"1":"0.96969697","2":"0","3":"4.088371e-06","4":"0.00000000","5":"0.000000000"},{"1":"0.97979798","2":"0","3":"8.159917e-07","4":"0.00000000","5":"0.000000000"},{"1":"0.98989899","2":"0","3":"5.152525e-08","4":"0.00000000","5":"0.000000000"},{"1":"1.00000000","2":"0","3":"0.000000e+00","4":"0.00000000","5":"0.000000000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["c_Treffer"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Priori"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Likelihood"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["unst_Post"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Post"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.20","2":"1","3":"0.4096000000","4":"0.40960000","5":"0.041630484"},{"1":"0.21","2":"1","3":"0.4089758505","4":"0.40897585","5":"0.041567048"},{"1":"0.19","2":"1","3":"0.4089438495","4":"0.40894385","5":"0.041563795"},{"1":"0.22","2":"1","3":"0.4071656160","4":"0.40716562","5":"0.041383061"},{"1":"0.18","2":"1","3":"0.4069095840","4":"0.40690958","5":"0.041357039"},{"1":"0.23","2":"1","3":"0.4042599715","4":"0.40425997","5":"0.041087740"},{"1":"0.17","2":"1","3":"0.4033957285","4":"0.40339573","5":"0.040999901"},{"1":"0.24","2":"1","3":"0.4003461120","4":"0.40034611","5":"0.040689948"},{"1":"0.16","2":"1","3":"0.3982970880","4":"0.39829709","5":"0.040481691"},{"1":"0.25","2":"1","3":"0.3955078125","4":"0.39550781","5":"0.040198198"},{"1":"0.15","2":"1","3":"0.3915046875","4":"0.39150469","5":"0.039791332"},{"1":"0.26","2":"1","3":"0.3898254880","4":"0.38982549","5":"0.039620664"},{"1":"0.27","2":"1","3":"0.3833762535","4":"0.38337625","5":"0.038965183"},{"1":"0.14","2":"1","3":"0.3829057120","4":"0.38290571","5":"0.038917359"},{"1":"0.28","2":"1","3":"0.3762339840","4":"0.37623398","5":"0.038239265"},{"1":"0.13","2":"1","3":"0.3723834465","4":"0.37238345","5":"0.037847908"},{"1":"0.29","2":"1","3":"0.3684693745","4":"0.36846937","5":"0.037450094"},{"1":"0.30","2":"1","3":"0.3601500000","4":"0.36015000","5":"0.036604538"},{"1":"0.12","2":"1","3":"0.3598172160","4":"0.35981722","5":"0.036570715"},{"1":"0.11","2":"1","3":"0.3450823255","4":"0.34508233","5":"0.035073106"},{"1":"0.10","2":"1","3":"0.3280500000","4":"0.32805000","5":"0.033341993"},{"1":"0.09","2":"1","3":"0.3085873245","4":"0.30858732","5":"0.031363867"},{"1":"0.08","2":"1","3":"0.2865571840","4":"0.28655718","5":"0.029124791"},{"1":"0.07","2":"1","3":"0.2618182035","4":"0.26181820","5":"0.026610397"},{"1":"0.06","2":"1","3":"0.2342246880","4":"0.23422469","5":"0.023805877"},{"1":"0.05","2":"1","3":"0.2036265625","4":"0.20362656","5":"0.020695978"},{"1":"0.04","2":"1","3":"0.1698693120","4":"0.16986931","5":"0.017264994"},{"1":"0.03","2":"1","3":"0.1327939215","4":"0.13279392","5":"0.013496766"},{"1":"0.02","2":"1","3":"0.0922368160","4":"0.09223682","5":"0.009374666"},{"1":"0.01","2":"1","3":"0.0480298005","4":"0.04802980","5":"0.004881601"},{"1":"0.00","2":"1","3":"0.0000000000","4":"0.00000000","5":"0.000000000"},{"1":"0.31","2":"0","3":"0.3513403755","4":"0.00000000","5":"0.000000000"},{"1":"0.32","2":"0","3":"0.3421020160","4":"0.00000000","5":"0.000000000"},{"1":"0.33","2":"0","3":"0.3324934965","4":"0.00000000","5":"0.000000000"},{"1":"0.34","2":"0","3":"0.3225705120","4":"0.00000000","5":"0.000000000"},{"1":"0.35","2":"0","3":"0.3123859375","4":"0.00000000","5":"0.000000000"},{"1":"0.36","2":"0","3":"0.3019898880","4":"0.00000000","5":"0.000000000"},{"1":"0.37","2":"0","3":"0.2914297785","4":"0.00000000","5":"0.000000000"},{"1":"0.38","2":"0","3":"0.2807503840","4":"0.00000000","5":"0.000000000"},{"1":"0.39","2":"0","3":"0.2699938995","4":"0.00000000","5":"0.000000000"},{"1":"0.40","2":"0","3":"0.2592000000","4":"0.00000000","5":"0.000000000"},{"1":"0.41","2":"0","3":"0.2484059005","4":"0.00000000","5":"0.000000000"},{"1":"0.42","2":"0","3":"0.2376464160","4":"0.00000000","5":"0.000000000"},{"1":"0.43","2":"0","3":"0.2269540215","4":"0.00000000","5":"0.000000000"},{"1":"0.44","2":"0","3":"0.2163589120","4":"0.00000000","5":"0.000000000"},{"1":"0.45","2":"0","3":"0.2058890625","4":"0.00000000","5":"0.000000000"},{"1":"0.46","2":"0","3":"0.1955702880","4":"0.00000000","5":"0.000000000"},{"1":"0.47","2":"0","3":"0.1854263035","4":"0.00000000","5":"0.000000000"},{"1":"0.48","2":"0","3":"0.1754787840","4":"0.00000000","5":"0.000000000"},{"1":"0.49","2":"0","3":"0.1657474245","4":"0.00000000","5":"0.000000000"},{"1":"0.50","2":"0","3":"0.1562500000","4":"0.00000000","5":"0.000000000"},{"1":"0.51","2":"0","3":"0.1470024255","4":"0.00000000","5":"0.000000000"},{"1":"0.52","2":"0","3":"0.1380188160","4":"0.00000000","5":"0.000000000"},{"1":"0.53","2":"0","3":"0.1293115465","4":"0.00000000","5":"0.000000000"},{"1":"0.54","2":"0","3":"0.1208913120","4":"0.00000000","5":"0.000000000"},{"1":"0.55","2":"0","3":"0.1127671875","4":"0.00000000","5":"0.000000000"},{"1":"0.56","2":"0","3":"0.1049466880","4":"0.00000000","5":"0.000000000"},{"1":"0.57","2":"0","3":"0.0974358285","4":"0.00000000","5":"0.000000000"},{"1":"0.58","2":"0","3":"0.0902391840","4":"0.00000000","5":"0.000000000"},{"1":"0.59","2":"0","3":"0.0833599495","4":"0.00000000","5":"0.000000000"},{"1":"0.60","2":"0","3":"0.0768000000","4":"0.00000000","5":"0.000000000"},{"1":"0.61","2":"0","3":"0.0705599505","4":"0.00000000","5":"0.000000000"},{"1":"0.62","2":"0","3":"0.0646392160","4":"0.00000000","5":"0.000000000"},{"1":"0.63","2":"0","3":"0.0590360715","4":"0.00000000","5":"0.000000000"},{"1":"0.64","2":"0","3":"0.0537477120","4":"0.00000000","5":"0.000000000"},{"1":"0.65","2":"0","3":"0.0487703125","4":"0.00000000","5":"0.000000000"},{"1":"0.66","2":"0","3":"0.0440990880","4":"0.00000000","5":"0.000000000"},{"1":"0.67","2":"0","3":"0.0397283535","4":"0.00000000","5":"0.000000000"},{"1":"0.68","2":"0","3":"0.0356515840","4":"0.00000000","5":"0.000000000"},{"1":"0.69","2":"0","3":"0.0318614745","4":"0.00000000","5":"0.000000000"},{"1":"0.70","2":"0","3":"0.0283500000","4":"0.00000000","5":"0.000000000"},{"1":"0.71","2":"0","3":"0.0251084755","4":"0.00000000","5":"0.000000000"},{"1":"0.72","2":"0","3":"0.0221276160","4":"0.00000000","5":"0.000000000"},{"1":"0.73","2":"0","3":"0.0193975965","4":"0.00000000","5":"0.000000000"},{"1":"0.74","2":"0","3":"0.0169081120","4":"0.00000000","5":"0.000000000"},{"1":"0.75","2":"0","3":"0.0146484375","4":"0.00000000","5":"0.000000000"},{"1":"0.76","2":"0","3":"0.0126074880","4":"0.00000000","5":"0.000000000"},{"1":"0.77","2":"0","3":"0.0107738785","4":"0.00000000","5":"0.000000000"},{"1":"0.78","2":"0","3":"0.0091359840","4":"0.00000000","5":"0.000000000"},{"1":"0.79","2":"0","3":"0.0076819995","4":"0.00000000","5":"0.000000000"},{"1":"0.80","2":"0","3":"0.0064000000","4":"0.00000000","5":"0.000000000"},{"1":"0.81","2":"0","3":"0.0052780005","4":"0.00000000","5":"0.000000000"},{"1":"0.82","2":"0","3":"0.0043040160","4":"0.00000000","5":"0.000000000"},{"1":"0.83","2":"0","3":"0.0034661215","4":"0.00000000","5":"0.000000000"},{"1":"0.84","2":"0","3":"0.0027525120","4":"0.00000000","5":"0.000000000"},{"1":"0.85","2":"0","3":"0.0021515625","4":"0.00000000","5":"0.000000000"},{"1":"0.86","2":"0","3":"0.0016518880","4":"0.00000000","5":"0.000000000"},{"1":"0.87","2":"0","3":"0.0012424035","4":"0.00000000","5":"0.000000000"},{"1":"0.88","2":"0","3":"0.0009123840","4":"0.00000000","5":"0.000000000"},{"1":"0.89","2":"0","3":"0.0006515245","4":"0.00000000","5":"0.000000000"},{"1":"0.90","2":"0","3":"0.0004500000","4":"0.00000000","5":"0.000000000"},{"1":"0.91","2":"0","3":"0.0002985255","4":"0.00000000","5":"0.000000000"},{"1":"0.92","2":"0","3":"0.0001884160","4":"0.00000000","5":"0.000000000"},{"1":"0.93","2":"0","3":"0.0001116465","4":"0.00000000","5":"0.000000000"},{"1":"0.94","2":"0","3":"0.0000609120","4":"0.00000000","5":"0.000000000"},{"1":"0.95","2":"0","3":"0.0000296875","4":"0.00000000","5":"0.000000000"},{"1":"0.96","2":"0","3":"0.0000122880","4":"0.00000000","5":"0.000000000"},{"1":"0.97","2":"0","3":"0.0000039285","4":"0.00000000","5":"0.000000000"},{"1":"0.98","2":"0","3":"0.0000007840","4":"0.00000000","5":"0.000000000"},{"1":"0.99","2":"0","3":"0.0000000495","4":"0.00000000","5":"0.000000000"},{"1":"1.00","2":"0","3":"0.0000000000","4":"0.00000000","5":"0.000000000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
-<p>Nach unserem Modell ist die wahrscheinlichste Trefferchance ca. 20 Prozent. Allerdings hat diese für sich genommen nur eine Wahrscheinlichkeit von 4 %. Wir wissen allerdings auch aus Aufgabe 4, dass sich ca. 62 % der Wahrscheinlichkeitsmasse in dem Intervall zwischen 12,5 % Trefferchance und 27,5 Prozent Trefferchance befinden.</p>
-<p>Wir können also nach unserem Modell schließen, dass die echte Trefferchance vermutlich sehr nahe bei der20 % liegt, allerdins mit einer Wahrscheinlichkeit von 62 Prozent, irgendwo in dem Intervall zwischen 12,5 % und 27,5 %.</p>
+<p>Nach unserem Modell ist die wahrscheinlichste Trefferchance ca. 20 Prozent. Allerdings hat diese für sich genommen nur eine Wahrscheinlichkeit von 4 %. Wir wissen allerdings auch aus Aufgabe 4, dass sich ca. 60 % der Wahrscheinlichkeitsmasse in dem Intervall zwischen 12,5 % Trefferchance und 27,5 Prozent Trefferchance befinden.</p>
+<p>Wir können also nach unserem Modell schließen, dass die echte Trefferchance vermutlich sehr nahe bei 20 % liegt, allerdings mit einer Wahrscheinlichkeit von 60 Prozent, irgendwo in dem Intervall zwischen 12,5 % und 27,5 %.</p>
 </div>
 </div>
 </div>
@@ -971,8 +922,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Aufg_Postverteilung.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Postverteilung</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
