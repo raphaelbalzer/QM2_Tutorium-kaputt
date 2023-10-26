@@ -112,15 +112,16 @@ Die Menge an Menschen mit einer Körpergröße zwischen 165 und 185, liegt bei r
 Wie groß ist die Wahrscheinlichkeit eine Person zu erwischen, die mit ihrer Größe mindestens zwei Standardabweichungen über dem Durchschnitt liegt?
 
 #### L1 f)
+
 Eine Person die mindestens zwei Standardabweichungen über dem Durchschnitt liegt... Wir haben einen Durchschnitt von 175 und eine Standardabweichung von 10. Das heißt, wir brauchen jemanden, der mindestens 195 groß ist (Größe \>= 175 + 10 + 10).
 
 ```{r}
 Größe%>%
   filter(Verteilung >= 195)%>%
-  summarise(Anteil = n() / 100000)
+  summarise(Anteil = 100*(n() / 100000))
 ```
 
-Ein Anteil von fast 0 Prozent ist größer als 195.
+Ein Anteil von fast 2 Prozent ist größer als 195.
 :::
 
 ### Aufgabe 1 g)
@@ -131,6 +132,7 @@ Ein Anteil von fast 0 Prozent ist größer als 195.
 In welchem Intervall liegen grob 95% aller Werte?
 
 #### L1 g)
+
 Für normalverteilte Populationen gilt: Innerhalb der ersten Standardabweichung, also in unserem Fall 175 +- 10, liegen rund 68 % aller Werte. Innerhalb der zweiten Standardabweichung grob 95 % aller Werte. Innerhalb der dritten liegen 99.7 % aller Werte. Für uns bedeutet das, dass der Wertebereich zwischen 155 und 195 95 % aller Werte enthält.
 
 ```{r}
@@ -250,6 +252,7 @@ PKW_Dauer%>%
 Welches Betriebsjahr erreichen 84 % der Autos nicht mehr?
 
 #### L2 d)
+
 Diese Frage möchte wissen, unterhalb von welchem Wert 84 % aller anderen Werte liegen. Eine Möglichkeit wäre, die Tabelle zu öffnen und aufsteigend zu ordnen. Dann schauen wir, welcher Wert bei der Beobachtung 8400 angegeben ist (8400 von 10000 = 84 %). Da wir aufsteigend geordnet haben, müssen 84 % der Werte kleiner sein, als der, der bei 8400 angegeben ist.
 
 Laut der Tabelle ist dieser Wert rund 14,5. Das heißt 84 % der deutschen Wägen gehen innerhalb der ersten vierzehneinhalb Jahre kaputt.

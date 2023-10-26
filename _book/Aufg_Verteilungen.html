@@ -417,17 +417,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Größe<span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Verteilung <span class="sc">&gt;=</span> <span class="dv">195</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Anteil =</span> <span class="fu">n</span>() <span class="sc">/</span> <span class="dv">100000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Anteil =</span> <span class="dv">100</span><span class="sc">*</span>(<span class="fu">n</span>() <span class="sc">/</span> <span class="dv">100000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["Anteil"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.02275"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["Anteil"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"2.275"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
-<p>Ein Anteil von fast 0 Prozent ist größer als 195.</p>
+<p>Ein Anteil von fast 2 Prozent ist größer als 195.</p>
 </div>
 </div>
 </div>
