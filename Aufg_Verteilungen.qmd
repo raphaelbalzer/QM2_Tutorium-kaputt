@@ -18,7 +18,11 @@ library(rstanarm)
 ::: panel-tabset
 #### A1 a)
 
+<<<<<<< HEAD
+Erstellen Sie eine Normalverteilung in R mit einem Mittelwert von 175 und einer Standardabweichung von 10. Nennen Sie diese Verteilung "Größe".
+=======
 Erstellen Sie eine Normalverteilung in R mit einem Mittelwert von 175 und einer Standardabweichung von 10. Nennen Sie diese Verteilung "Größe". Simulieren Sie hunderttausend Fälle.
+>>>>>>> 650dd5a1c9f19e1fc88a915821433ecfd2a97c67
 
 #### L1 a)
 
@@ -111,6 +115,11 @@ Die Menge an Menschen mit einer Körpergröße zwischen 165 und 185, liegt bei r
 
 Wie groß ist die Wahrscheinlichkeit eine Person zu erwischen, die mit ihrer Größe mindestens zwei Standardabweichungen über dem Durchschnitt liegt?
 
+<<<<<<< HEAD
+Eine Person die mindestens zwei Standardabweichungen über dem Durchschnitt liegt... Wir haben einen Durchschnitt von 175 und eine Standardabweichung von 10. Das heißt, wir brauchen jemanden, der mindestens 195 groß ist (Größe \>= 175 + 10 + 10).
+
+=======
+>>>>>>> 650dd5a1c9f19e1fc88a915821433ecfd2a97c67
 #### L1 f)
 
 Eine Person die mindestens zwei Standardabweichungen über dem Durchschnitt liegt... Wir haben einen Durchschnitt von 175 und eine Standardabweichung von 10. Das heißt, wir brauchen jemanden, der mindestens 195 groß ist (Größe \>= 175 + 10 + 10).
@@ -130,6 +139,11 @@ Ein Anteil von fast 2 Prozent ist größer als 195.
 #### A1 g)
 
 In welchem Intervall liegen grob 95% aller Werte?
+<<<<<<< HEAD
+
+Für normalverteilte Populationen gilt: Innerhalb der ersten Standardabweichung, also in unserem Fall 175 +- 10, liegen rund 68 % aller Werte. Innerhalb der zweiten Standardabweichung grob 95 % aller Werte. Innerhalb der dritten liegen 99.7 % aller Werte. Für uns bedeutet das, dass der Wertebereich zwischen 155 und 195 95 % aller Werte enthält.
+=======
+>>>>>>> 650dd5a1c9f19e1fc88a915821433ecfd2a97c67
 
 #### L1 g)
 
@@ -261,6 +275,11 @@ ODER wir nutzen die Quantilfunktion:
 
 Die Quantilfunktion macht in einfache Worten gefasst folgendes: Sie nimmt einen Anteil einer Verteilung (z.B. 84 %) und schneidet die Verteilung genau an diesem Punkt ab. D.h. sie zeigt den Wert, der größer ist als 84 aller anderen Werte, aber kleiner ist als die übrigen 16 %. Somit bildet man das ein 84-Prozent-Quantil.
 
+<<<<<<< HEAD
+#### L2 d)
+
+=======
+>>>>>>> 650dd5a1c9f19e1fc88a915821433ecfd2a97c67
 ```{r}
 PKW_Dauer%>%
   summarise(quan84 = quantile(Dauer, prob = .84))
