@@ -1,4 +1,4 @@
-# Post-Prädikativ-Verteilung
+# PPV
 
 ```{r}
 #| include: false
@@ -23,7 +23,7 @@ Nehmen Sie dieses Mal keine gleichverteilte Priori-Verteilung an. Stattdessen ve
 
 Berechnen Sie die Posteriori-Verteilung. Nutzen Sie die Gittermethode.
 
-####L1 a)
+#### L1 a)
 
 ```{r}
 globus <- 
