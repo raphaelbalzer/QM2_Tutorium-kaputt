@@ -1,0 +1,315 @@
+# Post-Prädikativ-Verteilung
+
+```{r}
+#| include: false
+
+library(tidyverse)
+library(rstanarm)
+library(easystats)
+```
+
+## Aufgabe 1
+
+*Von Sebastian Sauer*
+
+Nehmen wir an, wir haben 8 (Wasser-)"Treffer" (W=8) bei 15 Würfen (N=15) erhalten (wieder im Globusversuch).
+
+Nehmen Sie dieses Mal keine gleichverteilte Priori-Verteilung an. Stattdessen verwenden Sie einen Priori-Wert von Null so lange p\<0.5 und einen konstanten Wert für p≥0.5. Diese Priori-Verteilung kodiert die Information, sodass mindestens die Hälfte der Erdoberfläche mit Sicherheit aus Wasser besteht.
+
+### Aufgabe 1 a)
+
+::: panel-tabset
+#### A1 a)
+
+Berechnen Sie die Posteriori-Verteilung. Nutzen Sie die Gittermethode.
+
+####L1 a)
+
+```{r}
+globus <- 
+  tibble(gitter = seq(0, 1, by = 0.1),
+         prior = case_when(gitter <  .5 ~ 0,
+                           gitter >= .5 ~ 1))%>%
+  mutate(likelihood = dbinom(8, 15, prob = gitter),
+         unst_post  = prior * likelihood, 
+         post = unst_post / sum(unst_post))
+globus
+```
+:::
+
+### Aufgabe 1 b)
+
+::: panel-tabset
+#### A1 b)
+
+Ziehen Sie 10.000 Stichproben aus der Posteriori-Verteilung, die Sie mit der Gittermethode erhalten haben. Geben Sie auf dieser Grundlage die Breite des 90%-HDI an.
+
+#### L1 b)
+
+```{r}
+globus_stipro <-
+  globus%>%
+  slice_sample(n = 1e4,
+               weight_by = post,
+               replace = TRUE)
+globus_stipro
+```
+
+```{r}
+globus_stipro%>%
+  select(gitter)%>%
+  hdi(ci = .9)
+```
+
+Alternativ (Breite wird direkt ausgegeben):
+
+```{r}
+globus_stipro%>%
+  select(gitter)%>%
+  hdi() %>% 
+  mutate(width = CI_high - CI_low) %>%
+  select(width)
+```
+
+Das 90%-HDI hat eine Breite von 0,2.
+:::
+
+### Aufgabe 1 c)
+
+::: panel-tabset
+#### A1 c)
+
+Berechnen Sie die PPV für dieses Modell. Was ist die Wahrscheinlichkeit, 8 von 15 Treffern zu erzielen laut dieser PPV?
+
+#### L1 c)
+
+```{r}
+set.seed(42)
+globus_ppv <-
+  globus_stipro%>%
+  mutate(ppv = rbinom(1e4,
+                      size = 15,
+                      prob = gitter))
+globus_ppv %>%
+  count(ppv == 8)%>%
+  mutate(Anteil = n / sum(n))
+```
+
+Alternativ:
+
+```{r}
+globus_ppv %>%
+  summarise(mean(ppv == 8))
+```
+
+Die Wahrscheinlichkeit, auf Grundlage des Modells 8 von 15 Treffern zu landen, liegt bei rund 17 Prozent.
+:::
+
+## Aufgabe 2
+
+Der SV Werder Bremen konnte als Aufsteiger in der ersten Fußballbundesliga von bisher 15 Spieltagen 6 Spiele gewinnen. Uns interessiert allerdings nur geringfügig, wie ihre aktuelle Siegquote ist, sondern viel eher mit wie vielen Siegen weiterhin gerechnet werden kann, wenn sie ihre Leistung halten können. Es verbleiben noch 19 Spieltage.
+
+-   Stellen Sie 10 Hypothesen zur aktuellen Siegesquote auf
+
+-   Gehen Sie davon aus, dass Sie apriori indifferent gegenüber der Hypothesen zur Siegesquote sind
+
+-   Simulieren Sie für die Stichprobe und die PPV 10.000 Fälle
+
+-   Gehen Sie davon aus, dass die Umstände, unter denen die Mannschaften spielen, gleich bleiben, bzw. jeder Gegner "gleichstark" ist, d.h. vernachlässigen Sie für die Erstellung des Modells äußere Faktoren
+
+### Aufgabe 2 A
+
+#### Aufgabe 2 Aa)
+
+::: panel-tabset
+##### A2 Aa)
+
+Erstellen Sie auf Grundlage der obigen Angaben ein Bayes-Gitter
+
+##### L2 Aa)
+
+```{r}
+svw_gitter <-
+  tibble(Siegesquote = seq(0, 1, by = 0.1),
+         prior = 1)%>%
+  mutate(likelihood = dbinom(6, 15, prob = Siegesquote),
+         unst_post = prior * likelihood,
+         post = unst_post / sum(unst_post))
+
+svw_gitter
+```
+
+Hier die Visualisierung:
+
+```{r}
+ggplot(svw_gitter, mapping = aes(x = Siegesquote, y = post))+
+  geom_histogram(mapping = aes(), stat = "identity")+
+  scale_x_binned()
+```
+:::
+
+#### Aufgabe 2 Ab)
+
+::: panel-tabset
+
+##### A2 Ab)
+
+Erstellen Sie die Stichprobenverteilung
+
+##### L2 Ab)
+
+```{r}
+svw_stipro <-
+  svw_gitter%>%
+  slice_sample(n = 1e4,
+               weight_by = post,
+               replace = TRUE)
+```
+
+#### Aufgabe 2 Ac)
+
+::: panel-tabset
+
+##### A2 Ac)
+
+Erstellen Sie die Post-Prädikativ-Verteilung
+
+##### L2 Ac)
+
+```{r}
+set.seed(42)
+svw_ppv <-
+  tibble(Siege = rbinom(1e4, size = 19, prob = svw_stipro$Siegesquote))
+```
+
+Hier die Visualisierung:
+
+```{r}
+ggplot(svw_ppv, mapping = aes(x = Siege))+
+  geom_bar()
+```
+
+### Aufgabe 2 B
+
+#### Aufgabe 2 Ba)
+
+::: panel-tabset
+##### A2 Ba)
+
+Bilden Sie das mittlere 90-Prozent-Intervall, in dem sich die echte Anzahl an Siegen, die noch zu erwarten sind, befindet.
+
+##### L2 Ba)
+
+```{r}
+svw_ppv%>%
+  select(Siege)%>%
+  eti(ci = .9)
+```
+
+Mit einer Wahrscheinlichkeit von 90 Prozent können wir in den verbleibenden Spielen mit 3 bis 13 Siegen rechnen.
+:::
+
+#### Aufgabe 2 Bb)
+
+::: panel-tabset
+##### A2 Bb)
+
+Wie groß ist die Wahrscheinlichkeit, dass in den verbleibenden 19 Spielen mindestens 10 gewonnen werden?
+
+##### L2 Bb)
+
+```{r}
+svw_ppv%>%
+  summarise(mean(Siege >= 10))
+```
+
+Laut unserem Modell ist die Wahrscheinlichkeit, dass noch mindestens zehn Siege folgen bei ca. 30 Prozent.
+:::
+
+#### Aufgabe 2 Bc)
+
+::: panel-tabset
+##### A2 Bc)
+
+Bilden Sie das 90-Prozent-Intervall der höchsten Dichte und geben Sie an, wie breit es ist.
+
+##### L2 Bc)
+
+```{r}
+svw_ppv%>%
+  select(Siege)%>%
+  hdi(.9) %>% 
+  mutate(width = CI_high - CI_low) %>%
+  select(width)
+```
+
+Das Intervall ist zehn Einheiten Breit.
+:::
+
+#### Aufgabe 2 Be)
+
+::: panel-tabset
+##### A2 Be)
+
+Wie groß ist die Wahrscheinlichkeit, dass Werder Bremen zum Saisonende genau 15 Siege hat?
+
+##### L2 Be)
+
+Genau 15 Siege? Das heißt, wir müssen errechnen, wie viele Siege der SVW noch braucht, damit genau dieses Ereignis eintritt.
+
+```{r}
+15 - 6 #weil bisher sechs Siege erreicht wurden 
+```
+
+```{r}
+svw_ppv%>%
+  count(Siege == 9)%>%
+  mutate(Anteil = n / sum(n))
+```
+
+Die Wahrscheinlichkeit, dass es genau 15 Siege am Ende der Saison sein werden, liegt bei 11 Prozent.
+:::
+
+## Aufgabe 3: Youtube
+
+::: panel-tabset
+### A3
+
+Ein mittelgroßer YouTuber hat bisher nur wenige Videos mit mehr als eine Millionen Clicks. Im Schnitt schafft er es bei 3 von 50 Videos über diese Grenze. Errechnen Sie die Wahrscheinlichkeit dafür, dass von seinen nächsten zehn Videos mindestens eines mehr als eine Millionen Clicks erreichen kann.
+
+### L3
+
+```{r}
+yt <- 
+  tibble(quote = seq(0, 1, length.out = 1000),
+         prior = 1)%>%
+  mutate(likelihood = dbinom(3, 50, prob = quote),
+         unst_post = prior * likelihood,
+         post = unst_post / sum(unst_post))
+```
+
+```{r}
+yt_stipro <-
+  yt%>%
+  slice_sample(n = 1e4,
+               weight_by = post,
+               replace = TRUE)%>%
+  select(quote)
+```
+
+```{r}
+set.seed(42)
+yt_ppv <-
+  tibble(Anzahl = rbinom(1e4, 
+                         size = 10, 
+                         prob = yt_stipro$quote))
+```
+
+```{r}
+yt_ppv%>%
+  count(Anzahl >= 1)%>%
+  mutate(Anteil = n / sum(n))
+```
+
+Laut unserem Modell liegt die Wahrscheinlichkeit dafür, dass der YouTuber bei mindestens einem seiner nächsten zehn Videos eine Millionen Clicks übersteigt, bei ca. 52 Prozent.
+:::

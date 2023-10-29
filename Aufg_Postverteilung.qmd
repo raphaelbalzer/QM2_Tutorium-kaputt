@@ -1,6 +1,6 @@
 # Postverteilung
 
-*Übungsaufgaben zum Ziehen und Verwenden von Stichproben*
+**Übungsaufgaben zum Ziehen und Verwenden von Stichproben**
 
 ```{r}
 #| include: false
@@ -182,7 +182,7 @@ Hier noch eine andere Variante, die das Ergebnis direkt ausspuckt:
 sample1%>%
   select(gitter)%>%
   hdi() %>% 
-  mutate(width = CI_low - CI_high) %>%
+  mutate(width = CI_high - CI_low) %>%
   select(width)
 ```
 :::
