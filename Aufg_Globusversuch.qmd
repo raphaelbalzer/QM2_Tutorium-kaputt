@@ -226,3 +226,82 @@ Nach unserem Modell ist die wahrscheinlichste Trefferchance ca. 20 Prozent. Alle
 
 Wir können also nach unserem Modell schließen, dass die echte Trefferchance vermutlich sehr nahe bei 20 % liegt, allerdings mit einer Wahrscheinlichkeit von 60 Prozent, irgendwo in dem Intervall zwischen 12,5 % und 27,5 %.
 :::
+
+## Codesammlung
+
+::: {.callout-tip collapse="true"}
+## Tipps für eine Codesammlung
+
+Gitter erstellen
+
+```{r, eval=FALSE}
+d <-
+  tibble(
+    # definiere das Gitter: 
+    p_Gitter = seq(from = 0, to = 1, by = 0.1),
+    # bestimme den Priori-Wert:       
+    Priori  = 1) %>%  
+    mutate(
+      # berechne Likelihood für jeden Gitterwert:
+      Likelihood = dbinom(x, size = n, prob = p_Gitter),
+      # berechen unstand. Posteriori-Werte:
+      unstd_Post = Likelihood * Priori,
+      # berechne stand. Posteriori-Werte (summiert zu 1):
+      Post = unstd_Post / sum(unstd_Post)) %>%
+    mutate(
+      # Runde die Posteriori-Werte auf 2 Dezimalstellen (oder eine andere gewünschte Anzahl):
+      Post = round(Post, digits = 2))  
+```
+
+Wahrscheinlichster Wert bei X Treffern von n?
+
+```{r, eval=FALSE}
+d %>%
+  arrange(-Post)
+```
+
+Wie groß ist die Wahrscheinlichkeit für Anteil von über X Prozent?
+
+```{r, eval=FALSE}
+d%>%
+  filter(p_Gitter > 0.X)%>% #zeige nur noch die Wasseranteile über X Prozent
+  summarise(sum(Post)) #die Funktion sum() summiert alle Werte einer Spalte; in diesem Fall ist diese Spalte Post
+```
+
+Wie groß ist die Wahrscheinlichkeit für einen Anteil zwischen X und Y Prozent?
+
+```{r, eval=FALSE}
+d%>%
+  filter(p_Gitter > .X & p_Gitter < .Y)%>%
+  summarise(sum(Post))
+```
+
+Apriori vorher definieren, Anteil unter X% existiert nicht:
+
+```{r, eval=FALSE}
+d2 <-
+  tibble(
+    # definiere das Gitter: 
+    p_Gitter = seq(from = 0, to = 1, by = 0.1),
+    # bestimme den Priori-Wert:       
+    Priori  = case_when(p_Gitter < 0.X ~ 0, #alle p_Gitter-Werte unter 0.X werden mit 0 verrechnet
+                        p_Gitter >= 0.X ~ 1)) %>%  #alle p_Gitter-Werte über oder gleich 0.X sind gleichwahrscheinlich und werden mit 1 verrechnet
+    mutate(
+      # berechne Likelihood für jeden Gitterwert:
+      Likelihood = dbinom(x, size = n, prob = p_Gitter),
+     # berechen unstand. Posteriori-Werte:
+      unstd_Post = Likelihood * Priori,
+      # berechne stand. Posteriori-Werte (summiert zu 1):
+      Post = unstd_Post / sum(unstd_Post)) %>%
+    mutate(
+      # Runde die Posteriori-Werte auf 2 Dezimalstellen (oder eine andere gewünschte Anzahl):
+      Post = round(Post, digits = 2))
+```
+
+Binomialverteilung aufstellen, um die Wahrscheinlichkeit für ein bestimmtes Ereignis zu bekommen: 
+Wie wahrscheinlich ist es, X Treffern von n zu bekommen, wenn die Trefferwahrscheinlichkeit bei Y% liegt?
+
+```{r, eval=FALSE}
+dbinom(x, size = n, prob = .y)
+```
+:::
