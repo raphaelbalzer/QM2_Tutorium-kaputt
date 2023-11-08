@@ -298,8 +298,7 @@ d2 <-
       Post = round(Post, digits = 2))
 ```
 
-Binomialverteilung aufstellen, um die Wahrscheinlichkeit für ein bestimmtes Ereignis zu bekommen: 
-Wie wahrscheinlich ist es, X Treffern von n zu bekommen, wenn die Trefferwahrscheinlichkeit bei Y% liegt?
+Binomialverteilung aufstellen, um die Wahrscheinlichkeit für ein bestimmtes Ereignis zu bekommen: Wie wahrscheinlich ist es, X Treffern von n zu bekommen, wenn die Trefferwahrscheinlichkeit bei Y% liegt?
 
 ```{r, eval=FALSE}
 dbinom(x, size = n, prob = .y)

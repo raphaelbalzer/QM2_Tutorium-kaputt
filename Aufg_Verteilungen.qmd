@@ -342,7 +342,7 @@ Wie groß ist die Wahrscheinlichkeit, einen Fall zu erwischen, die über dem Wer
 
 ```{r, eval=FALSE}
 normalv%>%
-  filter(Verteilung >= X)%>%
+  filter(Verteilung > X)%>%
   summarise(Anteil = 100*(n() / 100000)) #um die Wahrscheinlichkeit direkt in Prozent zu bekommen
 ```
 
@@ -353,12 +353,5 @@ normalv%>%
   summarise(quanX = quantile(Verteilung, prob = .X))
 ```
 
-In welchem Intervall liegen 95% der Werte?
 
-```{r, eval=FALSE}
-normalv%>%
-  summarise(quan5 = quantile(Verteilung, prob = .05))
-normalv%>%
-  summarise(quan95 = quantile(Verteilung, prob = .95))
-```
 :::
