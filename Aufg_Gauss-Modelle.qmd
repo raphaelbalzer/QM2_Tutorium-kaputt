@@ -1,0 +1,259 @@
+# Gauss-Modelle
+```{r}
+#| include: false
+
+library(tidyverse)
+library(rstanarm)
+library(easystats)
+```
+
+## Aufgabe 1
+
+Nehmen Sie für folgende Aufgaben den Datensatz mtcars aus dem tidyverse.
+
+### Aufgabe 1 a)
+::: panel-tabset
+### A1 a)
+
+Stellen Sie ein generalisiertes lineares Modell auf, das zeigt, welchen mittleren Spritverbrauch wir zu erwarten haben.
+
+### L1 a)
+
+```{r}
+set.seed(42)
+m1 <- stan_glm(mpg ~ 1, data = mtcars, refresh = 0)
+```
+:::
+
+### Aufgabe 1 b)
+::: panel-tabset
+### A1 b)
+Geben Sie das Modell als Tabelle aus und visualisieren Sie die Verteilungen für den durchschnittlichen Spritverbrauch und die Streuung.
+
+### L1 b)
+```{r}
+m1tab <-
+  m1%>%
+  as_tibble()%>%
+  rename(mean = `(Intercept)`) #Optionale Umbenennung der Spalte (Intercept)
+```
+
+
+```{r}
+ggplot(m1tab, mapping = aes(x = mean))+
+  geom_density()
+```
+```{r}
+ggplot(m1tab, mapping = aes( x = sigma))+
+  geom_density()
+```
+:::
+
+### Aufgabe 1 c)
+::: panel-tabset
+### A1 c)
+Geben Sie die Wahrscheinlichkeit dafür, dass der mittlere Spritverbrauch nicht größer ist als 21 mpg.
+
+### L1 c)
+
+```{r paged.print=FALSE}
+m1tab%>%
+  count(mean <= 21)%>%
+  mutate(Anteil = n / sum(n))
+```
+Oder eleganter:
+```{r}
+m1tab %>%
+  summarise(Anteil = mean(mean <= 21))
+```
+
+Die Wahrscheinlichkeit, dass der mittlere Spritverbrauch nicht größer ist als 21 mpg, liegt bei ca. 80 Prozent.
+:::
+
+### Aufgabe 1 d)
+::: panel-tabset
+### A1 d)
+Welche Streuung wird mit einer Wahrscheinlichkeit von 90 Prozent nicht überschritten? 
+
+### L1 d)
+
+```{r paged.print=FALSE}
+m1tab%>%
+  summarise(quant90 = quantile(sigma, prob = .9))
+```
+
+Eine Streuung von 7.25 wird mit einer Wahrscheinlichkeit von 90 Prozent nicht überschritten.
+:::
+
+### Aufgabe 1 e)
+::: panel-tabset
+### A1 e)
+Wie breit ist das Intervall der höchsten Dichte, das angibt in welchem Bereich sich 90 Prozent der möglichen Durchschnittsverbrauche befinden?
+
+### L1 f)
+```{r}
+m1tab%>%
+  select(mean)%>%
+  hdi(ci = .9)
+
+21.81 - 18.23
+```
+Oder eleganter:
+```{r}
+m1tab%>%
+  select(mean)%>%
+  hdi(ci = .9) %>%
+  mutate(width = CI_high - CI_low) %>% 
+  select(width)
+```
+
+
+
+Die Breite des 90-Prozent-HDIs beträgt 3.58.
+:::
+
+## Aufgabe 2
+Laden Sie den Datensatz "HousePrices" aus dem gegebenen Archiv:
+
+https://vincentarelbundock.github.io/Rdatasets/datasets.html
+
+::: panel-tabset
+### A2 a)
+Stellen Sie ein Modell auf, das zeigt mit welchem Mittelwert und welcher Streuung im Preis der Häuser zu rechnen ist.
+
+### L2 a)
+```{r}
+HousePrices <-
+  read.csv("https://vincentarelbundock.github.io/Rdatasets/csv/AER/HousePrices.csv")
+```
+
+```{r}
+set.seed(42)
+m2 <- 
+  stan_glm(price ~ 1, data = HousePrices, refresh = 0)
+```
+
+```{r}
+m2tab <-
+  m2%>%
+  as_tibble()%>%
+  rename(mean = `(Intercept)`)
+```
+:::
+
+### Aufgabe 2 b)
+::: panel-tabset
+### A2 b)
+Wie groß ist die Wahrscheinlichkeit, dass der durchschnittliche Häuserpreis mehr als 70.000 Dollar ist? 
+
+### L2 b)
+```{r}
+m2tab%>%
+  count(mean > 70000)%>%
+  mutate(Anteil = n / sum(n))
+```
+Oder eleganter:
+```{r}
+m2tab %>%
+  summarise(Anteil = mean(mean > 70000))
+```
+
+Die Wahrscheinlichkeit, dass der mittlere Häuserpreis bei mehr als 70.000 Dollar liegt, ist laut dem Modell lediglich 5 Prozent.
+:::
+
+### Aufgabe 2 c)
+::: panel-tabset
+### A2 c)
+Wie groß ist die Wahrscheinlichkeit, dass die Streuung der Häuserpreise bei 20.000 Dollar oder weniger liegt?
+
+### L2 d)
+```{r}
+m2tab%>%
+  count(sigma <= 20000)%>%
+  mutate(Anteil = n / sum(n))
+```
+Oder eleganter:
+```{r}
+m2tab %>% 
+  summarise(Anteil = mean(sigma <= 20000))
+```
+
+Die Wahrscheinlichkeit, dass Streuung kleiner oder gleich 20000 Dollar ist, liegt laut dem Modell bei 0 Prozent.
+:::
+
+### Aufgabe 2 e)
+::: panel-tabset
+### A2 e)
+Zwischen welchen Häuserpreisen befindet sich das mittlere Intervall, dass 90 Prozent der möglichen Durchschnittspreise umfasst?
+
+### L2 e)
+```{r}
+m2tab%>%
+  select(mean)%>%
+  eti(ci = .90)
+```
+
+Laut dem Modell werden die Grenzen des 90-Prozent-ETIs durch die Werte 66295.10 und 69988.95 gebildet.
+:::
+
+## Codesammlung
+
+::: {.callout-tip collapse="true"}
+## Tipps für eine Codesammlung
+
+
+Generalisiertes lineares Modell aufstellen für den mittleren Wert der AV:
+```{r, eval=FALSE}
+m <- stan_glm(AV ~ 1, data = data, refresh = 0)
+```
+
+Modell als Tabelle ausgeben:
+
+```{r, eval=FALSE}
+mtab <-
+  m1%>%
+  as_tibble()%>%
+  rename(mean = `(Intercept)`)
+```
+
+Streuung & Mittelwert des Modells visualiseren
+
+```{r, eval=FALSE}
+ggplot(mtab, mapping = aes(x = mean))+
+  geom_density()
+
+ggplot(mtab, mapping = aes( x = sigma))+
+  geom_density()
+```
+
+Wie groß ist die Wahrscheinlichkeit dafür, dass der mittlere Werte der Av nicht größer ist als X
+
+```{r, eval=FALSE}
+mtab%>%
+  count(mean <= X)%>%
+  mutate(Anteil = n / sum(n))
+
+#ODER
+mtab %>%
+  summarise(Anteil = mean(mean <= X))
+```
+
+Welche Streuung wird mit einer Wahrscheinlichkeit von X Prozent nicht überschritten? 
+
+```{r, eval=FALSE}
+mtab%>%
+  summarise(quantX = quantile(sigma, prob = .X))
+```
+
+Wie groß ist die Wahrscheinlichkeit, dass die Streuung der AV bei X oder weniger liegt?
+
+```{r, eval=FALSE}
+mtab%>%
+  count(sigma <= X)%>%
+  mutate(Anteil = n / sum(n))
+
+#ODER
+mtab %>%
+  summarise(Anteil = mean(sigma <= X))
+```
+:::
