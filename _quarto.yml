@@ -29,6 +29,7 @@ book:
         - Aufg_Verteilungen.qmd
         - Aufg_Globusversuch.qmd
         - Aufg_Postverteilung.qmd
+        - Aufg_Gauss-Modelle.qmd
     - references.qmd
 
 bibliography: references.bib
