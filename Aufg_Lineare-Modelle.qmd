@@ -111,7 +111,7 @@ Das Modell sagt den IQ der Kinder anhand des IQs der Mutter voraus. Der Intercep
 :::
 
 ### Aufgabe 2 b)
-
+:::panel-tabset
 #### A2 b)
 Zentrieren Sie die Prädiktorvariable (x-Variable/UV) und stellen Sie ein Modell auf, das den IQ von Kindern mit zentrierten Werten vorhersagt. Wie ist der Intercept nun zu interpretieren?
 
