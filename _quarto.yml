@@ -30,6 +30,7 @@ book:
         - Aufg_Globusversuch.qmd
         - Aufg_Postverteilung.qmd
         - Aufg_Gauss-Modelle.qmd
+        - Aufg_Lineare-Modelle.qmd
     - references.qmd
 
 bibliography: references.bib

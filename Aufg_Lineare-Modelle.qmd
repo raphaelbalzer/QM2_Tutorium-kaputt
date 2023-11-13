@@ -1,0 +1,358 @@
+# Lineare Modelle
+
+```{r}
+#| include: false
+
+library(tidyverse)
+library(rstanarm)
+library(easystats)
+```
+
+
+## Aufgabe 1
+
+::: panel-tabset
+
+### A1
+Das folgende Modell soll die Größe der Menschen einer Population anhand des Körpergewichts
+vorher sagen. Welches der folgenden Modelle ist am besten für den genannten Zweck definiert?
+
+a)\
+$$
+\begin{aligned}
+height_{i}\sim Normal(\mu_{i},\sigma) \\
+\mu_{i} = \alpha + \beta \cdot weight_{i} \\
+\alpha \sim Normal(178, 20) \\
+\beta \sim Normal(0,10) \\
+\sigma \sim Exp(0.1)
+\end{aligned}
+$$
+
+b)\
+$$
+\begin{aligned}
+height_{i}\sim Normal(\mu,\sigma)\\
+\mu_{i} = \alpha + \beta \cdot weight\\
+\alpha \sim Normal(178, 20)\\
+\beta \sim Normal(0,10)\\
+\sigma \sim Exp(0.1)
+\end{aligned}
+$$
+
+c)\
+$$
+\begin{aligned}
+height_{i}\sim Normal(\mu_{i},\sigma)\\
+\mu_{i} = \alpha + \beta \cdot weight_{i}\\
+\alpha \sim Normal(178, 20)\\
+\beta \sim Normal(5,3)\\
+\sigma \sim Exp(0.1)
+\end{aligned}
+$$
+
+d)\
+$$
+\begin{aligned}
+height_{i}\sim Normal(\mu_{i},\sigma)\\
+\mu_{i} = \alpha + \beta \cdot weight_{i}\\
+\alpha \sim Normal(178, 20)\\
+\beta \sim Normal(40,100)\\
+\sigma \sim Exp(0.1)
+\end{aligned}
+$$
+
+### L1
+**Antwort A:**\
+Die Modelldefinition der Option A ist zwar grundsätzlich nicht falsch, geht aber davon aus, dass der
+Anstieg unseres linearen Modells $\beta \sim N(0,10)$ positiv sowie negativ sein könnte. Genauer gesagt, gibt die angegebene Normalverteilung an, dass die Wahrscheinlichkeit gleich groß für positive und negative Werte ist ($\mu = 0,\pm1\ SD = -10 bis +10$). Praktisch interpretiert heißt das: Das Modell nimmt an, dass Menschen, die immer schwerer werden, mit gleich großer
+Wahrscheinlichkeit größer oder klein
+er werden könnten. Eine bessere Modelldefinition wäre allerdings, dass Menschen, die immer schwerer werden auch mit
+größerer Wahrscheinlichkeit größer werden.\
+\
+**Antwort B:**\
+Modell B enthält einen Formfehler. Sowohl im Likelihood als auch im linearen Modell fehlen die Beobachtungen $i$. Entsprechend wird laut Modelldefinition keine konkrete Beobachtung
+vorhergesagt, was ja unter anderem der Sinn eines Modells ist.\
+\
+**Antwort C:**\
+*Antwort C ist richtig.*\
+Während Antwort A und C zwar beide nicht vollkommen falsch sind, kann man im Anstieg des Modells $\beta$ erkennen, dass dieser apriori überwiegend positiv definiert ist. Der Priori-Anstieg geht also davon aus, dass die Größe einer Person zunimmt, je schwerer sie ist. Als Modell, das die Größe einer Person anhand des Gewichts
+vorhersagen soll, ist dieses von den aufgelisteten
+am besten geeignet.\
+\
+**Antwort D:**\
+In Modell D ist der Anstieg $\beta$ unrealistisch groß definiert. Das Modell nimmt apriori an, dass es möglich ist, dass ein Mensch mit einem Gewicht von
+$x=0$ sich von einem Menschen mit $x=1$ um 140 cm unterscheidet. Praktisch gesprochen:\
+Wenn wir die Körpergröße zweier Menschen vergleichen, die sich in ihrem Körpergewicht nur um einen Kilogramm unterscheiden (Mensch 1 = 60 kg, Mensch 2 = 61 kg), dann wäre es laut dem
+Modell möglich, dass Mensch 2 auf Grundlage seines höheren Gewichts 140 cm größer sein könnte als Mensch 1. Da das in der Realität aber (fast) nie der Fall sein wird, handelt es sich um keine plausible Annahme.
+:::
+
+## Aufgabe 2 
+Laden Sie für die folgenden Aufgaben den Datensatz "kidiq" aus dem Paket rstanarm.
+
+```{r}
+data(kidiq)
+```
+
+### Aufgabe 2 a)
+
+::: panel-tabset
+
+#### A2 a)
+Erstellen Sie ein Modell, dass den IQ von Kindern anhand des IQs der Mutter vorhersagt. Was sagt der Intercept des Modells aus?
+
+#### L2 a)
+```{r}
+set.seed(42)
+m1a <- stan_glm(kid_score ~ mom_iq, data = kidiq, refresh = 0) #Modell formulieren
+parameters(m1a)
+```
+
+Das Modell sagt den IQ der Kinder anhand des IQs der Mutter voraus. Der Intercept des Modells stellt wie immer den erwarteten (mittleren) y-Wert für eine Beobachtung mit x = 0 dar. Das heißt wir sehen den erwarteten mittleren IQ eines Kindes, von einer Mutter, die einen IQ von 0 hat. Da das in der Realität nicht möglich ist, ist das Modell nur begrenzt gut interpretierbar.
+:::
+
+### Aufgabe 2 b)
+
+#### A2 b)
+Zentrieren Sie die Prädiktorvariable (x-Variable/UV) und stellen Sie ein Modell auf, das den IQ von Kindern mit zentrierten Werten vorhersagt. Wie ist der Intercept nun zu interpretieren?
+
+#### L2 b)
+```{r}
+kidiq <- 
+  kidiq%>%
+  mutate(mom_iq_c = mom_iq - mean(mom_iq)) #ein Wert in der Spalte mom_iq minus den Mittelwert der Spalte mom_iq
+```
+
+```{r}
+set.seed(42)
+m1b <- stan_glm(kid_score ~ mom_iq_c, data = kidiq, refresh = 0) #Modell mit zentriertem Prädiktor
+parameters(m1b)
+```
+
+Jetzt, da die Prädiktorvariable zentriert ist, können wir den Intercept besser verstehen. Nun sagt dieser aus, dass das Modell im Median einen mittleren IQ von 86,8 bei einem Kind erwartet, wenn die Mutter einen durchschnittlichen IQ hat. 
+:::
+
+### Aufgabe 2 c)
+
+::: panel-tabset
+
+#### A2 c)
+Innerhalb welcher beiden Werte liegt das 90 % PI des mittleren IQs der Kinder?
+
+#### L2 c)
+```{r}
+m1btab <- m1b%>% #Modell m1b als Tabelle ausgeben
+  as_tibble()
+```
+
+```{r}
+m1btab%>%
+  select(`(Intercept)`)%>%
+  eti(ci = .9)
+```
+:::
+
+### Aufgabe 2 d) 
+
+::: panel-tabset
+
+#### A2 d)
+Welcher Wert bildet die Unsicherheit hinsichtlich des mittleren IQs der Kinder am Intercept ab?
+
+#### L2 d)
+```{r}
+m1b
+```
+Wenn man sich den Output des Modells anguckt, sieht man, dass der mittlere IQ der Kinder am Intercept einen Median von 86.8 hat. Allerdings hat die Verteilung auch eine mediane Standardabweichung (MAD_SD) von 0.9. Der Wert der die Unsicherheit zum mittleren IQ der Kinder am Intercept darstellt, ist also 0.8. 
+:::
+
+### Aufgabe 2 e)
+
+::: panel-tabset
+
+#### A2 e)
+Wie groß ist die Wahrscheinlichkeit, dass der Regressionskoeffizient größer ist als 0,65?
+
+#### L2 e)
+```{r}
+m1btab%>%
+  summarise(mean(mom_iq_c > .65))
+```
+Die Wahrscheinlichkeit, dass der Anstieg größer ist als 0.65 liegt bei ca. 25 Prozent.
+:::
+
+### Aufgabe 2 f)
+
+::: panel-tabset
+
+#### A2 f)
+Wie groß ist die Wahrscheinlichkeit, dass der mittlere IQ eines Kindes, dessen Mutter fünf Einheiten über dem Durchschnitt liegt, größer ist als 90?
+
+#### L2 f)
+```{r}
+m1btab_f <-
+  m1btab%>%
+  mutate(x5 = `(Intercept)` + mom_iq_c*5) #Spalte mutieren, in der man zum Intercept (x = 0), fünf Einheiten von x hinzufügt
+```
+
+```{r}
+m1btab_f%>%
+  count(x5 > 90)%>%
+  mutate(Anteil = n / sum(n))
+```
+Die Wahrscheinlichkeit, dass der mittlere IQ eines Kindes, das von einer Mutter mit x = 5 stammt, größer ist als 90, liegt bei ca. 42 Prozent.
+:::
+
+## Aufgabe 3
+
+Laden Sie für die folgenden Aufgaben den Datensatz "mtcars" aus dem Paket tidyverse.
+
+```{r}
+data(mtcars)
+```
+
+### Aufgabe 3 a)
+
+::: panel-tabset
+
+#### A3 a)
+Erstellen Sie ein Modell, dessen AV der Spriverbrauch und dessen UV das zentrierte Gewicht eines Autos ist.
+
+#### L3 a)
+```{r}
+mtcars <-
+  mtcars%>%
+  mutate(weight_c = center(wt)) #Gewicht zentrieren
+```
+
+```{r}
+set.seed(42)
+m2a <-
+  stan_glm(mpg ~ weight_c, data = mtcars, refresh = 0)
+m2a
+```
+:::
+
+### Aufgabe 3 b)
+
+::: panel-tabset
+
+#### A3 b)
+Wie groß ist die Wahrscheinlichkeit, dass der mittlere Spritverbauch kleiner ist als 20 mpg?
+
+#### L3 b)
+```{r}
+m2atab <- 
+  m2a%>% # Modell als Tabelle
+  as_tibble()
+```
+
+```{r}
+m2atab%>%
+  summarise(mean(`(Intercept)` < 20))
+```
+
+Die Wahrscheinlichkeit, dass der mittlere Spritverbrauch kleiner ist als 20 mpg, liegt bei 43 Prozent.
+:::
+
+### Aufgabe 3 c) 
+
+::: panel-tabset
+
+#### A3 c)
+Wie groß ist die Wahrscheinlichkeit, dass eine mittlere Streuung von 3,5 nicht überschritten wird?
+
+#### L3 b)
+```{r}
+m2atab%>%
+  summarise(mean(sigma < 3.5))
+```
+Die Wahrscheinlichkeit, dass eine mittlere Streuung von 3,5 nicht überschritten wird, liegt bei ca. 82 Prozent.
+:::
+
+## Aufgabe 4
+
+Verwenden Sie für die folgenden Aufgaben den Datensatz "mtcars" aus dem Paket tidyverse.
+
+### Aufgabe 4 a) 
+
+::: panel-tabset
+
+#### A4 a)
+Erstellen Sie ein Modell, dessen AV der Spritverbrauch und dessen UV das zentrierte Gewicht eines Autos ist.
+
+#### L4 a)
+```{r}
+m3 <- stan_glm(mpg ~ weight_c, data = mtcars, refresh = 0)
+m3
+```
+:::
+
+### Aufgabe 4 b)
+
+::: panel-tabset
+
+#### A4 b)
+Berechnen Sie die PPV für die Prädiktorwerte x = - 1, x = 0, x = 1.
+
+#### L4 b)
+```{r}
+weight_df <- tibble(weight_c = c(- 1, 0, 1)) #Wertebereich von -1 bis 1 für den Prädiktor "Gewicht" aufstellen
+```
+
+```{r}
+set.seed(42)
+ppv3 <- 
+  posterior_predict(m3,
+                    newdata = weight_df,
+                    draws = 100)%>%
+  as_tibble()%>%
+  pivot_longer(cols = everything(),
+               names_to = "weight_c",
+               values_to = "mpg")
+```
+:::
+
+### Aufgabe 4 c)
+
+:::panel-tabset
+
+#### A4 c)
+Welcher Spritverbrauch wird von den Autos, die ein durchschnittliches Gewicht haben, mit einer Wahrscheinlichkeit von 90 % nicht überschritten?
+
+#### L4 c)
+```{r}
+ppv3%>%
+  filter(weight_c == 2)%>%
+  summarise(quant90 = quantile(mpg, prob = .9))
+```
+:::
+
+### Aufgabe 4 d)
+
+:::panel-tabset
+
+#### A4 d)
+Wie groß ist die Wahrscheinlichkeit, dass Autos, mit einer Ausprägung x = -1, x = 0 oder x = 1, einen Spritverbrauch haben, der kleiner ist als 21 mpg? 
+
+#### L4 d)
+```{r}
+ppv3%>%
+  count(mpg < 21)%>%
+  mutate(Anteil = n / sum(n))
+```
+:::
+
+### Aufgabe 4 e)
+
+:::panel-tabset
+
+#### A4 e)
+Was ist der Mittelwert und was die SD in der PPV für Autos, die eine Tonne schwerer als der Schnitt sind (x = 1)?
+
+#### L4 e)
+```{r}
+ppv3%>%
+  filter(weight_c == 3)%>%
+  summarise(mean(mpg), sd(mpg))
+```
+:::

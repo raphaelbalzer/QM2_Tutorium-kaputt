@@ -287,4 +287,3 @@ mtab %>%
   summarise(Anteil = mean(sigma <= X))
 ```
 :::
-
