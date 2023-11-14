@@ -8,6 +8,11 @@ library(rstanarm)
 library(easystats)
 ```
 
+::: {.callout-warning}
+Hinweis:
+Achtung, die Ergebnisse können selbst mit set.seed() etwas varieren!
+:::
+
 ## Aufgabe 1
 
 Nehmen Sie für folgende Aufgaben den Datensatz mtcars aus dem tidyverse.
@@ -229,7 +234,7 @@ Laut dem Modell werden die Grenzen des 90-Prozent-ETIs durch die Werte 66295.10 
 ## Codesammlung
 
 ::: {.callout-tip collapse="true"}
-## Tipps für eine Codesammlung
+Tipps für eine Codesammlung
 
 Generalisiertes lineares Modell aufstellen für den mittleren Wert der AV:
 

@@ -1,0 +1,318 @@
+# Forschungsfragen mit metrischer AV
+
+
+```{r}
+#| include: false
+
+library(tidyverse)
+library(rstanarm)
+library(easystats)
+library(bayestestR)
+```
+
+::: {.callout-warning}
+Hinweis:
+Achtung, die Ergebnisse können selbst mit set.seed() etwas varieren!
+:::
+
+## Aufgabe 1
+Der Datensatz kidiq dient als Grundlage zur Beantwortung der folgenden Aufgabe. Er findet sich im Paket rstanarm.
+Informationen zum Datensatz lassen sich mit der Funktion ?rstanarm( ) ausgeben.
+
+
+::: panel-tabset
+#### A1 a)
+
+Stellen Sie ein Modell auf, dass den IQ eines Kindes anhand des Highschoolabschluss der Mutter vorhersagt. 
+
+AV - kid_score
+UV - mom_hs
+
+Wie groß ist der mediane Unterschied zwischen dem mittleren IQ, wenn man die Kinder von einer Mutter mit und einer Mutter ohne Highschoolabschluss vergleicht? 
+
+#### L1 a)
+```{r}
+data(kidiq)
+
+set.seed(42)
+m1 <- stan_glm(kid_score ~ mom_hs, data = kidiq, refresh = 0)
+parameters(m1)
+```
+
+Der mediane Unterschied im mittleren IQ der Kinder von einer Mutter mit und einer Mutter ohne Highschoolabschluss beträgt laut dem Modell 11.75.
+:::
+
+::: panel-tabset
+#### A1 b)
+
+Berechnen Sie dieses Modell:
+
+AV - kid_score
+UV - mom_hs, mom_age, mom_iq 
+
+Wie breit ist das 90-Prozent-HDI, das den Unterschied zwischen der mittleren Intelligenz von Kindern zeigt, wenn diese von zwei Müttern verschiedenen Highschoolabschlusses, gleichen Alters und gleicher Intelligenz stammen?
+
+#### L1 b)
+
+```{r}
+set.seed(42)
+m6 <- stan_glm(kid_score ~ mom_hs + mom_age + mom_iq, data = kidiq, refresh = 0)
+
+
+hdi(m6, ci = .9) %>% 
+mutate(width = CI_high - CI_low)
+```
+Der Unterschied zwischen der mittleren Intelligenz von Kindern, wenn deren Mütter verschiedene Abschlüsse, aber gleichen Alters und gleicher Intelligenz sind, beträgt 7.42.
+:::
+
+::: panel-tabset
+#### A1 c)
+
+Zentrieren Sie die Prädiktoren mom_age und mom_iq und erstellen Sie das genannte Modell mit diesen zentrierten Prädiktoren.
+
+#### L1 b)
+```{r}
+kidiq2 <-
+  kidiq%>%
+  mutate(mom_age_c = mom_age - mean(mom_age),
+         mom_iq_c = mom_iq - mean(mom_iq))
+
+
+set.seed(42)
+m6b <- stan_glm(kid_score ~ mom_hs + mom_age_c + mom_iq_c, data = kidiq2, refresh = 0)
+```
+:::
+
+::: panel-tabset
+#### A1 d)
+
+Wie groß ist die Wahrscheinlichkeit, dass der mittlere IQ eines Kindes größer ist als 85, wenn die Mutter KEINEN Highschoolabschluss sowie durchschnittliches Alter und IQ hat?
+
+#### L1 d)
+```{r}
+m6b%>%
+  as_tibble()%>%
+  count(`(Intercept)` > 85)%>%
+  mutate(Anteil = n / sum(n))
+```
+Die Wahrscheinlichkeit, dass die gefragten Bedingungen zustimmen, liegt bei ca. 9,4 Prozent.
+
+:::
+
+::: panel-tabset
+#### A1 e)
+
+Wie groß ist die Wahrscheinlichkeit, dass der mittlere IQ eines Kindes größer ist als 85, wenn die Mutter EINEN Highschoolabschluss sowie durchschnittliches Alter und IQ hat?
+
+#### L1 e)
+```{r}
+m6btab <- m6b%>%
+  as_tibble()%>%
+  mutate(Mit_Highschoolabschluss = `(Intercept)` + mom_hs) 
+```
+Wir steigern an dieser Stelle nur Mom_hs vom Ausgangspunkt "kein HS-Abschluss" (x = 0 -> Intercept) zum gewünschten Wert "mit HS-Abschluss (x = 1; Intercept + Koeffizient). Alle anderen Variablen bleiben konstant, d.h. dadurch, dass sie zentriert sind, entsprechen sie dem Durchschnitt.
+
+
+```{r}
+m6btab%>%
+  count(Mit_Highschoolabschluss > 85)%>%
+  mutate(Anteil = n / sum(n))
+```
+
+Die Wahrscheinlichkeit, dass ein Kind von einer Mutter mit HS-Abschluss, die ein durchschnittliches Alter sowie durchschnittlichen IQ hat, einen mittleren IQ hat, der höher ist als 85, liegt bei ca. 99.9 Prozent.
+:::
+
+::: panel-tabset
+#### A1 f)
+
+Betrachten Sie nur den den Prädiktor mom_hs. Wie viel Prozent der Verteilung liegen außerhalb des ROPEs?
+
+Können wir uns laut der vorgeschlagenen ROPE-Entscheidungsregel von Kruschke sicher sein, dass der Unterschied zwischen der mittleren Intelligenz von Kindern einer Mutter ohne bzw. mit Highschoolabschluss signifikant ist?
+
+#### L1 f)
+```{r}
+rope(m6b)
+
+plot(rope(m6b))
+```
+
+Außerhalb des Ropes liegen 96,53 Prozent. Dementsprechend können wir uns laut der ROPE-Entscheidungsregel von Kruschke sicher sein, dass der gefragte Unterschied (kid_score|mom_hs = 0 vs. kid_score|mom_hs = 1) signifikant ist.
+:::
+## Aufgabe 2
+
+Beziehen Sie für die folgende Aufgabe den Datensatz penguins von dieser Plattform:
+https://vincentarelbundock.github.io/Rdatasets/articles/data.html
+
+::: panel-tabset
+#### A2 a)
+
+Stellen Sie ein Modell auf, dass das Körpergewicht der Pinguine anhand der Ursprungsinsel der Pinguine vorhersagt. 
+
+AV - body_mass_g
+UV - island
+
+Unterscheiden sich die Pinguine von Biscoe-Island in ihrer Größe signifikant von den Pinguinen, die auf den anderen Inseln beheimatet sind?
+
+o	Ja
+o	Nein
+
+#### L2 a)
+```{r}
+penguins <- read_csv("https://vincentarelbundock.github.io/Rdatasets/csv/palmerpenguins/penguins.csv")
+
+set.seed(42)
+m2 <- stan_glm(body_mass_g ~ island, data = penguins, refresh = 0)
+m2
+```
+Wir können sehen, dass die Referenzkategorie Biscoe-Island sein muss, da die anderen beiden Inseln uns als Modellkoeffizienten gezeigt werden. Um zu prüfen, ob der Unterschied im Körpergewicht groß genug ist, schauen wir, ob die Null (der Median des Interceps, also 4717.1) in den ersten zwei Standardabweichungen (95 Prozent der Verteilung, also -1004.6 +/- 2* 76.1 bzw. -1009.6 +/- 2* 99.1) der anderen Koeffizienten liegt.
+
+Wir sehen, dass "die Null" das nicht tut, somit schätzen wir, dass der Unterschied des Körpergewichts der Pinguine der Biscoe-Inseln ausreichend groß sein muss.
+
+Entsprechend ist die richtige Antwort:
+
+o	Ja
+
+:::
+
+### Aufgabe 2b) 
+
+Beziehen Sie für die folgende Aufgabe den Datensatz penguins von dieser Plattform:
+https://vincentarelbundock.github.io/Rdatasets/articles/data.html
+
+::: panel-tabset
+#### A2 b)
+
+Berechnen Sie das folgende Modell
+
+AV - body_mass_g
+UVs - island, bill_length_mm
+
+Im Folgenden wird der Prädiktor island genauer betrachtet.
+
+Wie groß ist der Anteil der Verteilung der Torgersen-Insel, der innerhalb des ROPEs liegt?
+
+(Runden Sie auf zwei Stellen)
+
+#### L2 b)
+```{r}
+set.seed(42)
+m3 <- stan_glm(body_mass_g ~ island + bill_length_mm, data = penguins, refresh = 0)
+m3
+
+rope(m3)
+
+plot(rope(m3))
+```
+Der Anteil der innerhalb des ROPEs liegt beträgt 0,00.
+
+:::
+
+### Aufgabe 2 c) 
+
+Beziehen Sie für die folgende Aufgabe den Datensatz penguins von dieser Plattform:
+https://vincentarelbundock.github.io/Rdatasets/articles/data.html
+
+::: panel-tabset
+#### A2 c)
+
+Berechnen Sie das folgende Modell
+
+AV - body_mass_g
+UVs - island, bill_length_mm
+
+Im Folgenden wird der Prädiktor island genauer betrachtet.
+
+Wie groß ist der Anteil der Verteilung der Torgersen-Insel, der innerhalb des ROPEs liegt?
+
+(Runden Sie auf zwei Stellen)
+
+#### L2 c)
+Berechnen Sie folgendes Modell:
+
+AV - body_mass_g
+UV - bill_length_mm
+
+Was ist der Wert des Punktschätzers für eine Beobachtung, bei der alle Prädiktoren den Wert 3 aufweisen?
+
+-	905.3
+-	1339.7
+-	633.4
+-	265.3
+
+
+```{r}
+set.seed(42)
+m4 <- stan_glm(body_mass_g ~ bill_length_mm, data = penguins, refresh = 0)
+m4
+
+371.5 + 3*87.3 
+```
+
+:::
+
+## Aufgabe 3
+
+Der Datensatz mtcars dient als Grundlage zur Beantwortung der folgenden Aufgabe. Er findet 
+sich im Paket tidyverse.
+Informationen zum Datensatz lassen sich mit der Funktion ?mtcars ausgeben.
+
+::: panel-tabset
+#### A3
+
+Berechnen Sie folgendes Modell:
+AV → mpg
+UV → wt, drat, disp
+Welcher der Prädiktoren hat statistisch gesehen den stärksten negativen Effekt auf die 
+Zielvariable?
+- Wt
+- Drat
+- Disp
+
+#### L3
+```{r}
+data(mtcars)
+
+set.seed(42)
+m5 <- stan_glm(mpg ~ wt + drat + disp, data = mtcars, refresh = 0)
+m5
+```
+Anhand der Koeffizienten lässt sich noch nicht sagen, welcher Effekt der stärkste ist, da die Prädiktoren auf verschiedenen Skalen rechnen. Das bedeutet, dass eine Steigerung von x um eine Einheit, nicht für alle Prädiktoren gleich groß ist (siehe Z-Standardisieren).
+
+Aus dem genannten Grund, müssen wir die Prädiktoren z-standardisieren, so dass die Einheiten der einzelnen Prädiktoren vergleichbar werden.
+
+```{r}
+mtcars2 <-
+  mtcars%>%
+  mutate(wt_z = scale(wt),
+         drat_z = scale(drat),
+         disp_z = scale(disp))
+
+set.seed(42)
+m5b <- stan_glm(mpg ~ wt_z + drat_z + disp_z, data = mtcars2, refresh = 0)
+m5b
+```
+
+Der Prädiktor mit dem stärksten negativen Effekt auf den Spritverbrauch ist wt. 
+:::
+
+## Codesammlung
+
+::: {.callout-tip collapse="true"}
+Tipps für eine Codesammlung
+
+Rope anzeigen & plotten
+```{r, eval=FALSE}
+rope(m1)
+
+plot(rope(m1))
+```
+
+Variablen z-standardisieren 
+```{r, eval=FALSE}
+data%>%
+  mutate(uv1_z = scale(uv1),
+         uv2_z = scale(uv2),
+         uv3_z = scale(uv3))
+```
+
+:::
