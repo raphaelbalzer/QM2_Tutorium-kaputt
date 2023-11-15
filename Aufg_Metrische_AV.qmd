@@ -297,8 +297,9 @@ Der Prädiktor mit dem stärksten negativen Effekt auf den Spritverbrauch ist wt
 
 ## Codesammlung
 
-::: {.callout-tip collapse="true"}
-Tipps für eine Codesammlung
+::: {.callout-tip appearance="simple" collapse="true"}
+
+### Tipps für eine Codesammlung
 
 Rope anzeigen & plotten
 ```{r, eval=FALSE}

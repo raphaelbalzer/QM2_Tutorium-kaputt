@@ -291,6 +291,6 @@
     "href": "Aufg_Metrische_AV.html#codesammlung",
     "title": "7  Forschungsfragen mit metrischer AV",
     "section": "7.4 Codesammlung",
-    "text": "7.4 Codesammlung\n\n\n\n\n\n\nTip\n\n\n\n\n\nTipps für eine Codesammlung\nRope anzeigen & plotten\n\nrope(m1)\n\nplot(rope(m1))\n\nVariablen z-standardisieren\n\ndata%&gt;%\n  mutate(uv1_z = scale(uv1),\n         uv2_z = scale(uv2),\n         uv3_z = scale(uv3))"
+    "text": "7.4 Codesammlung\n\n\n\n\n\n\nTipps für eine Codesammlung\n\n\n\n\n\nRope anzeigen & plotten\n\nrope(m1)\n\nplot(rope(m1))\n\nVariablen z-standardisieren\n\ndata%&gt;%\n  mutate(uv1_z = scale(uv1),\n         uv2_z = scale(uv2),\n         uv3_z = scale(uv3))"
   }
 ]
