@@ -262,8 +262,8 @@
     "objectID": "Aufg_Lineare-Modelle.html#codesammlung",
     "href": "Aufg_Lineare-Modelle.html#codesammlung",
     "title": "6  Lineare Modelle",
-    "section": "6.5 Codesammlung",
-    "text": "6.5 Codesammlung\n\n\n\n\n\n\nTip\n\n\n\n\n\nTipps für eine Codesammlung\nParameter eines Modells anzeigen:\n\nparameters(m1)\n\nUV zentrieren:\n\nd &lt;- \n  d%&gt;%\n  mutate(uv_c = uv - mean(uv)) \n\nX % PI angeben\n\n# Wichtig: Erst in Tabelle umwandeln!\nm1tab &lt;- m1%&gt;%\n  as_tibble()\n\nm1tab%&gt;%\n  select(`(Intercept)`)%&gt;%\n  eti(ci = .X)\n\nWahrscheinlichkeit, dass Regressionskoeffizient größer als X ist:\n\nm1tab%&gt;%\n  summarise(mean(uv_c &gt; X))\n\nWahrscheinlichkeit, dass der mittlere Wert der AV, wenn die UV X Einheiten über dem Durchschnitt liegt, größer als Y ist\n\nm1tab_f &lt;-\n  m1btab%&gt;%\n  mutate(xX = `(Intercept)` + uv_c*5) \n\nm1tab_f%&gt;%\n  count(xX &gt; Y)%&gt;%\n  mutate(Anteil = n / sum(n))\n\nWahrscheinlichkeit, dass die mittlere Streuung von X nicht überschritten wird\n\nm1tab%&gt;%\n  summarise(mean(sigma &lt; X))"
+    "section": "6.4 Codesammlung",
+    "text": "6.4 Codesammlung\n\n\n\n\n\n\nTip\n\n\n\n\n\nTipps für eine Codesammlung\nParameter eines Modells anzeigen:\n\nparameters(m1)\n\nUV zentrieren:\n\nd &lt;- \n  d%&gt;%\n  mutate(uv_c = uv - mean(uv)) \n\nX % PI angeben\n\n# Wichtig: Erst in Tabelle umwandeln!\nm1tab &lt;- m1%&gt;%\n  as_tibble()\n\nm1tab%&gt;%\n  select(`(Intercept)`)%&gt;%\n  eti(ci = .X)\n\nWahrscheinlichkeit, dass Regressionskoeffizient größer als X ist:\n\nm1tab%&gt;%\n  summarise(mean(uv_c &gt; X))\n\nWahrscheinlichkeit, dass der mittlere Wert der AV, wenn die UV X Einheiten über dem Durchschnitt liegt, größer als Y ist\n\nm1tab_f &lt;-\n  m1btab%&gt;%\n  mutate(xX = `(Intercept)` + uv_c*5) \n\nm1tab_f%&gt;%\n  count(xX &gt; Y)%&gt;%\n  mutate(Anteil = n / sum(n))\n\nWahrscheinlichkeit, dass die mittlere Streuung von X nicht überschritten wird\n\nm1tab%&gt;%\n  summarise(mean(sigma &lt; X))"
   },
   {
     "objectID": "Aufg_Metrische_AV.html#aufgabe-1",
