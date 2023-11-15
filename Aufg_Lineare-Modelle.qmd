@@ -8,9 +8,8 @@ library(rstanarm)
 library(easystats)
 ```
 
-::: {.callout-warning}
-Hinweis:
-Achtung, die Ergebnisse können selbst mit set.seed() etwas varieren!
+::: callout-warning
+Hinweis: Achtung, die Ergebnisse können selbst mit set.seed() etwas varieren!
 :::
 
 ## Aufgabe 1
@@ -282,7 +281,7 @@ Die Wahrscheinlichkeit, dass eine mittlere Streuung von 3,5 nicht überschritten
 
 ## Codesammlung
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip appearance="simple" collapse="true"}
 Tipps für eine Codesammlung
 
 Parameter eines Modells anzeigen:

@@ -10,9 +10,8 @@ library(rstanarm)
 library(easystats)
 ```
 
-::: {.callout-warning}
-Hinweis:
-Achtung, die Ergebnisse können selbst mit set.seed() etwas varieren!
+::: callout-warning
+Hinweis: Achtung, die Ergebnisse können selbst mit set.seed() etwas varieren!
 :::
 
 ## Aufgabe 1
@@ -194,7 +193,7 @@ sample1%>%
 
 ## Codesammlung
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip appearance="simple" collapse="true"}
 Tipps für eine Codesammlung
 
 Stichprobe von 10 000 ziehen auf Basis von Gitter mit X von n Treffern
