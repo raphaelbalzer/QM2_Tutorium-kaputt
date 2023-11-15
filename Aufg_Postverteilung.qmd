@@ -194,7 +194,7 @@ sample1%>%
 ## Codesammlung
 
 ::: {.callout-tip appearance="simple" collapse="true"}
-Tipps für eine Codesammlung
+### Tipps für eine Codesammlung
 
 Stichprobe von 10 000 ziehen auf Basis von Gitter mit X von n Treffern
 
