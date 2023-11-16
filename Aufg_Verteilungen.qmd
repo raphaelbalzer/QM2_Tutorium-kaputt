@@ -22,16 +22,21 @@ Erstellen Sie eine Normalverteilung in R mit einem Mittelwert von 175 und einer 
 
 #### L1 a)
 
-```{r}
+```{r, class='floating-code'}
 set.seed(42)
 
 Größe <-
-  tibble(# erstelle eine Tabelle
-    Verteilung = rnorm( #erstelle mit rnorm eine Normalverteilung in R
-      1e5, #insgesamt soll diese Verteilung Hunderttausend Werte haben 
-                     mean = 175, #Mittelwert dieser Menge sind 175 Zentimeter
-                     sd = 10)) #die Werte streuen mit einer Standardabweichung von 10 Zentimetern
+  tibble(# <1>
+    Verteilung = rnorm( # <2>
+      1e5, # <3>
+                     mean = 175, # <4>
+                     sd = 10)) # <5>
 ```
+1. Erstelle eine Tabelle
+2. Erstelle mit rnorm eine Normalverteilung in R
+3. Insgesamt soll diese Verteilung Hunderttausend Werte haben 
+4. Mittelwert dieser Menge sind 175 Zentimeter
+5. Die Werte streuen mit einer Standardabweichung von 10 Zentimetern
 :::
 
 ### Aufgabe 1 b)
@@ -43,10 +48,11 @@ Stellen Sie diese Verteilung graphisch dar.
 
 #### L1 b)
 
-```{r}
+```{r, class='floating-code'}
 ggplot(Größe, mapping = aes(x = Verteilung))+
-         geom_density() #geom_density zeigt die Dichte einer Verteilung. So sind bei 175 mehr Werte, als bei 225
+         geom_density() # <1>
 ```
+1. `geom_density` zeigt die Dichte einer Verteilung. So sind bei 175 mehr Werte, als bei 225
 :::
 
 ### Aufgabe 1 c)
@@ -58,7 +64,7 @@ Wie viele Menschen haben eine Körpergröße unter 175? Wie groß ist dieser Ant
 
 #### LA1 c)
 
-```{r}
+```{r, class='floating-code'}
 Größe%>%
   filter(Verteilung < 175)%>%
   count()
@@ -76,7 +82,7 @@ Wie groß ist der Anteil an Menschen in der Verteilung, der größer ist als 150
 
 #### L1 d)
 
-```{r}
+```{r, class='floating-code'}
 Größe%>%
   filter(Verteilung > 150)%>%
   count()
@@ -94,7 +100,7 @@ Wenn wir aus der Stichprobe irgendeine Person nehmen... Wie groß ist dann die W
 
 #### L1 e)
 
-```{r}
+```{r, class='floating-code'}
 Größe%>%
   filter(Verteilung > 165)%>%
   filter(Verteilung < 185)%>%
@@ -117,7 +123,7 @@ Eine Person die mindestens zwei Standardabweichungen über dem Durchschnitt lieg
 
 Eine Person die mindestens zwei Standardabweichungen über dem Durchschnitt liegt... Wir haben einen Durchschnitt von 175 und eine Standardabweichung von 10. Das heißt, wir brauchen jemanden, der mindestens 195 groß ist (Größe \>= 175 + 10 + 10).
 
-```{r}
+```{r, class='floating-code'}
 Größe%>%
   filter(Verteilung >= 195)%>%
   summarise(Anteil = 100*(n() / 100000))
@@ -137,7 +143,7 @@ In welchem Intervall liegen grob 95% aller Werte?
 
 Für normalverteilte Populationen gilt: Innerhalb der ersten Standardabweichung, also in unserem Fall 175 +- 10, liegen rund 68 % aller Werte. Innerhalb der zweiten Standardabweichung grob 95 % aller Werte. Innerhalb der dritten liegen 99.7 % aller Werte. Für uns bedeutet das, dass der Wertebereich zwischen 155 und 195 95 % aller Werte enthält.
 
-```{r}
+```{r, class='floating-code'}
 Größe%>%
   filter(Verteilung >= 155 & Verteilung <= 195)%>%
   count()
@@ -157,7 +163,7 @@ Wir sehen, dass tatsächlich ungefähr 95.000 Werte im vermuteten Intervall lieg
 
 Körpergewicht in Kg:
 
-```{r}
+```{r, class='floating-code'}
 Gewicht<-
   tibble(Verteilung = rnorm(1e5,
                             mean = 70,
@@ -168,7 +174,7 @@ ggplot(Gewicht, mapping = aes(x = Verteilung))+
 
 Distanz zum Arbeitgeber in km:
 
-```{r paged.print=FALSE}
+```{r, class='floating-code'}
 Distanz <-
   tibble(Verteilung = rnorm(1e5,
                             mean = 20,
@@ -180,16 +186,19 @@ ggplot(Distanz, mapping = aes(x = Verteilung))+
 
 Wartezeit an Bushaltestellen in Minuten:
 
-```{r paged.print=FALSE}
+```{r, class='floating-code'}
 Zeit<-
   tibble(Verteilung = rnorm(1e5,
-                            mean = 7, #nehmen wir an, dass Menschen an Bushaltestellen im Durchschnitt sieben Minuten warten
-                            sd = 2.5)) #jedoch wartet der größte Teil nicht genau sieben, sondern zwischen viereinhalb bis neuneinhalb Minuten
+                            mean = 7, # <1>
+                            sd = 2.5)) # <2>
 
 ggplot(Zeit, mapping = aes(x = Verteilung))+
   geom_density()+
-  scale_x_continuous(breaks = 0:20) # zeige auf der x-Achse in jede einzelne Minute an
+  scale_x_continuous(breaks = 0:20) # <3>
 ```
+1. Nehmen wir an, dass Menschen an Bushaltestellen im Durchschnitt sieben Minuten warten
+2. Jedoch wartet der größte Teil nicht genau sieben, sondern zwischen viereinhalb bis neuneinhalb Minuten
+3. Zeige auf der x-Achse in jede einzelne Minute an
 :::
 
 ## Aufgabe 2
@@ -203,7 +212,7 @@ Erstellen Sie eine Tabelle, in der eine Spalte anhand von 10000 Fällen zeigt, w
 
 #### L2 a)
 
-```{r}
+```{r, class='floating-code'}
 set.seed(42)
 
 PKW_Dauer <-
@@ -223,11 +232,13 @@ Wie groß ist die Wahrscheinlichkeit, dass ein deutsches Auto eine unterdurchsch
 
 #### L2 b)
 
-```{r}
+```{r, class='floating-code'}
 PKW_Dauer%>%
-  filter(Dauer < mean(Dauer))%>% #filtere die Werte, die kleiner sind als der Durchschnitt der Spalte "Dauer"
-  summarise(Wahrscheinlichkeit = 100 * n()/1e4) # wenn wir den Anteil der verbliebenen Autos mit 100 multiplizieren, dann errechnen wir so einen Prozentsatz
+  filter(Dauer < mean(Dauer))%>% # <1>
+  summarise(Wahrscheinlichkeit = 100 * n()/1e4) # <2>
 ```
+1. Filtere die Werte, die kleiner sind als der Durchschnitt der Spalte "Dauer"
+2. Wenn wir den Anteil der verbliebenen Autos mit 100 multiplizieren, dann errechnen wir so einen Prozentsatz
 :::
 
 ### Aufgabe 2 c)
@@ -239,7 +250,7 @@ Wie groß ist die Wahrscheinlicheit, dass ein deutsches Auto zwischen 20 und 21 
 
 #### L2 c)
 
-```{r}
+```{r, class='floating-code'}
 PKW_Dauer%>%
   filter(Dauer > 20 & Dauer < 21)%>%
   summarise(Wahrscheinlichkeit = 100 * n()/1e4)
@@ -263,7 +274,7 @@ ODER wir nutzen die Quantilfunktion:
 
 Die Quantilfunktion macht in einfache Worten gefasst folgendes: Sie nimmt einen Anteil einer Verteilung (z.B. 84 %) und schneidet die Verteilung genau an diesem Punkt ab. D.h. sie zeigt den Wert, der größer ist als 84 aller anderen Werte, aber kleiner ist als die übrigen 16 %. Somit bildet man das ein 84-Prozent-Quantil.
 
-```{r}
+```{r, class='floating-code'}
 PKW_Dauer%>%
   summarise(quan84 = quantile(Dauer, prob = .84))
 ```
@@ -278,7 +289,7 @@ Welche Haltbarkeit wird mit einer Wahrscheinlichkeit von 95 % nicht überschritt
 
 #### L2 e)
 
-```{r}
+```{r, class='floating-code'}
 PKW_Dauer%>%
   summarise(quan95 = quantile(Dauer, prob = .95))
 ```
@@ -293,12 +304,12 @@ In welchem Intervall liegen 90 % aller Werte?
 
 #### L2 f)
 
-```{r paged.print=FALSE}
+```{r, class='floating-code'}
 PKW_Dauer%>%
   summarise(quan5 = quantile(Dauer, prob = .05))
 ```
 
-```{r paged.print=FALSE}
+```{r, class='floating-code'}
 PKW_Dauer%>%
   summarise(quan95 = quantile(Dauer, prob = .95))
 ```
@@ -311,44 +322,44 @@ PKW_Dauer%>%
 ::: {.callout-tip appearance="true" collapse="true"}
 ## Tipps für eine Codesammlung
 
-Normalverteilung erstellen
+**Normalverteilung erstellen**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 normalv <-
-  tibble(# erstelle eine Tabelle
+  tibble(
     Verteilung = rnorm( #erstelle mit rnorm eine Normalverteilung in R
       1e5, #insgesamt soll diese Verteilung Hunderttausend Werte haben 
                      mean = x, #Mittelwert dieser Menge 
                      sd = x)) #die Werte streuen mit einer Standardabweichung von x
 ```
 
-Wie viele Fälle liegen unter einem bestimmten Wert?
+**Wie viele Fälle liegen unter einem bestimmten Wert?**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 normalv%>%
   filter(Verteilung < x)%>%
   count()
 ```
 
-Wie viele Fälle liegen zwischen zwei Werten?
+**Wie viele Fälle liegen zwischen zwei Werten?**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 normalv%>%
   filter(Verteilung > x & Verteilung < y)%>%
   count()
 ```
 
-Wie groß ist die Wahrscheinlichkeit, einen Fall zu erwischen, die über dem Wert X liegt?
+**Wie groß ist die Wahrscheinlichkeit, einen Fall zu erwischen, die über dem Wert X liegt?**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 normalv%>%
   filter(Verteilung > X)%>%
   summarise(Anteil = 100*(n() / 100000)) #um die Wahrscheinlichkeit direkt in Prozent zu bekommen
 ```
 
-Welchen Wert erreichen x Prozent der Werte nicht mehr?
+**Welchen Wert erreichen x Prozent der Werte nicht mehr?**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 normalv%>%
   summarise(quanX = quantile(Verteilung, prob = .X))
 ```

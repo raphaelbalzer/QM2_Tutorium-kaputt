@@ -12,13 +12,14 @@ library(rstanarm)
 ### Aufgabe 1 a)
 
 ::: panel-tabset
+
 #### A1 a)
 
 Nutzen Sie die Gittermethode gegliedert in 10 Hypothesen, um herauszufinden, welcher der wahrscheinlichste Wasseranteil des Globus ist, wenn wir bei 20 Durchführungen 14-mal Wasser getroffen haben.
 
 #### L1 a)
 
-```{r}
+```{r, class='floating-code'}
 set.seed(42)
 d <-
   tibble(
@@ -40,8 +41,7 @@ d %>%
   arrange(-Post)
 ```
 
-Der wahrscheinlichste Wasseranteil (laut unserem Modell) ist 0,7. Die Wahrscheinlichkeit beträgt 40 %.
-:::
+Der wahrscheinlichste Wasseranteil (laut unserem Modell) ist 0,7. Die Wahrscheinlichkeit beträgt 40 %. :::
 
 ### Aufgabe 1 b)
 
@@ -52,7 +52,7 @@ Wie groß ist die Wahrscheinlichkeit, dass der Globus über 50 Prozent Wasserant
 
 #### L1 b)
 
-```{r}
+```{r, class='floating-code'}
 d%>%
   filter(p_Gitter > 0.5)%>% #zeige nur noch die Wasseranteile über 50 Prozent
   summarise(sum(Post)) #die Funktion sum() summiert alle Werte einer Spalte; in diesem Fall ist diese Spalte Post
@@ -70,7 +70,7 @@ Wie groß ist die Wahrscheinlichkeit, einen Wasseranteil zwischen 50 und 70 Proz
 
 #### L1 c)
 
-```{r}
+```{r, class='floating-code'}
 d%>%
   filter(p_Gitter > .5 & p_Gitter < .7)%>%
   summarise(sum(Post))
@@ -88,7 +88,7 @@ Wie groß ist die Wahrscheinlichkeit, dass der Wasseranteil 70 Prozent nicht üb
 
 #### L1 d)
 
-```{r}
+```{r, class='floating-code'}
 d%>%
   filter(p_Gitter <= .7)%>%
   summarise(sum(Post))
@@ -106,28 +106,29 @@ Nehmen Sie an, Sie könnten begründen, dass ein Wasseranteil unter 50 % nicht e
 
 #### L1 e)
 
-```{r}
+```{r, class='floating-code'}
 set.seed(42)
 
 d3 <-
   tibble(
-    # definiere das Gitter: 
-    p_Gitter = seq(from = 0, to = 1, by = 0.1),
-    # bestimme den Priori-Wert:       
-    Priori  = case_when(p_Gitter < 0.5 ~ 0, #alle p_Gitter-Werte unter 0.5 werden mit 0 verrechnet
-                        p_Gitter >= 0.5 ~ 1)) %>%  #alle p_Gitter-Werte über oder gleich 0.5 sind gleichwahrscheinlich und werden mit 1 verrechnet
+    p_Gitter = seq(from = 0, to = 1, by = 0.1), # <1>
+    Priori  = case_when(p_Gitter < 0.5 ~ 0, # <2>
+                        p_Gitter >= 0.5 ~ 1)) %>%  # <3>
     mutate(
-      # berechne Likelihood für jeden Gitterwert:
-      Likelihood = dbinom(14, size = 20, prob = p_Gitter),
-     # berechen unstand. Posteriori-Werte:
-      unstd_Post = Likelihood * Priori,
-      # berechne stand. Posteriori-Werte (summiert zu 1):
-      Post = unstd_Post / sum(unstd_Post)) %>%
+      Likelihood = dbinom(14, size = 20, prob = p_Gitter), # <4>
+      unstd_Post = Likelihood * Priori, # <5>
+      Post = unstd_Post / sum(unstd_Post)) %>% # <6>
     mutate(
-      # Runde die Posteriori-Werte auf 2 Dezimalstellen (oder eine andere gewünschte Anzahl):
-      Post = round(Post, digits = 2))
+      Post = round(Post, digits = 2)) # <7>
 d3
 ```
+1. Definiere das Gitter
+2. Für alle p_Gitter-Werte unter 0.5 gilt apriori 0
+3. Für alle p_Gitter-Werte über oder gleich 0.5 gilt apriori 1
+4. Berechne Likelihood für jeden Gitterwert
+5. Berechne unstand. Posteriori-Werte
+6. Berechne stand. Posteriori-Werte (summiert zu 1)
+7. Runde die Posteriori-Werte auf 2 Dezimalstellen (oder eine andere gewünschte Anzahl)
 :::
 
 ## Aufgabe 2
@@ -144,7 +145,7 @@ Nutzen Sie die Funktion `dbinom()`, um zu ermitteln, wie groß die Wahrscheinlic
 
 #### L2 a)
 
-```{r}
+```{r, class='floating-code'}
 dbinom(1, size = 5, prob = .5)
 ```
 
@@ -160,9 +161,10 @@ Berechnen wir ein Mal die Wahrscheinlichkeit eines von fünf Malen zu treffen, w
 
 #### L2 b)
 
-```{r}
-dbinom(1, 5, .2) # Trefferwahrscheinlichkeit liegt bei 20 %
+```{r, class='floating-code'}
+dbinom(1, 5, .2) # <1>
 ```
+1. Trefferwahrscheinlichkeit liegt bei 20 %
 
 Das Ergebnis sagt uns: Wenn die Trefferwahrscheinlichkeit bei 20 Prozent liegt, dann sollten wir in ca. 41 Prozent der Fälle eines von fünf Mal treffen. Scheint uns das nicht etwas plausibler? Naja, zumindest ist es wahrscheinlicher, als wenn wir eine Trefferchance von 50/50 annehmen.
 :::
@@ -176,7 +178,7 @@ Definieren wir nun ein Modell, dass 100 Variationen der Trefferchance (d.h. 100 
 
 #### L2 c)
 
-```{r}
+```{r, class='floating-code'}
 set.seed(42)
 
 USB <-
@@ -201,7 +203,7 @@ Wie groß ist die Wahrscheinlichkeit, dass die echte Trefferchance (laut unserem
 
 #### L2 d)
 
-```{r}
+```{r, class='floating-code'}
 USB%>%
   filter(c_Treffer > 0.125 & c_Treffer < 0.275)%>%
   summarise(sum(Post))
@@ -217,7 +219,7 @@ Welcher ist der wahrscheinlichste Anteil, laut unserem Modell?
 
 #### L2 e)
 
-```{r}
+```{r, class='floating-code'}
 USB%>%
   arrange(-Post)
 ```
@@ -229,12 +231,12 @@ Wir können also nach unserem Modell schließen, dass die echte Trefferchance ve
 
 ## Codesammlung
 
-::: {.callout-tip appearance="simple" collapse="true"}
+::: {.callout-tip appearance="true" collapse="true"}
 ## Tipps für eine Codesammlung
 
-Gitter erstellen
+**Gitter erstellen**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 d <-
   tibble(
     # definiere das Gitter: 
@@ -253,32 +255,32 @@ d <-
       Post = round(Post, digits = 2))  
 ```
 
-Wahrscheinlichster Wert bei X Treffern von n?
+**Wahrscheinlichster Wert bei X Treffern von n?**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 d %>%
   arrange(-Post)
 ```
 
-Wie groß ist die Wahrscheinlichkeit für Anteil von über X Prozent?
+**Wie groß ist die Wahrscheinlichkeit für Anteil von über X Prozent?**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 d%>%
   filter(p_Gitter > 0.X)%>% #zeige nur noch die Wasseranteile über X Prozent
   summarise(sum(Post)) #die Funktion sum() summiert alle Werte einer Spalte; in diesem Fall ist diese Spalte Post
 ```
 
-Wie groß ist die Wahrscheinlichkeit für einen Anteil zwischen X und Y Prozent?
+**Wie groß ist die Wahrscheinlichkeit für einen Anteil zwischen X und Y Prozent?**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 d%>%
   filter(p_Gitter > .X & p_Gitter < .Y)%>%
   summarise(sum(Post))
 ```
 
-Apriori vorher definieren, Anteil unter X% existiert nicht:
+**Apriori vorher definieren, Anteil unter X% existiert nicht:**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 d2 <-
   tibble(
     # definiere das Gitter: 
@@ -298,9 +300,9 @@ d2 <-
       Post = round(Post, digits = 2))
 ```
 
-Binomialverteilung aufstellen, um die Wahrscheinlichkeit für ein bestimmtes Ereignis zu bekommen: Wie wahrscheinlich ist es, X Treffern von n zu bekommen, wenn die Trefferwahrscheinlichkeit bei Y% liegt?
+**Binomialverteilung aufstellen, um die Wahrscheinlichkeit für ein bestimmtes Ereignis zu bekommen: Wie wahrscheinlich ist es, X Treffern von n zu bekommen, wenn die Trefferwahrscheinlichkeit bei Y% liegt?**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 dbinom(x, size = n, prob = .y)
 ```
 :::

@@ -9,9 +9,8 @@ library(easystats)
 library(bayestestR)
 ```
 
-::: {.callout-warning}
-Hinweis:
-Achtung, die Ergebnisse können selbst mit set.seed() etwas variieren!
+::: callout-warning
+Hinweis: Achtung, die Ergebnisse können selbst mit set.seed() etwas variieren!
 :::
 
 ## Aufgabe 1
@@ -29,7 +28,7 @@ Wie groß ist der mediane Unterschied zwischen dem mittleren IQ, wenn man die Ki
 
 #### L1 a)
 
-```{r}
+```{r, class='floating-code'}
 data(kidiq)
 
 set.seed(42)
@@ -51,7 +50,7 @@ Wie breit ist das 90-Prozent-HDI, das den Unterschied zwischen der mittleren Int
 
 #### L1 b)
 
-```{r}
+```{r, class='floating-code'}
 set.seed(42)
 m6 <- stan_glm(kid_score ~ mom_hs + mom_age + mom_iq, data = kidiq, refresh = 0)
 
@@ -70,7 +69,7 @@ Zentrieren Sie die Prädiktoren mom_age und mom_iq und erstellen Sie das genannt
 
 #### L1 b)
 
-```{r}
+```{r, class='floating-code'}
 kidiq2 <-
   kidiq%>%
   mutate(mom_age_c = mom_age - mean(mom_age),
@@ -89,7 +88,7 @@ Wie groß ist die Wahrscheinlichkeit, dass der mittlere IQ eines Kindes größer
 
 #### L1 d)
 
-```{r}
+```{r, class='floating-code'}
 m6b%>%
   as_tibble()%>%
   count(`(Intercept)` > 85)%>%
@@ -106,7 +105,7 @@ Wie groß ist die Wahrscheinlichkeit, dass der mittlere IQ eines Kindes größer
 
 #### L1 e)
 
-```{r}
+```{r, class='floating-code'}
 m6btab <- m6b%>%
   as_tibble()%>%
   mutate(Mit_Highschoolabschluss = `(Intercept)` + mom_hs) 
@@ -114,7 +113,7 @@ m6btab <- m6b%>%
 
 Wir steigern an dieser Stelle nur Mom_hs vom Ausgangspunkt "kein HS-Abschluss" (x = 0 -\> Intercept) zum gewünschten Wert "mit HS-Abschluss (x = 1; Intercept + Koeffizient). Alle anderen Variablen bleiben konstant, d.h. dadurch, dass sie zentriert sind, entsprechen sie dem Durchschnitt.
 
-```{r}
+```{r, class='floating-code'}
 m6btab%>%
   count(Mit_Highschoolabschluss > 85)%>%
   mutate(Anteil = n / sum(n))
@@ -132,7 +131,7 @@ Können wir uns laut der vorgeschlagenen ROPE-Entscheidungsregel von Kruschke si
 
 #### L1 f)
 
-```{r}
+```{r, class='floating-code'}
 rope(m6b)
 
 plot(rope(m6b))
@@ -158,7 +157,7 @@ o Ja o Nein
 
 #### L2 a)
 
-```{r}
+```{r, class='floating-code'}
 penguins <- read_csv("https://vincentarelbundock.github.io/Rdatasets/csv/palmerpenguins/penguins.csv")
 
 set.seed(42)
@@ -194,7 +193,7 @@ Wie groß ist der Anteil der Verteilung der Torgersen-Insel, der innerhalb des R
 
 #### L2 b)
 
-```{r}
+```{r, class='floating-code'}
 set.seed(42)
 m3 <- stan_glm(body_mass_g ~ island + bill_length_mm, data = penguins, refresh = 0)
 m3
@@ -237,7 +236,7 @@ Was ist der Wert des Punktschätzers für eine Beobachtung, bei der alle Prädik
 -   633.4
 -   265.3
 
-```{r}
+```{r, class='floating-code'}
 set.seed(42)
 m4 <- stan_glm(body_mass_g ~ bill_length_mm, data = penguins, refresh = 0)
 m4
@@ -257,7 +256,7 @@ Berechnen Sie folgendes Modell: AV → mpg UV → wt, drat, disp Welcher der Pr�
 
 #### L3
 
-```{r}
+```{r, class='floating-code'}
 data(mtcars)
 
 set.seed(42)
@@ -269,7 +268,7 @@ Anhand der Koeffizienten lässt sich noch nicht sagen, welcher Effekt der stärk
 
 Aus dem genannten Grund, müssen wir die Prädiktoren z-standardisieren, so dass die Einheiten der einzelnen Prädiktoren vergleichbar werden.
 
-```{r}
+```{r, class='floating-code'}
 mtcars2 <-
   mtcars%>%
   mutate(wt_z = scale(wt),
@@ -286,20 +285,20 @@ Der Prädiktor mit dem stärksten negativen Effekt auf den Spritverbrauch ist wt
 
 ## Codesammlung
 
-::: {.callout-tip appearance="simple" collapse="true"}
-### Tipps für eine Codesammlung
+::: {.callout-tip appearance="true" collapse="true"}
+## Tipps für eine Codesammlung
 
-Rope anzeigen & plotten
+**Rope anzeigen & plotten**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 rope(m1)
 
 plot(rope(m1))
 ```
 
-Variablen z-standardisieren
+**Variablen z-standardisieren**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 data%>%
   mutate(uv1_z = scale(uv1),
          uv2_z = scale(uv2),

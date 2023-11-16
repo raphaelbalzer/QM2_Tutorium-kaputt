@@ -8,9 +8,8 @@ library(rstanarm)
 library(easystats)
 ```
 
-::: {.callout-warning}
-Hinweis:
-Achtung, die Ergebnisse können selbst mit set.seed() etwas variieren!
+::: callout-warning
+Hinweis: Achtung, die Ergebnisse können selbst mit set.seed() etwas variieren!
 :::
 
 ## Aufgabe 1
@@ -85,7 +84,7 @@ Wenn wir die Körpergröße zweier Menschen vergleichen, die sich in ihrem Körp
 
 Laden Sie für die folgenden Aufgaben den Datensatz "kidiq" aus dem Paket rstanarm.
 
-```{r}
+```{r, class='floating-code'}
 data(kidiq)
 ```
 
@@ -98,11 +97,12 @@ Erstellen Sie ein Modell, dass den IQ von Kindern anhand des IQs der Mutter vorh
 
 #### L2 a)
 
-```{r}
+```{r, class='floating-code'}
 set.seed(42)
-m1a <- stan_glm(kid_score ~ mom_iq, data = kidiq, refresh = 0) #Modell formulieren
+m1a <- stan_glm(kid_score ~ mom_iq, data = kidiq, refresh = 0) # <1>
 parameters(m1a)
 ```
+1. Modell formulieren
 
 Das Modell sagt den IQ der Kinder anhand des IQs der Mutter voraus. Der Intercept des Modells stellt wie immer den erwarteten (mittleren) y-Wert für eine Beobachtung mit x = 0 dar. Das heißt wir sehen den erwarteten mittleren IQ eines Kindes, von einer Mutter, die einen IQ von 0 hat. Da das in der Realität nicht möglich ist, ist das Modell nur begrenzt gut interpretierbar.
 :::
@@ -116,17 +116,19 @@ Zentrieren Sie die Prädiktorvariable (x-Variable/UV) und stellen Sie ein Modell
 
 #### L2 b)
 
-```{r}
+```{r, class='floating-code'}
 kidiq <- 
   kidiq%>%
-  mutate(mom_iq_c = mom_iq - mean(mom_iq)) #ein Wert in der Spalte mom_iq minus den Mittelwert der Spalte mom_iq
+  mutate(mom_iq_c = mom_iq - mean(mom_iq)) # <1>
 ```
+1. Ein Wert in der Spalte mom_iq minus den Mittelwert der Spalte mom_iq
 
-```{r}
+```{r, class='floating-code'}
 set.seed(42)
-m1b <- stan_glm(kid_score ~ mom_iq_c, data = kidiq, refresh = 0) #Modell mit zentriertem Prädiktor
+m1b <- stan_glm(kid_score ~ mom_iq_c, data = kidiq, refresh = 0) # <1>
 parameters(m1b)
 ```
+1. Modell mit zentriertem Prädiktor
 
 Jetzt, da die Prädiktorvariable zentriert ist, können wir den Intercept besser verstehen. Nun sagt dieser aus, dass das Modell im Median einen mittleren IQ von 86,8 bei einem Kind erwartet, wenn die Mutter einen durchschnittlichen IQ hat.
 :::
@@ -140,12 +142,13 @@ Innerhalb welcher beiden Werte liegt das 90 % PI des mittleren IQs der Kinder?
 
 #### L2 c)
 
-```{r}
-m1btab <- m1b%>% #Modell m1b als Tabelle ausgeben
+```{r, class='floating-code'}
+m1btab <- m1b%>% # <1>
   as_tibble()
 ```
+1. Modell m1b als Tabelle ausgeben
 
-```{r}
+```{r, class='floating-code'}
 m1btab%>%
   select(`(Intercept)`)%>%
   eti(ci = .9)
@@ -161,7 +164,7 @@ Welcher Wert bildet die Unsicherheit hinsichtlich des mittleren IQs der Kinder a
 
 #### L2 d)
 
-```{r}
+```{r, class='floating-code'}
 m1b
 ```
 
@@ -177,7 +180,7 @@ Wie groß ist die Wahrscheinlichkeit, dass der Regressionskoeffizient größer i
 
 #### L2 e)
 
-```{r}
+```{r, class='floating-code'}
 m1btab%>%
   summarise(mean(mom_iq_c > .65))
 ```
@@ -194,13 +197,14 @@ Wie groß ist die Wahrscheinlichkeit, dass der mittlere IQ eines Kindes, dessen 
 
 #### L2 f)
 
-```{r}
+```{r, class='floating-code'}
 m1btab_f <-
   m1btab%>%
-  mutate(x5 = `(Intercept)` + mom_iq_c*5) #Spalte mutieren, in der man zum Intercept (x = 0), fünf Einheiten von x hinzufügt
+  mutate(x5 = `(Intercept)` + mom_iq_c*5) # <1>
 ```
+1. Spalte mutieren, in der man zum Intercept (x = 0), fünf Einheiten von x hinzufügt
 
-```{r}
+```{r, class='floating-code'}
 m1btab_f%>%
   count(x5 > 90)%>%
   mutate(Anteil = n / sum(n))
@@ -213,7 +217,7 @@ Die Wahrscheinlichkeit, dass der mittlere IQ eines Kindes, das von einer Mutter 
 
 Laden Sie für die folgenden Aufgaben den Datensatz "mtcars" aus dem Paket tidyverse.
 
-```{r}
+```{r, class='floating-code'}
 data(mtcars)
 ```
 
@@ -226,13 +230,14 @@ Erstellen Sie ein Modell, dessen AV der Spriverbrauch und dessen UV das zentrier
 
 #### L3 a)
 
-```{r}
+```{r, class='floating-code'}
 mtcars <-
   mtcars%>%
-  mutate(weight_c = center(wt)) #Gewicht zentrieren
+  mutate(weight_c = center(wt)) # <1>
 ```
+1. Gewicht zentrieren
 
-```{r}
+```{r, class='floating-code'}
 set.seed(42)
 m2a <-
   stan_glm(mpg ~ weight_c, data = mtcars, refresh = 0)
@@ -249,13 +254,14 @@ Wie groß ist die Wahrscheinlichkeit, dass der mittlere Spritverbauch kleiner is
 
 #### L3 b)
 
-```{r}
+```{r, class='floating-code'}
 m2atab <- 
-  m2a%>% # Modell als Tabelle
+  m2a%>% # <1>
   as_tibble()
 ```
+1. Modell als Tabelle
 
-```{r}
+```{r, class='floating-code'}
 m2atab%>%
   summarise(mean(`(Intercept)` < 20))
 ```
@@ -272,7 +278,7 @@ Wie groß ist die Wahrscheinlichkeit, dass eine mittlere Streuung von 3,5 nicht 
 
 #### L3 b)
 
-```{r}
+```{r, class='floating-code'}
 m2atab%>%
   summarise(mean(sigma < 3.5))
 ```
@@ -282,26 +288,26 @@ Die Wahrscheinlichkeit, dass eine mittlere Streuung von 3,5 nicht überschritten
 
 ## Codesammlung
 
-::: {.callout-tip appearance="simple" collapse="true"}
-Tipps für eine Codesammlung
+::: {.callout-tip appearance="true" collapse="true"}
+## Tipps für eine Codesammlung
 
-Parameter eines Modells anzeigen:
+**Parameter eines Modells anzeigen:**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 parameters(m1)
 ```
 
-UV zentrieren:
+**UV zentrieren:**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 d <- 
   d%>%
   mutate(uv_c = uv - mean(uv)) 
 ```
 
-X % PI angeben
+**X % PI angeben**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 # Wichtig: Erst in Tabelle umwandeln!
 m1tab <- m1%>%
   as_tibble()
@@ -311,16 +317,16 @@ m1tab%>%
   eti(ci = .X)
 ```
 
-Wahrscheinlichkeit, dass Regressionskoeffizient größer als X ist:
+**Wahrscheinlichkeit, dass Regressionskoeffizient größer als X ist:**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 m1tab%>%
   summarise(mean(uv_c > X))
 ```
 
-Wahrscheinlichkeit, dass der mittlere Wert der AV, wenn die UV X Einheiten über dem Durchschnitt liegt, größer als Y ist
+**Wahrscheinlichkeit, dass der mittlere Wert der AV, wenn die UV X Einheiten über dem Durchschnitt liegt, größer als Y ist**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 m1tab_f <-
   m1btab%>%
   mutate(xX = `(Intercept)` + uv_c*5) 
@@ -330,9 +336,9 @@ m1tab_f%>%
   mutate(Anteil = n / sum(n))
 ```
 
-Wahrscheinlichkeit, dass die mittlere Streuung von X nicht überschritten wird
+**Wahrscheinlichkeit, dass die mittlere Streuung von X nicht überschritten wird**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 m1tab%>%
   summarise(mean(sigma < X))
 ```

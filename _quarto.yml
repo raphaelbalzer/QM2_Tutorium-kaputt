@@ -38,10 +38,13 @@ bibliography: references.bib
 
 format:
   html:
+    css: styles.css
+    highlight-style: gruvbox
     theme:
       light: minty
       dark: vapor
     df-print: paged
+    code-annotations: hover
   pdf:
     documentclass: scrreprt
 

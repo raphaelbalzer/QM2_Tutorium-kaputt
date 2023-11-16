@@ -8,9 +8,8 @@ library(rstanarm)
 library(easystats)
 ```
 
-::: {.callout-warning}
-Hinweis:
-Achtung, die Ergebnisse können selbst mit set.seed() etwas variieren!
+::: callout-warning
+Hinweis: Achtung, die Ergebnisse können selbst mit set.seed() etwas variieren!
 :::
 
 ## Aufgabe 1
@@ -26,7 +25,7 @@ Stellen Sie ein generalisiertes lineares Modell auf, das zeigt, welchen mittlere
 
 ### L1 a)
 
-```{r}
+```{r, class='floating-code'}
 set.seed(42)
 m1 <- stan_glm(mpg ~ 1, data = mtcars, refresh = 0)
 ```
@@ -41,9 +40,10 @@ Lassen Sie sich eine Zusammenfassung der Postverteilung ausgeben und geben Sie d
 
 ### L1 b)
 
-```{r}
+```{r, class='floating-code'}
 parameters(m1)
 ```
+
 Der Punktschätzer unseres Modells ist 20, während das Konfidenzintervall, in dem der echte Wert zu 95 Prozent liegt, von 17,95 bis 22,26 geht.
 :::
 
@@ -56,19 +56,20 @@ Geben Sie das Modell als Tabelle aus und visualisieren Sie die Verteilungen für
 
 ### L1 c)
 
-```{r}
+```{r, class='floating-code'}
 m1tab <-
   m1%>%
   as_tibble()%>%
-  rename(mean = `(Intercept)`) #Optionale Umbenennung der Spalte (Intercept)
+  rename(mean = `(Intercept)`) # <1>
 ```
+1. Optionale Umbenennung der Spalte (Intercept)
 
-```{r}
+```{r, class='floating-code'}
 ggplot(m1tab, mapping = aes(x = mean))+
   geom_density()
 ```
 
-```{r}
+```{r, class='floating-code'}
 ggplot(m1tab, mapping = aes( x = sigma))+
   geom_density()
 ```
@@ -83,7 +84,7 @@ Geben Sie die Wahrscheinlichkeit dafür, dass der mittlere Spritverbrauch nicht 
 
 ### L1 d)
 
-```{r}
+```{r, class='floating-code'}
 m1tab%>%
   count(mean <= 21)%>%
   mutate(Anteil = n / sum(n))
@@ -91,7 +92,7 @@ m1tab%>%
 
 Oder eleganter:
 
-```{r}
+```{r, class='floating-code'}
 m1tab %>%
   summarise(Anteil = mean(mean <= 21))
 ```
@@ -108,7 +109,7 @@ Welche Streuung wird mit einer Wahrscheinlichkeit von 90 Prozent nicht überschr
 
 ### L1 e)
 
-```{r}
+```{r, class='floating-code'}
 m1tab%>%
   summarise(quant90 = quantile(sigma, prob = .9))
 ```
@@ -125,7 +126,7 @@ Wie breit ist das Intervall der höchsten Dichte, das angibt in welchem Bereich 
 
 ### L1 f)
 
-```{r}
+```{r, class='floating-code'}
 m1tab%>%
   select(mean)%>%
   hdi(ci = .9)
@@ -135,7 +136,7 @@ m1tab%>%
 
 Oder eleganter:
 
-```{r}
+```{r, class='floating-code'}
 m1tab%>%
   select(mean)%>%
   hdi(ci = .9) %>%
@@ -159,7 +160,7 @@ Stellen Sie ein Modell auf, das zeigt mit welchem Mittelwert und welcher Streuun
 
 ### L2 a)
 
-```{r}
+```{r, class='floating-code'}
 HousePrices <-
   read.csv("https://vincentarelbundock.github.io/Rdatasets/csv/AER/HousePrices.csv")
 ```
@@ -180,12 +181,12 @@ Lassen Sie sich eine Zusammenfassung der Postverteilung ausgeben und geben Sie d
 
 ### L1 b)
 
-```{r}
+```{r, class='floating-code'}
 parameters(m2)
 ```
+
 Der Punktschätzer unseres Modells ist 68k, während das Konfidenzintervall, in dem der echte Wert zu 95 Prozent liegt, von 65952.65 bis 70357.75 geht.
 :::
-
 
 ### Aufgabe 2 c)
 
@@ -196,14 +197,14 @@ Wie groß ist die Wahrscheinlichkeit, dass der durchschnittliche Häuserpreis me
 
 ### L2 c)
 
-```{r}
+```{r, class='floating-code'}
 m2tab <-
   m2%>%
   as_tibble()%>%
   rename(mean = `(Intercept)`)
 ```
 
-```{r}
+```{r, class='floating-code'}
 m2tab%>%
   count(mean > 70000)%>%
   mutate(Anteil = n / sum(n))
@@ -211,7 +212,7 @@ m2tab%>%
 
 Oder eleganter:
 
-```{r}
+```{r, class='floating-code'}
 m2tab %>%
   summarise(Anteil = mean(mean > 70000))
 ```
@@ -228,7 +229,7 @@ Wie groß ist die Wahrscheinlichkeit, dass die Streuung der Häuserpreise bei 20
 
 ### L2 d)
 
-```{r}
+```{r, class='floating-code'}
 m2tab%>%
   count(sigma <= 20000)%>%
   mutate(Anteil = n / sum(n))
@@ -236,7 +237,7 @@ m2tab%>%
 
 Oder eleganter:
 
-```{r}
+```{r, class='floating-code'}
 m2tab %>% 
   summarise(Anteil = mean(sigma <= 20000))
 ```
@@ -253,7 +254,7 @@ Zwischen welchen Häuserpreisen befindet sich das mittlere Intervall, dass 90 Pr
 
 ### L2 e)
 
-```{r}
+```{r, class='floating-code'}
 m2tab%>%
   select(mean)%>%
   eti(ci = .90)
@@ -264,27 +265,27 @@ Laut dem Modell werden die Grenzen des 90-Prozent-ETIs durch die Werte 66295.10 
 
 ## Codesammlung
 
-::: {.callout-tip collapse="true"}
-Tipps für eine Codesammlung
+::: {.callout-tip appearance="true" collapse="true"}
+## Tipps für eine Codesammlung
 
-Generalisiertes lineares Modell aufstellen für den mittleren Wert der AV:
+**Generalisiertes lineares Modell aufstellen für den mittleren Wert der AV:**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 m <- stan_glm(AV ~ 1, data = data, refresh = 0)
 ```
 
-Modell als Tabelle ausgeben:
+**Modell als Tabelle ausgeben:**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 mtab <-
   m1%>%
   as_tibble()%>%
   rename(mean = `(Intercept)`)
 ```
 
-Streuung & Mittelwert des Modells visualiseren
+**Streuung & Mittelwert des Modells visualiseren**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 ggplot(mtab, mapping = aes(x = mean))+
   geom_density()
 
@@ -292,9 +293,9 @@ ggplot(mtab, mapping = aes( x = sigma))+
   geom_density()
 ```
 
-Wie groß ist die Wahrscheinlichkeit dafür, dass der mittlere Werte der Av nicht größer ist als X
+**Wie groß ist die Wahrscheinlichkeit dafür, dass der mittlere Werte der Av nicht größer ist als X**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 mtab%>%
   count(mean <= X)%>%
   mutate(Anteil = n / sum(n))
@@ -304,16 +305,16 @@ mtab %>%
   summarise(Anteil = mean(mean <= X))
 ```
 
-Welche Streuung wird mit einer Wahrscheinlichkeit von X Prozent nicht überschritten?
+**Welche Streuung wird mit einer Wahrscheinlichkeit von X Prozent nicht überschritten?**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 mtab%>%
   summarise(quantX = quantile(sigma, prob = .X))
 ```
 
-Wie groß ist die Wahrscheinlichkeit, dass die Streuung der AV bei X oder weniger liegt?
+**Wie groß ist die Wahrscheinlichkeit, dass die Streuung der AV bei X oder weniger liegt?**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 mtab%>%
   count(sigma <= X)%>%
   mutate(Anteil = n / sum(n))

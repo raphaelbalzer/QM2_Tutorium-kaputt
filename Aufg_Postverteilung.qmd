@@ -10,9 +10,8 @@ library(rstanarm)
 library(easystats)
 ```
 
-::: {.callout-warning}
-Hinweis:
-Achtung, die Ergebnisse können selbst mit set.seed() etwas variieren!
+::: callout-warning
+Hinweis: Achtung, die Ergebnisse können selbst mit set.seed() etwas variieren!
 :::
 
 ## Aufgabe 1
@@ -24,19 +23,21 @@ Ziehen Sie eine Stichprobe mit einer Größe von 10.000 Fällen. Grundlage ist d
 
 ### L1
 
-```{r}
+```{r, class='floating-code'}
 set.seed(42)
 
 sample1 <-
-  tibble(gitter = seq(0, 1, by = 0.1), #Gitter erstellen
+  tibble(gitter = seq(0, 1, by = 0.1), # <1>
          prior = 1)%>%
   mutate(likelihood = dbinom(14, size = 20, prob = gitter),
          unst_post = prior * likelihood,
          post = unst_post / sum(unst_post))%>%
-  slice_sample(n = 1e4, #Stichprobe ziehen
+  slice_sample(n = 1e4, # <2>
                weight_by = post,
                replace = TRUE)
 ```
+1. Gitter erstellen
+2. Stichprobe ziehen
 :::
 
 ## Aufgabe 2
@@ -48,7 +49,7 @@ Wie groß ist die Wahrscheinlichkeit, dass der Wasseranteil größer als 50 Proz
 
 ### L2
 
-```{r}
+```{r, class='floating-code'}
 sample1%>%
   count(gitter > .5)%>%
   mutate(Anteil = n/10000)
@@ -56,7 +57,7 @@ sample1%>%
 
 Die Wahrscheilichkeit, dass der Wasseranteil größer als 50 Prozent ist, liegt bei \~ 90 Prozent. Kürzer wäre folgender Code:
 
-```{r}
+```{r, class='floating-code'}
 sample1 %>% 
   summarise(Anteil = mean(gitter > .5))
 ```
@@ -73,7 +74,7 @@ Wie groß ist die Wahrscheinlichkeit, dass der Wasseranteil zwischen 65 und 75 P
 
 ### L3
 
-```{r}
+```{r, class='floating-code'}
 sample1%>%
   filter(gitter > .65)%>%
   filter(gitter < .75)%>%
@@ -83,7 +84,7 @@ sample1%>%
 
 Die Wahrscheinlichkeit, dass der Wasseranteil zwischen 65 und 75 Prozent ist, liegt bei \~ 40 Prozent. Eleganter:
 
-```{r}
+```{r, class='floating-code'}
 sample1 %>% 
   summarise(Anteil = mean(gitter > .65 & gitter < .75))
 ```
@@ -100,7 +101,7 @@ Welcher ist der mittlere Wasseranteil und wie groß ist die Standardabweichung d
 
 ### L4
 
-```{r}
+```{r, class='floating-code'}
 sample1%>%
   summarise(`Mittlerer Wasseranteil` = mean(gitter),
             `Standardabweichung der möglichen Wasseranteile` = sd(gitter))
@@ -116,7 +117,7 @@ Welcher Wasseranteil wird mit einer Wahrscheinlichkeit von 70 Prozent nicht übe
 
 ### L5
 
-```{r}
+```{r, class='floating-code'}
 sample1%>%
   summarise(quant70 = quantile(gitter, prob = .7))
 ```
@@ -133,7 +134,7 @@ Beantworten Sie Aufgabe 5 ein weiteres Mal, ohne dabei die Funktion `quantile()`
 
 ### L6
 
-```{r}
+```{r, class='floating-code'}
 sample1%>%
   arrange(gitter)%>%
   slice_head(n = 7000)%>%
@@ -152,7 +153,7 @@ Bilden Sie ein symmetrisches Perzentilinterval, das zeigt, zwischen welchen beid
 
 ### L7
 
-```{r}
+```{r, class='floating-code'}
 sample1%>%
   select(gitter)%>%
   eti(ci = .8)
@@ -170,7 +171,7 @@ Geben Sie die Breite des Intervalls mit der höchsten Wahrscheinlichkeitsdichte,
 
 ### L8
 
-```{r}
+```{r, class='floating-code'}
 sample1%>%
   select(gitter)%>%
   hdi()
@@ -183,7 +184,7 @@ sample1%>%
 Die Breite des HDI ist 0.3.\
 Hier noch eine andere Variante, die das Ergebnis direkt ausspuckt:
 
-```{r}
+```{r, class='floating-code'}
 sample1%>%
   select(gitter)%>%
   hdi() %>% 
@@ -194,12 +195,12 @@ sample1%>%
 
 ## Codesammlung
 
-::: {.callout-tip appearance="simple" collapse="true"}
-### Tipps für eine Codesammlung
+::: {.callout-tip appearance="true" collapse="true"}
+## Tipps für eine Codesammlung
 
-Stichprobe von 10 000 ziehen auf Basis von Gitter mit X von n Treffern
+**Stichprobe von 10 000 ziehen auf Basis von Gitter mit X von n Treffern**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 set.seed(42)
 
 sample1 <-
@@ -213,9 +214,9 @@ sample1 <-
                replace = TRUE)
 ```
 
-Wie groß ist die Wahrscheinlichkeit, dass der Anteil größer als X% ist?
+**Wie groß ist die Wahrscheinlichkeit, dass der Anteil größer als X% ist?**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 sample1%>%
   count(gitter > .X)%>%
   mutate(Anteil = n/10000)
@@ -225,17 +226,17 @@ sample1 %>%
   summarise(Anteil = mean(gitter > .X))
 ```
 
-Mittlerer Anteil und Standardabweichung der möglichen Anteile
+**Mittlerer Anteil und Standardabweichung der möglichen Anteile**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 sample1%>%
   summarise(`Mittlerer Anteil` = mean(gitter),
             `Standardabweichung der möglichen Anteile` = sd(gitter))
 ```
 
-Wie groß ist die Wahrscheinlichkeit für einen Anteil zwischen X und Y Prozent?
+**Wie groß ist die Wahrscheinlichkeit für einen Anteil zwischen X und Y Prozent?**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 sample1%>%
   filter(gitter > .X)%>%
   filter(gitter < .Y)%>%
@@ -247,9 +248,9 @@ sample1 %>%
   summarise(Anteil = mean(gitter > .65 & gitter < .75))
 ```
 
-Welcher Anteil wird mit einer Wahrscheinlichkeit von X% nicht überschritten?
+**Welcher Anteil wird mit einer Wahrscheinlichkeit von X% nicht überschritten?**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 sample1%>%
   summarise(quantX = quantile(gitter, prob = .X))
 
@@ -260,17 +261,17 @@ sample1%>%
   arrange(-gitter)
 ```
 
-Symmetrisches Perzentilintervall (Equal Tails Interval = eti), dass zeigt, zwischen welchen beiden Parameterwerten sich X% der Verteilung befinden
+**Symmetrisches Perzentilintervall (Equal Tails Interval = eti), dass zeigt, zwischen welchen beiden Parameterwerten sich X% der Verteilung befinden**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 sample1%>%
   select(gitter)%>%
   eti(ci = .X) #eti steht für equal tails interval, ci für confidence interval
 ```
 
-Breite des Intervalls mit der höchsten Wahrscheinlichkeitsdichte berechnen, das X% aller Werte beinhaltet:
+**Breite des Intervalls mit der höchsten Wahrscheinlichkeitsdichte berechnen, das X% aller Werte beinhaltet:**
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, class='floating-code'}
 # Breite des Intervalls direkt berechnen
 sample1%>%
   select(gitter)%>%

@@ -103,6 +103,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed">
@@ -304,7 +305,7 @@ Warning
 <p>Ziehen Sie eine Stichprobe mit einer Größe von 10.000 Fällen. Grundlage ist der Globusversuch mit 14 von 20 Wassertreffern. Nehmen Sie an, dass Sie für 10 Hypothesen apriori indifferent sind.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div class="cell">
+<div class="cell floating-code">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>sample1 <span class="ot">&lt;-</span></span>
@@ -330,7 +331,7 @@ Warning
 <p>Wie groß ist die Wahrscheinlichkeit, dass der Wasseranteil größer als 50 Prozent ist?</p>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<div class="cell">
+<div class="cell floating-code">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sample1<span class="sc">%&gt;%</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(gitter <span class="sc">&gt;</span> .<span class="dv">5</span>)<span class="sc">%&gt;%</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Anteil =</span> n<span class="sc">/</span><span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -344,7 +345,7 @@ Warning
 </div>
 </div>
 <p>Die Wahrscheilichkeit, dass der Wasseranteil größer als 50 Prozent ist, liegt bei ~ 90 Prozent. Kürzer wäre folgender Code:</p>
-<div class="cell">
+<div class="cell floating-code">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sample1 <span class="sc">%&gt;%</span> </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Anteil =</span> <span class="fu">mean</span>(gitter <span class="sc">&gt;</span> .<span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -370,7 +371,7 @@ Warning
 <p>Wie groß ist die Wahrscheinlichkeit, dass der Wasseranteil zwischen 65 und 75 Prozent liegt?</p>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div class="cell">
+<div class="cell floating-code">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sample1<span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gitter <span class="sc">&gt;</span> .<span class="dv">65</span>)<span class="sc">%&gt;%</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gitter <span class="sc">&lt;</span> .<span class="dv">75</span>)<span class="sc">%&gt;%</span></span>
@@ -386,7 +387,7 @@ Warning
 </div>
 </div>
 <p>Die Wahrscheinlichkeit, dass der Wasseranteil zwischen 65 und 75 Prozent ist, liegt bei ~ 40 Prozent. Eleganter:</p>
-<div class="cell">
+<div class="cell floating-code">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sample1 <span class="sc">%&gt;%</span> </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Anteil =</span> <span class="fu">mean</span>(gitter <span class="sc">&gt;</span> .<span class="dv">65</span> <span class="sc">&amp;</span> gitter <span class="sc">&lt;</span> .<span class="dv">75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -412,7 +413,7 @@ Warning
 <p>Welcher ist der mittlere Wasseranteil und wie groß ist die Standardabweichung der Verteilung?</p>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-<div class="cell">
+<div class="cell floating-code">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sample1<span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">`</span><span class="at">Mittlerer Wasseranteil</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(gitter),</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Standardabweichung der möglichen Wasseranteile</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sd</span>(gitter))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -438,7 +439,7 @@ Warning
 <p>Welcher Wasseranteil wird mit einer Wahrscheinlichkeit von 70 Prozent nicht überschritten?</p>
 </div>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
-<div class="cell">
+<div class="cell floating-code">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sample1<span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">quant70 =</span> <span class="fu">quantile</span>(gitter, <span class="at">prob =</span> .<span class="dv">7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -464,7 +465,7 @@ Warning
 <p>Beantworten Sie Aufgabe 5 ein weiteres Mal, ohne dabei die Funktion <code>quantile()</code> zu verwenden.</p>
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
-<div class="cell">
+<div class="cell floating-code">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sample1<span class="sc">%&gt;%</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(gitter)<span class="sc">%&gt;%</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">7000</span>)<span class="sc">%&gt;%</span></span>
@@ -492,7 +493,7 @@ Warning
 <p>Bilden Sie ein symmetrisches Perzentilinterval, das zeigt, zwischen welchen beiden Parameterwerten sich 80 Prozent der Verteilung befinden.</p>
 </div>
 <div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
-<div class="cell">
+<div class="cell floating-code">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sample1<span class="sc">%&gt;%</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(gitter)<span class="sc">%&gt;%</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">eti</span>(<span class="at">ci =</span> .<span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -519,7 +520,7 @@ Warning
 <p>Geben Sie die Breite des Intervalls mit der höchsten Wahrscheinlichkeitsdichte, das 95 % aller Werte beinhaltet, an.</p>
 </div>
 <div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
-<div class="cell">
+<div class="cell floating-code">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sample1<span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(gitter)<span class="sc">%&gt;%</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hdi</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -540,7 +541,7 @@ Warning
 </div>
 <p>Die Breite des HDI ist 0.3.<br>
 Hier noch eine andere Variante, die das Ergebnis direkt ausspuckt:</p>
-<div class="cell">
+<div class="cell floating-code">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sample1<span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(gitter)<span class="sc">%&gt;%</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hdi</span>() <span class="sc">%&gt;%</span> </span>
@@ -561,7 +562,7 @@ Hier noch eine andere Variante, die das Ergebnis direkt ausspuckt:</p>
 </section>
 <section id="codesammlung" class="level2" data-number="4.9">
 <h2 data-number="4.9" class="anchored" data-anchor-id="codesammlung"><span class="header-section-number">4.9</span> Codesammlung</h2>
-<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -573,8 +574,8 @@ Tipps für eine Codesammlung
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Stichprobe von 10 000 ziehen auf Basis von Gitter mit X von n Treffern</p>
-<div class="cell">
+<p><strong>Stichprobe von 10 000 ziehen auf Basis von Gitter mit X von n Treffern</strong></p>
+<div class="cell floating-code">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>sample1 <span class="ot">&lt;-</span></span>
@@ -587,8 +588,8 @@ Tipps für eine Codesammlung
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">weight_by =</span> post,</span>
 <span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Wie groß ist die Wahrscheinlichkeit, dass der Anteil größer als X% ist?</p>
-<div class="cell">
+<p><strong>Wie groß ist die Wahrscheinlichkeit, dass der Anteil größer als X% ist?</strong></p>
+<div class="cell floating-code">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sample1<span class="sc">%&gt;%</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(gitter <span class="sc">&gt;</span> .X)<span class="sc">%&gt;%</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Anteil =</span> n<span class="sc">/</span><span class="dv">10000</span>)</span>
@@ -597,14 +598,14 @@ Tipps für eine Codesammlung
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>sample1 <span class="sc">%&gt;%</span> </span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Anteil =</span> <span class="fu">mean</span>(gitter <span class="sc">&gt;</span> .X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Mittlerer Anteil und Standardabweichung der möglichen Anteile</p>
-<div class="cell">
+<p><strong>Mittlerer Anteil und Standardabweichung der möglichen Anteile</strong></p>
+<div class="cell floating-code">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sample1<span class="sc">%&gt;%</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">`</span><span class="at">Mittlerer Anteil</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(gitter),</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Standardabweichung der möglichen Anteile</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sd</span>(gitter))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Wie groß ist die Wahrscheinlichkeit für einen Anteil zwischen X und Y Prozent?</p>
-<div class="cell">
+<p><strong>Wie groß ist die Wahrscheinlichkeit für einen Anteil zwischen X und Y Prozent?</strong></p>
+<div class="cell floating-code">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sample1<span class="sc">%&gt;%</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gitter <span class="sc">&gt;</span> .X)<span class="sc">%&gt;%</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gitter <span class="sc">&lt;</span> .Y)<span class="sc">%&gt;%</span></span>
@@ -615,8 +616,8 @@ Tipps für eine Codesammlung
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>sample1 <span class="sc">%&gt;%</span> </span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Anteil =</span> <span class="fu">mean</span>(gitter <span class="sc">&gt;</span> .<span class="dv">65</span> <span class="sc">&amp;</span> gitter <span class="sc">&lt;</span> .<span class="dv">75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Welcher Anteil wird mit einer Wahrscheinlichkeit von X% nicht überschritten?</p>
-<div class="cell">
+<p><strong>Welcher Anteil wird mit einer Wahrscheinlichkeit von X% nicht überschritten?</strong></p>
+<div class="cell floating-code">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sample1<span class="sc">%&gt;%</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">quantX =</span> <span class="fu">quantile</span>(gitter, <span class="at">prob =</span> .X))</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -626,14 +627,14 @@ Tipps für eine Codesammlung
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> X<span class="sc">%*1e4)%</span><span class="er">&gt;</span>%</span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>gitter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Symmetrisches Perzentilintervall (Equal Tails Interval = eti), dass zeigt, zwischen welchen beiden Parameterwerten sich X% der Verteilung befinden</p>
-<div class="cell">
+<p><strong>Symmetrisches Perzentilintervall (Equal Tails Interval = eti), dass zeigt, zwischen welchen beiden Parameterwerten sich X% der Verteilung befinden</strong></p>
+<div class="cell floating-code">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sample1<span class="sc">%&gt;%</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(gitter)<span class="sc">%&gt;%</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">eti</span>(<span class="at">ci =</span> .X) <span class="co">#eti steht für equal tails interval, ci für confidence interval</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Breite des Intervalls mit der höchsten Wahrscheinlichkeitsdichte berechnen, das X% aller Werte beinhaltet:</p>
-<div class="cell">
+<p><strong>Breite des Intervalls mit der höchsten Wahrscheinlichkeitsdichte berechnen, das X% aller Werte beinhaltet:</strong></p>
+<div class="cell floating-code">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Breite des Intervalls direkt berechnen</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>sample1<span class="sc">%&gt;%</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(gitter)<span class="sc">%&gt;%</span></span>
@@ -943,25 +944,90 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
+      // Handle positioning of the toggle
+      window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
           }
-        });
+        };
+      }
+      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+      for (let i=0; i<annoteTargets.length; i++) {
+        const annoteTarget = annoteTargets[i];
+        const targetCell = annoteTarget.getAttribute("data-target-cell");
+        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+        const contentFn = () => {
+          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          if (content) {
+            const tipContent = content.cloneNode(true);
+            tipContent.classList.add("code-annotation-tip-content");
+            return tipContent.outerHTML;
+          }
+        }
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          onShow: (instance) => {
+            selectCodeLines(instance.reference);
+            instance.reference.classList.add('code-annotation-active');
+            window.tippy.hideAll();
+          },
+          onHide: (instance) => {
+            unselectCodeLines();
+            instance.reference.classList.remove('code-annotation-active');
+          },
+          maxWidth: 300,
+          delay: [50, 0],
+          duration: [200, 0],
+          offset: [5, 10],
+          arrow: true,
+          appendTo: function(el) {
+            return el.parentElement.parentElement.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto',
+          placement: 'right',
+          popperOptions: {
+            modifiers: [
+            {
+              name: 'flip',
+              options: {
+                flipVariations: false, // true by default
+                allowedAutoPlacements: ['right'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end'],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                mainAxis: false,
+                altAxis: false
+              }
+            }
+            ]        
+          }      
+        };
+        window.tippy(annoteTarget, config); 
       }
   const findCites = (el) => {
     const parentEl = el.parentElement;
