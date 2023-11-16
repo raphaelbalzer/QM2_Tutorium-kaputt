@@ -229,7 +229,7 @@ Wir können also nach unserem Modell schließen, dass die echte Trefferchance ve
 
 ## Codesammlung
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip appearance="simple" collapse="true"}
 ## Tipps für eine Codesammlung
 
 Gitter erstellen

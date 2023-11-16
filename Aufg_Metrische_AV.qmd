@@ -9,8 +9,9 @@ library(easystats)
 library(bayestestR)
 ```
 
-::: callout-warning
-Hinweis: Achtung, die Ergebnisse können selbst mit set.seed() etwas variieren!
+::: {.callout-warning}
+Hinweis:
+Achtung, die Ergebnisse können selbst mit set.seed() etwas variieren!
 :::
 
 ## Aufgabe 1
@@ -285,8 +286,8 @@ Der Prädiktor mit dem stärksten negativen Effekt auf den Spritverbrauch ist wt
 
 ## Codesammlung
 
-::: {.callout-tip collapse="true"}
-Tipps für eine Codesammlung
+::: {.callout-tip appearance="simple" collapse="true"}
+### Tipps für eine Codesammlung
 
 Rope anzeigen & plotten
 

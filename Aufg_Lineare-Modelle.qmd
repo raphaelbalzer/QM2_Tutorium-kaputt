@@ -282,7 +282,7 @@ Die Wahrscheinlichkeit, dass eine mittlere Streuung von 3,5 nicht überschritten
 
 ## Codesammlung
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip appearance="simple" collapse="true"}
 Tipps für eine Codesammlung
 
 Parameter eines Modells anzeigen:
