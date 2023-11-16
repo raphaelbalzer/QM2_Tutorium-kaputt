@@ -15,7 +15,7 @@ Achtung, die Ergebnisse können selbst mit set.seed() etwas variieren!
 
 ## Aufgabe 1
 
-Nehmen Sie für folgende Aufgaben den Datensatz mtcars aus dem tidyverse.
+Nehmen Sie für folgende Aufgaben den Datensatz `mtcars` aus dem Paket `datasets`.
 
 ### Aufgabe 1 a)
 
@@ -37,9 +37,24 @@ m1 <- stan_glm(mpg ~ 1, data = mtcars, refresh = 0)
 ::: panel-tabset
 ### A1 b)
 
-Geben Sie das Modell als Tabelle aus und visualisieren Sie die Verteilungen für den durchschnittlichen Spritverbrauch und die Streuung.
+Lassen Sie sich eine Zusammenfassung der Postverteilung ausgeben und geben Sie den Wert an, den das Modell am wahrscheinlichsten für den Mittelwert hält. Geben Sie außerdem einen Bereich an, in dem laut dem Modell zu 95-prozentiger Wahrscheinlichkeit der echte Mittelwert liegt.
 
 ### L1 b)
+
+```{r}
+parameters(m1)
+```
+Der Punktschätzer unseres Modells ist 20, während das Konfidenzintervall, in dem der echte Wert zu 95 Prozent liegt, von 17,95 bis 22,26 geht.
+:::
+
+### Aufgabe 1 c)
+
+::: panel-tabset
+### A1 c)
+
+Geben Sie das Modell als Tabelle aus und visualisieren Sie die Verteilungen für den durchschnittlichen Spritverbrauch und die Streuung.
+
+### L1 c)
 
 ```{r}
 m1tab <-
@@ -59,16 +74,16 @@ ggplot(m1tab, mapping = aes( x = sigma))+
 ```
 :::
 
-### Aufgabe 1 c)
+### Aufgabe 1 d)
 
 ::: panel-tabset
-### A1 c)
+### A1 d)
 
 Geben Sie die Wahrscheinlichkeit dafür, dass der mittlere Spritverbrauch nicht größer ist als 21 mpg.
 
-### L1 c)
+### L1 d)
 
-```{r paged.print=FALSE}
+```{r}
 m1tab%>%
   count(mean <= 21)%>%
   mutate(Anteil = n / sum(n))
@@ -84,14 +99,14 @@ m1tab %>%
 Die Wahrscheinlichkeit, dass der mittlere Spritverbrauch nicht größer ist als 21 mpg, liegt bei ca. 80 Prozent.
 :::
 
-### Aufgabe 1 d)
+### Aufgabe 1 e)
 
 ::: panel-tabset
-### A1 d)
+### A1 e)
 
 Welche Streuung wird mit einer Wahrscheinlichkeit von 90 Prozent nicht überschritten?
 
-### L1 d)
+### L1 e)
 
 ```{r}
 m1tab%>%
@@ -101,10 +116,10 @@ m1tab%>%
 Eine Streuung von 7.25 wird mit einer Wahrscheinlichkeit von 90 Prozent nicht überschritten.
 :::
 
-### Aufgabe 1 e)
+### Aufgabe 1 f)
 
 ::: panel-tabset
-### A1 e)
+### A1 f)
 
 Wie breit ist das Intervall der höchsten Dichte, das angibt in welchem Bereich sich 90 Prozent der möglichen Durchschnittsverbrauche befinden?
 
