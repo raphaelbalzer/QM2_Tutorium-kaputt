@@ -10,7 +10,7 @@ library(easystats)
 
 ::: {.callout-warning}
 Hinweis:
-Achtung, die Ergebnisse können selbst mit set.seed() etwas varieren!
+Achtung, die Ergebnisse können selbst mit set.seed() etwas variieren!
 :::
 
 ## Aufgabe 1

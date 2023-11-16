@@ -288,7 +288,7 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Hinweis: Achtung, die Ergebnisse können selbst mit set.seed() etwas varieren!</p>
+<p>Hinweis: Achtung, die Ergebnisse können selbst mit set.seed() etwas variieren!</p>
 </div>
 </div>
 <section id="aufgabe-1" class="level2" data-number="7.1">
@@ -446,7 +446,7 @@ Warning
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">rope</span>(m6b))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Aufg_Metrische_AV_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+<p><img src="Aufg_Metrische_AV_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Außerhalb des Ropes liegen 96,53 Prozent. Dementsprechend können wir uns laut der ROPE-Entscheidungsregel von Kruschke sicher sein, dass der gefragte Unterschied (kid_score|mom_hs = 0 vs.&nbsp;kid_score|mom_hs = 1) signifikant ist.</p>
@@ -471,13 +471,13 @@ Warning
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://vincentarelbundock.github.io/Rdatasets/csv/palmerpenguins/penguins.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 344 Columns: 9
--- Column specification --------------------------------------------------------
+── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr (3): species, island, sex
 dbl (6): rownames, bill_length_mm, bill_depth_mm, flipper_length_mm, body_ma...
 
-i Use `spec()` to retrieve the full column specification for this data.
-i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(body_mass_g <span class="sc">~</span> island, <span class="at">data =</span> penguins, <span class="at">refresh =</span> <span class="dv">0</span>)</span>
@@ -560,7 +560,7 @@ sigma 493.8   19.3
 </div>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">rope</span>(m3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Aufg_Metrische_AV_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+<p><img src="Aufg_Metrische_AV_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Der Anteil der innerhalb des ROPEs liegt beträgt 0,00.</p>
