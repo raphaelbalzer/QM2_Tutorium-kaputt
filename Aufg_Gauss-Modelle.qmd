@@ -169,6 +169,32 @@ set.seed(42)
 m2 <- 
   stan_glm(price ~ 1, data = HousePrices, refresh = 0)
 ```
+:::
+
+### Aufgabe 1 b)
+
+::: panel-tabset
+### A1 b)
+
+Lassen Sie sich eine Zusammenfassung der Postverteilung ausgeben und geben Sie den Wert an, den das Modell am wahrscheinlichsten für den Mittelwert hält. Geben Sie außerdem einen Bereich an, in dem laut dem Modell zu 95-prozentiger Wahrscheinlichkeit der echte Mittelwert liegt.
+
+### L1 b)
+
+```{r}
+parameters(m2)
+```
+Der Punktschätzer unseres Modells ist 68k, während das Konfidenzintervall, in dem der echte Wert zu 95 Prozent liegt, von 65952.65 bis 70357.75 geht.
+:::
+
+
+### Aufgabe 2 c)
+
+::: panel-tabset
+### A2 c)
+
+Wie groß ist die Wahrscheinlichkeit, dass der durchschnittliche Häuserpreis mehr als 70.000 Dollar ist?
+
+### L2 c)
 
 ```{r}
 m2tab <-
@@ -176,16 +202,6 @@ m2tab <-
   as_tibble()%>%
   rename(mean = `(Intercept)`)
 ```
-:::
-
-### Aufgabe 2 b)
-
-::: panel-tabset
-### A2 b)
-
-Wie groß ist die Wahrscheinlichkeit, dass der durchschnittliche Häuserpreis mehr als 70.000 Dollar ist?
-
-### L2 b)
 
 ```{r}
 m2tab%>%
@@ -203,10 +219,10 @@ m2tab %>%
 Die Wahrscheinlichkeit, dass der mittlere Häuserpreis bei mehr als 70.000 Dollar liegt, ist laut dem Modell lediglich 5 Prozent.
 :::
 
-### Aufgabe 2 c)
+### Aufgabe 2 d)
 
 ::: panel-tabset
-### A2 c)
+### A2 d)
 
 Wie groß ist die Wahrscheinlichkeit, dass die Streuung der Häuserpreise bei 20.000 Dollar oder weniger liegt?
 
