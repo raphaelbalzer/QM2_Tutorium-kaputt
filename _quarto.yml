@@ -5,6 +5,7 @@ book:
   title: "QM2-Tutorium WiSe23/24"
   author: "Raphael Balzer, Emilia Braun"
   date: "9/2/2023"
+  cover-image: golem.jpeg
   search:
     location: sidebar
     type: textbox
