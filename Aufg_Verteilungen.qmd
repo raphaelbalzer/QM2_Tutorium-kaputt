@@ -26,17 +26,12 @@ Erstellen Sie eine Normalverteilung in R mit einem Mittelwert von 175 und einer 
 set.seed(42)
 
 Größe <-
-  tibble(# <1>
-    Verteilung = rnorm( # <2>
-      1e5, # <3>
-                     mean = 175, # <4>
-                     sd = 10)) # <5>
+  tibble(#Erstelle eine Tabelle
+    Verteilung = rnorm(#Erstelle mit rnorm eine Normalverteilung
+      1e5,#Insgesamt soll diese Verteilung Hunderttausend Werte haben
+                     mean = 175,#Mittelwert dieser Menge sind 175 Zentimeter
+                     sd = 10))#Die Werte streuen mit einer Standardabweichung von 10 Zentimetern
 ```
-1. Erstelle eine Tabelle
-2. Erstelle mit rnorm eine Normalverteilung in R
-3. Insgesamt soll diese Verteilung Hunderttausend Werte haben 
-4. Mittelwert dieser Menge sind 175 Zentimeter
-5. Die Werte streuen mit einer Standardabweichung von 10 Zentimetern
 :::
 
 ### Aufgabe 1 b)
@@ -50,9 +45,8 @@ Stellen Sie diese Verteilung graphisch dar.
 
 ```{r, class='floating-code'}
 ggplot(Größe, mapping = aes(x = Verteilung))+
-         geom_density() # <1>
+         geom_density()
 ```
-1. `geom_density` zeigt die Dichte einer Verteilung. So sind bei 175 mehr Werte, als bei 225
 :::
 
 ### Aufgabe 1 c)
@@ -196,9 +190,10 @@ ggplot(Zeit, mapping = aes(x = Verteilung))+
   geom_density()+
   scale_x_continuous(breaks = 0:20) # <3>
 ```
-1. Nehmen wir an, dass Menschen an Bushaltestellen im Durchschnitt sieben Minuten warten
-2. Jedoch wartet der größte Teil nicht genau sieben, sondern zwischen viereinhalb bis neuneinhalb Minuten
-3. Zeige auf der x-Achse in jede einzelne Minute an
+
+1.  Nehmen wir an, dass Menschen an Bushaltestellen im Durchschnitt sieben Minuten warten
+2.  Jedoch wartet der größte Teil nicht genau sieben, sondern zwischen viereinhalb bis neuneinhalb Minuten
+3.  Zeige auf der x-Achse in jede einzelne Minute an
 :::
 
 ## Aufgabe 2
@@ -237,8 +232,9 @@ PKW_Dauer%>%
   filter(Dauer < mean(Dauer))%>% # <1>
   summarise(Wahrscheinlichkeit = 100 * n()/1e4) # <2>
 ```
-1. Filtere die Werte, die kleiner sind als der Durchschnitt der Spalte "Dauer"
-2. Wenn wir den Anteil der verbliebenen Autos mit 100 multiplizieren, dann errechnen wir so einen Prozentsatz
+
+1.  Filtere die Werte, die kleiner sind als der Durchschnitt der Spalte "Dauer"
+2.  Wenn wir den Anteil der verbliebenen Autos mit 100 multiplizieren, dann errechnen wir so einen Prozentsatz
 :::
 
 ### Aufgabe 2 c)

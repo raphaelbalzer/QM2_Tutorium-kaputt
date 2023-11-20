@@ -99,10 +99,9 @@ Erstellen Sie ein Modell, dass den IQ von Kindern anhand des IQs der Mutter vorh
 
 ```{r, class='floating-code'}
 set.seed(42)
-m1a <- stan_glm(kid_score ~ mom_iq, data = kidiq, refresh = 0) # <1>
+m1a <- stan_glm(kid_score ~ mom_iq, data = kidiq, refresh = 0) #Modell formulieren
 parameters(m1a)
 ```
-1. Modell formulieren
 
 Das Modell sagt den IQ der Kinder anhand des IQs der Mutter voraus. Der Intercept des Modells stellt wie immer den erwarteten (mittleren) y-Wert für eine Beobachtung mit x = 0 dar. Das heißt wir sehen den erwarteten mittleren IQ eines Kindes, von einer Mutter, die einen IQ von 0 hat. Da das in der Realität nicht möglich ist, ist das Modell nur begrenzt gut interpretierbar.
 :::
@@ -119,16 +118,14 @@ Zentrieren Sie die Prädiktorvariable (x-Variable/UV) und stellen Sie ein Modell
 ```{r, class='floating-code'}
 kidiq <- 
   kidiq%>%
-  mutate(mom_iq_c = mom_iq - mean(mom_iq)) # <1>
+  mutate(mom_iq_c = mom_iq - mean(mom_iq)) #Ein Wert in der Spalte mom_iq minus den Mittelwert der Spalte mom_iq
 ```
-1. Ein Wert in der Spalte mom_iq minus den Mittelwert der Spalte mom_iq
 
 ```{r, class='floating-code'}
 set.seed(42)
-m1b <- stan_glm(kid_score ~ mom_iq_c, data = kidiq, refresh = 0) # <1>
+m1b <- stan_glm(kid_score ~ mom_iq_c, data = kidiq, refresh = 0) #Modell mit zentriertem Prädiktor
 parameters(m1b)
 ```
-1. Modell mit zentriertem Prädiktor
 
 Jetzt, da die Prädiktorvariable zentriert ist, können wir den Intercept besser verstehen. Nun sagt dieser aus, dass das Modell im Median einen mittleren IQ von 86,8 bei einem Kind erwartet, wenn die Mutter einen durchschnittlichen IQ hat.
 :::
@@ -143,10 +140,9 @@ Innerhalb welcher beiden Werte liegt das 90 % PI des mittleren IQs der Kinder?
 #### L2 c)
 
 ```{r, class='floating-code'}
-m1btab <- m1b%>% # <1>
+m1btab <- m1b%>% #Modell m1b als Tabelle ausgeben
   as_tibble()
 ```
-1. Modell m1b als Tabelle ausgeben
 
 ```{r, class='floating-code'}
 m1btab%>%
@@ -200,9 +196,9 @@ Wie groß ist die Wahrscheinlichkeit, dass der mittlere IQ eines Kindes, dessen 
 ```{r, class='floating-code'}
 m1btab_f <-
   m1btab%>%
-  mutate(x5 = `(Intercept)` + mom_iq_c*5) # <1>
+  mutate(x5 = `(Intercept)` + mom_iq_c*5) #Spalte mutieren, in der man zum Intercept (x = 0), fünf Einheiten von x hinzufügt
 ```
-1. Spalte mutieren, in der man zum Intercept (x = 0), fünf Einheiten von x hinzufügt
+
 
 ```{r, class='floating-code'}
 m1btab_f%>%
@@ -233,9 +229,8 @@ Erstellen Sie ein Modell, dessen AV der Spriverbrauch und dessen UV das zentrier
 ```{r, class='floating-code'}
 mtcars <-
   mtcars%>%
-  mutate(weight_c = center(wt)) # <1>
+  mutate(weight_c = center(wt)) #Gewicht zentrieren
 ```
-1. Gewicht zentrieren
 
 ```{r, class='floating-code'}
 set.seed(42)
@@ -256,10 +251,9 @@ Wie groß ist die Wahrscheinlichkeit, dass der mittlere Spritverbauch kleiner is
 
 ```{r, class='floating-code'}
 m2atab <- 
-  m2a%>% # <1>
+  m2a%>% #Modell als Tabelle
   as_tibble()
 ```
-1. Modell als Tabelle
 
 ```{r, class='floating-code'}
 m2atab%>%

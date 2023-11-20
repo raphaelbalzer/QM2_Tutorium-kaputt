@@ -62,7 +62,8 @@ m1tab <-
   as_tibble()%>%
   rename(mean = `(Intercept)`) # <1>
 ```
-1. Optionale Umbenennung der Spalte (Intercept)
+
+1.  Optionale Umbenennung der Spalte (Intercept)
 
 ```{r, class='floating-code'}
 ggplot(m1tab, mapping = aes(x = mean))+
