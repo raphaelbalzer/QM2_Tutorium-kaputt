@@ -12,7 +12,6 @@ library(rstanarm)
 ### Aufgabe 1 a)
 
 ::: panel-tabset
-
 #### A1 a)
 
 Nutzen Sie die Gittermethode gegliedert in 10 Hypothesen, um herauszufinden, welcher der wahrscheinlichste Wasseranteil des Globus ist, wenn wir bei 20 Durchführungen 14-mal Wasser getroffen haben.
@@ -23,24 +22,16 @@ Nutzen Sie die Gittermethode gegliedert in 10 Hypothesen, um herauszufinden, wel
 set.seed(42)
 d <-
   tibble(
-    p_Gitter = seq(from = 0, to = 1, by = 0.1), # <1>
-    Priori  = 1) %>% # <2>
+    p_Gitter = seq(from = 0, to = 1, by = 0.1), #Definiere die Hypothesen
+    Priori  = 1, #Bestimme die Priori-Werte
+    Likelihood = dbinom(14, size = 20, prob = p_Gitter), #Likelihood für jeden Gitterwert
+    unstd_Post = Likelihood * Priori, #unstand. Posteriori-Werte
+    Post = unstd_Post / sum(unstd_Post)) %>% #stand. Posteriori-Werte (summiert zu 1)
     mutate(
-      Likelihood = dbinom(14, size = 20, prob = p_Gitter), # <3>
-      unstd_Post = Likelihood * Priori, # <4>
-      Post = unstd_Post / sum(unstd_Post)) %>% # <5>
-    mutate(
-      Post = round(Post, digits = 2)) # <6>
+      Post = round(Post, digits = 2)) #Runde die Posteriori-Werte auf 2 Dezimalstellen (oder eine andere gewünschte Anzahl)
 d %>%
   arrange(-Post)
 ```
-
-1. Definiere das Gitter.
-2. Bestimme die Priori-Werte.
-3. Berechne Likelihood für jeden Gitterwert.
-4. Berechne unstand. Posteriori-Werte.
-5. Berechne stand. Posteriori-Werte (summiert zu 1).
-6. Runde die Posteriori-Werte auf 2 Dezimalstellen (oder eine andere gewünschte Anzahl).
 
 Der wahrscheinlichste Wasseranteil (laut unserem Modell) ist 0,7. Die Wahrscheinlichkeit beträgt 40 %.
 :::
@@ -56,12 +47,12 @@ Wie groß ist die Wahrscheinlichkeit, dass der Globus über 50 Prozent Wasserant
 
 ```{r, class='floating-code'}
 d%>%
-  filter(p_Gitter > 0.5)%>%# <1>
-  summarise(sum(Post))# <2>
+  filter(p_Gitter > 0.5)%>% # <1>
+  summarise(sum(Post)) # <2>
 ```
 
-1. Zeige nur noch die Wasseranteile über 50 Prozent.
-2. Die Funktion sum() summiert alle Werte einer Spalte; in diesem Fall ist diese Spalte Post.
+1.  Zeige nur noch die Wasseranteile über 50 Prozent.
+2.  Die Funktion sum() summiert alle Werte einer Spalte; in diesem Fall ist diese Spalte Post.
 
 Die Wahrscheinlichkeit, dass der Wasseranteil auf dem Globus größer ist als 50 Prozent, liegt laut unserem Modell bei 91 %.
 :::
@@ -116,24 +107,14 @@ set.seed(42)
 
 d3 <-
   tibble(
-    p_Gitter = seq(from = 0, to = 1, by = 0.1), # <1>
-    Priori  = case_when(p_Gitter < 0.5 ~ 0, # <2>
-                        p_Gitter >= 0.5 ~ 1)) %>% # <3>
-    mutate(
-      Likelihood = dbinom(14, size = 20, prob = p_Gitter), # <4>
-      unstd_Post = Likelihood * Priori, # <5>
-      Post = unstd_Post / sum(unstd_Post)) %>% # <6>
-    mutate(
-      Post = round(Post, digits = 2)) # <7>
+    p_Gitter = seq(from = 0, to = 1, by = 0.1), #Definiere die Hypothesen
+    Priori  = case_when(p_Gitter < 0.5 ~ 0, #Für alle p_Gitter-Werte unter 0.5 gilt apriori 0
+                        p_Gitter >= 0.5 ~ 1), #Für alle p_Gitter-Werte über oder gleich 0.5 gilt apriori 1
+    Likelihood = dbinom(14, size = 20, prob = p_Gitter), #Berechne Likelihood für jeden Gitterwert
+    unstd_Post = Likelihood * Priori, #Berechne unstand. Posteriori-Werte
+    Post = round(unstd_Post / sum(unstd_Post), 2)) #Berechne und runde stand. Posteriori-Werte
 d3
 ```
-1. Definiere das Gitter.
-2. Für alle p_Gitter-Werte unter 0.5 gilt apriori 0.
-3. Für alle p_Gitter-Werte über oder gleich 0.5 gilt apriori 1.
-4. Berechne Likelihood für jeden Gitterwert.
-5. Berechne unstand. Posteriori-Werte.
-6. Berechne stand. Posteriori-Werte (summiert zu 1).
-7. Runde die Posteriori-Werte auf 2 Dezimalstellen (oder eine andere gewünschte Anzahl).
 :::
 
 ## Aufgabe 2
