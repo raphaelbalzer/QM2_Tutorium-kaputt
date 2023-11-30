@@ -350,7 +350,7 @@ normalv%>%
 ```{r, eval=FALSE, class='floating-code'}
 normalv%>%
   filter(Verteilung > X)%>%
-  summarise(Anteil = 100*(n() / 100000)) #um die Wahrscheinlichkeit direkt in Prozent zu bekommen
+  summarise(Anteil = 100*(n() / 100000)) #um die Wahrscheinlichkeit direkt in Prozent zu bekommen yeah
 ```
 
 **Welchen Wert erreichen x Prozent der Werte nicht mehr?**

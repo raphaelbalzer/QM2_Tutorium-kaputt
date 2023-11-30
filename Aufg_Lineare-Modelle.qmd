@@ -199,7 +199,6 @@ m1btab_f <-
   mutate(x5 = `(Intercept)` + mom_iq_c*5) #Spalte mutieren, in der man zum Intercept (x = 0), fünf Einheiten von x hinzufügt
 ```
 
-
 ```{r, class='floating-code'}
 m1btab_f%>%
   count(x5 > 90)%>%
